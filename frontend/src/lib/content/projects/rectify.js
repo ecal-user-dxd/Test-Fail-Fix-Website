@@ -148,7 +148,7 @@ const rectify = {
 				},
 				{ type: 'textRow', label: 'Interview responses', text: 'Revamping the music listening experience\nBuilding a controlled recommendation system\nRe-look the mapping experience' },
 				{
-					// verbatim — notes d'interview (image Fail_05). tone : 'worked' = carré noir, 'didnt' = carré orange (valeurs reprises de Figma, la 11 est à vérifier)
+					// verbatim — notes d'interview (image Fail_05). tone : 'worked' = carré noir, 'didnt' = carré orange (valeurs reprises de Figma, la 11 « worked » confirmée par Martial)
 					type: 'list',
 					columns: 2,
 					legend: { worked: 'worked', didnt: 'didn’t work' }, // libellés d'interface, pas des étudiants
@@ -215,7 +215,8 @@ const rectify = {
 					]
 				},
 				// verbatim — documentation p. 11 (Results post-test interview)
-				{ type: 'numberedRow', number: '01', title: 'Upcoming shows', text: 'Moving on, the mention from a user of a tag for upcoming concert(s) in the vicinity by the artist of the album page was deemed relevant as it could inform a purchase decision.' },
+				// rule: filet bord à bord au-dessus du groupe 01–04, comme dans Figma (validé par Martial)
+				{ type: 'numberedRow', rule: 'top', number: '01', title: 'Upcoming shows', text: 'Moving on, the mention from a user of a tag for upcoming concert(s) in the vicinity by the artist of the album page was deemed relevant as it could inform a purchase decision.' },
 				{ type: 'numberedRow', number: '02', title: 'Expandable descriptions', text: 'The description and credits features seemed to generate different responses. Two people really enjoyed all the information, whereas two other people thought it took too much place and was not appealing. Another participant said both during different parts of the testing. To deal with this issue, we have grouped the two section, and only show a short version of the description at first. The user can then expand the section with a “Read more” button, revealing the rest of the description and the credits. We think that giving the choice to the user was the best way to deal with this ambivalent feedback, safeguarding both experiences.' },
 				{ type: 'numberedRow', number: '03', title: 'Other albums in store', text: 'Also, a button to display other albums available in the store by the same artist was added to the album pages after three users mentioned it. However, it only featured the cover art, with no labelling, as to encourage exploration, personal analysis or discussion.' },
 				{ type: 'numberedRow', number: '04', title: 'Adding play/pause button', text: 'One of the main takeaways was the audio player. In all cases, we have gotten feedback or have noticed that it was not clear that people should just put the helmet on for the snippets to play. This resulted in the implementation of a play/pause button, with decorative elements that provided feedback and reinforced the affordance of the wheel interaction.' },
