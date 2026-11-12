@@ -1,0 +1,97 @@
+/*
+ * Design tokens — measured in Figma at 1728 px (docs/BRIEF.md §4).
+ * Fluid sizes: clamp(mobile minimum, Figma px ÷ 17.28 vw, Figma px × 1.48 ≈ value at 2560 px).
+ * Tokens are only defined here.
+ */
+
+:root {
+	/* ---------------------------------------------------------------- Colours */
+	--color-accent: #ff5500;
+	--color-ink: #000;
+	--color-paper: #fff;
+	--color-gallery: #f2f2f5;
+	--color-placeholder: #e6e6eb;
+	--color-grey: #d9d9d9;
+	--color-ink-soft: #303030;
+	--color-year: #00ff22;
+
+	/* Grey labels: ≥ 4.5:1 on their background (WCAG AA, any size). */
+	--color-muted-on-paper: rgb(0 0 0 / 0.54);
+	--color-muted-on-accent: rgb(0 0 0 / 0.72);
+
+	/* ----------------------------------------------------------- Typography */
+	--font-sans: "Suisse Int'l", 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	--weight-medium: 500;
+	--weight-black: 900;
+
+	--type-display: clamp(4.5rem, 12.731vw, 20.35rem); /* 220 */
+	--type-headline: clamp(2.5rem, 5.787vw, 9.25rem); /* 100 */
+	--type-edition: clamp(1.5rem, 2.894vw, 4.625rem); /* 50 */
+	--type-compact-title: clamp(1.25rem, 1.91vw, 3.05rem); /* 33 */
+	--type-label: clamp(1.25rem, 1.736vw, 2.775rem); /* 30 */
+	--type-body: clamp(1.0625rem, 1.447vw, 2.3125rem); /* 25 */
+	--type-number: clamp(0.875rem, 1.157vw, 1.85rem); /* 20 */
+	--type-button: clamp(0.875rem, 1.157vw, 1.85rem); /* 20, Black, uppercase */
+	--type-small: clamp(0.8125rem, 0.955vw, 1.525rem); /* 16.5 */
+
+	--leading-display: 0.85;
+	--leading-headline: 1;
+	--leading-label: 0.9;
+	--leading-body: 1.2;
+	--leading-number: 0.9;
+	--leading-button: 0.7; /* 14 px line on a 20 px size */
+
+	--tracking-display: -0.04em;
+	--tracking-tight: -0.02em; /* headline, titles, chips */
+
+	/* --------------------------------------------------------- Layout grid */
+	--margin: 20px;
+	--column-gap: 6px; /* 2 × 841 columns, right column at x 867 */
+	--gutter: 5px; /* image grids */
+
+	/* -------------------------------------------------------------- Spacing */
+	--space-block: clamp(2rem, 2.894vw, 4.625rem); /* 50 */
+	--space-40: clamp(1.5rem, 2.315vw, 3.7rem);
+	--space-30: clamp(1.25rem, 1.736vw, 2.775rem);
+	--space-20: clamp(1rem, 1.157vw, 1.85rem);
+
+	--header-h: clamp(4rem, 5.382vw, 8.6rem); /* compact header, 93 */
+
+	/* ---------------------------------------------------------------- Shape */
+	--radius-screen: 5px;
+	--radius-chip: 3px;
+	--rule: 1px solid var(--color-ink);
+
+	/* --------------------------------------------------------------- Motion */
+	--duration-hover: 150ms;
+	--duration-fade: 300ms;
+	--duration-slide: 450ms;
+	--ease-fade: ease-out;
+	--ease-slide: ease-in-out;
+}
+
+@media (max-width: 767px) {
+	:root {
+		--margin: 16px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	:root {
+		--duration-hover: 0ms;
+		--duration-fade: 0ms;
+		--duration-slide: 0ms;
+	}
+}
+
+/* ------------------------------------------------------------------ Themes */
+
+[data-theme='white'] {
+	--page-bg: var(--color-paper);
+	--muted: var(--color-muted-on-paper);
+}
+
+[data-theme='orange'] {
+	--page-bg: var(--color-accent);
+	--muted: var(--color-muted-on-accent);
+}
