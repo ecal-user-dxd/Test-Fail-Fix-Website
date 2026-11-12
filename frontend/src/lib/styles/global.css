@@ -1,6 +1,7 @@
 html {
 	font-family: var(--font-sans);
 	font-weight: var(--weight-medium);
+	font-synthesis: none;
 	color: var(--color-ink);
 	background: var(--color-paper);
 	-webkit-font-smoothing: antialiased;

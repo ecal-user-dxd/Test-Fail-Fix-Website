@@ -1,0 +1,38 @@
+/*
+ * Suisse Int'l Medium is the only weight of the site: the face covers the whole weight range so
+ * the browser never synthesises a bold (see also `font-synthesis: none` in global.css).
+ * The woff2 is converted from the woff supplied by Martial; it is hashed and preloaded by Vite.
+ */
+@font-face {
+	font-family: "Suisse Int'l";
+	src: url('../assets/fonts/SuisseIntl-Medium.woff2') format('woff2');
+	font-weight: 1 1000;
+	font-style: normal;
+	font-display: swap;
+}
+
+/*
+ * Metric-matched fallbacks shown until the web font arrives (no layout shift on swap).
+ * Values measured on the site's own text: Helvetica Neue Medium has the same average advance
+ * as Suisse Int'l Medium, Arial needs to be scaled up by 4.78 %. Ascent/descent come from
+ * Suisse's hhea table (986 / 311 per 1000), divided by size-adjust.
+ */
+@font-face {
+	font-family: 'Suisse Fallback';
+	src: local('Helvetica Neue Medium'), local('HelveticaNeue-Medium');
+	font-weight: 1 1000;
+	size-adjust: 100%;
+	ascent-override: 98.6%;
+	descent-override: 31.1%;
+	line-gap-override: 0%;
+}
+
+@font-face {
+	font-family: 'Suisse Fallback Arial';
+	src: local('Arial'), local('ArialMT');
+	font-weight: 1 1000;
+	size-adjust: 104.78%;
+	ascent-override: 94.1%;
+	descent-override: 29.68%;
+	line-gap-override: 0%;
+}

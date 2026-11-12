@@ -20,9 +20,10 @@
 	--color-muted-on-accent: rgb(0 0 0 / 0.72);
 
 	/* ----------------------------------------------------------- Typography */
-	--font-sans: "Suisse Int'l", 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	--weight-medium: 500;
-	--weight-black: 900;
+	--font-sans:
+		"Suisse Int'l", 'Suisse Fallback', 'Suisse Fallback Arial', 'Helvetica Neue', Helvetica, Arial,
+		sans-serif;
+	--weight-medium: 500; /* the only weight of the site (Martial) */
 
 	--type-display: clamp(4.5rem, 12.731vw, 20.35rem); /* 220 */
 	--type-headline: clamp(2.5rem, 5.787vw, 9.25rem); /* 100 */
@@ -31,7 +32,7 @@
 	--type-label: clamp(1.25rem, 1.736vw, 2.775rem); /* 30 */
 	--type-body: clamp(1.0625rem, 1.447vw, 2.3125rem); /* 25 */
 	--type-number: clamp(0.875rem, 1.157vw, 1.85rem); /* 20 */
-	--type-button: clamp(0.875rem, 1.157vw, 1.85rem); /* 20, Black, uppercase */
+	--type-button: clamp(0.875rem, 1.157vw, 1.85rem); /* 20, uppercase */
 	--type-small: clamp(0.8125rem, 0.955vw, 1.525rem); /* 16.5 */
 
 	--leading-display: 0.85;
