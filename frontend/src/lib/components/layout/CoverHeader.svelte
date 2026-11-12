@@ -1,7 +1,9 @@
 <!--
 	@component
-	Orange cover header (Figma Site/Header, Page6 = home, Home = conclusion): project title,
-	edition (home only), chapter index and isometric drawing.
+	Orange cover header (Figma Site/Header, Page6 = home, Home = conclusion): a 406 masthead with the
+	project title, edition (home only) and chapter index, plus the isometric drawing — large below
+	the masthead on the home, small in the top-right corner on the conclusion. Positions are
+	measured on the 1:1 captures (the PNG has a 40 px transparent margin).
 -->
 <script>
 	/** @import { Drawing, Project } from '#lib/content/types.js' */
@@ -22,17 +24,19 @@
 </script>
 
 <header class="cover-header">
-	<div class="top layout-grid">
-		{#if isHome}
-			<h1 class="title">{project.title}</h1>
-			<p class="edition">{project.edition}</p>
-		{:else}
-			<p class="title"><a href={projectHref(project)}>{project.title}</a></p>
-		{/if}
-	</div>
+	<div class="masthead">
+		<div class="top layout-grid">
+			{#if isHome}
+				<h1 class="title">{project.title}</h1>
+				<p class="edition">{project.edition}</p>
+			{:else}
+				<p class="title"><a href={projectHref(project)}>{project.title}</a></p>
+			{/if}
+		</div>
 
-	<div class="index">
-		<ChapterIndex {project} {current} />
+		<div class="index">
+			<ChapterIndex {project} {current} />
+		</div>
 	</div>
 
 	{#if drawing}
@@ -40,7 +44,7 @@
 			<Picture
 				src={drawing.image}
 				alt={drawing.alt}
-				sizes={drawing.placement === 'center' ? '31vw' : '12vw'}
+				sizes={drawing.placement === 'center' ? '34vw' : '14vw'}
 				fit="contain"
 				priority
 			/>
@@ -51,10 +55,14 @@
 <style>
 	.cover-header {
 		position: relative;
+		--picture-bg: transparent;
+	}
+
+	.masthead {
 		display: grid;
 		grid-template-rows: auto 1fr auto;
-		min-height: clamp(14rem, 23.495vw, 37.6rem); /* 406 */
-		padding-block: var(--space-20);
+		min-height: calc(406 * var(--u));
+		padding-block: var(--margin);
 	}
 
 	.top {
@@ -78,15 +86,17 @@
 		padding-inline: var(--margin);
 	}
 
+	/* Home: image box 584×948 at x 550, 11 below the masthead, 60 above the next block. */
 	.drawing[data-placement='center'] {
-		width: 31.25%; /* 540 / 1728 */
-		margin: var(--space-40) auto 0;
+		width: calc(584 / 1728 * 100%);
+		margin: calc(11 * var(--u)) 0 calc(60 * var(--u)) calc(550 / 1728 * 100%);
 	}
 
+	/* Conclusion: image box 230×374, top 12, right edge at x 1599. */
 	.drawing[data-placement='corner'] {
 		position: absolute;
-		top: var(--space-20);
-		right: 13.4%; /* centred on x ≈ 1490 at 1728 */
-		width: 12.4%; /* 215 / 1728 */
+		top: calc(12 * var(--u));
+		right: calc(129 / 1728 * 100%);
+		width: calc(230 / 1728 * 100%);
 	}
 </style>

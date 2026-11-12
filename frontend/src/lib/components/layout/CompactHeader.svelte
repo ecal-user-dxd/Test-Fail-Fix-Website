@@ -51,7 +51,7 @@
 	}
 
 	.bar {
-		align-items: center;
+		align-items: start;
 		padding-top: clamp(0.5rem, 0.579vw, 0.925rem); /* 10 */
 	}
 

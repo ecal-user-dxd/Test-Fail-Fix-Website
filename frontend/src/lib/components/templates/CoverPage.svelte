@@ -38,7 +38,7 @@
 <div class="page" data-theme={page.theme} data-layout="cover">
 	<CoverHeader {project} current={chapter?.slug ?? null} {isHome} drawing={page.drawing} />
 
-	<main id="main" tabindex="-1">
+	<main id="main" tabindex="-1" class:home={isHome}>
 		<BlockRenderer blocks={page.blocks} theme={page.theme} />
 	</main>
 
@@ -58,7 +58,12 @@
 	}
 
 	main {
-		padding-bottom: var(--space-block);
+		padding-block: var(--space-block);
+	}
+
+	/* Home: the introduction is followed by 100 extra before the credits (Figma 551:627). */
+	.home {
+		--credits-space: calc(var(--space-block) + 100 * var(--u));
 	}
 
 	main:focus {
