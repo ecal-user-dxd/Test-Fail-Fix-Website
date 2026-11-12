@@ -5,8 +5,16 @@
  */
 import rectify from './rectify.js';
 
-/** @type {import('../types.js').Project[]} */
+/** @import { Project } from '../types.js' */
+
+/** @type {Project[]} */
 export const projects = [rectify];
 
 /** @param {string} slug */
 export const getProject = (slug) => projects.find((p) => p.slug === slug);
+
+/**
+ * @param {Project} project
+ * @param {string} slug
+ */
+export const getChapter = (project, slug) => project.chapters.find((c) => c.slug === slug);
