@@ -101,14 +101,13 @@
 
 /** @typedef {BlockBase & { type: 'beforeAfter', pages: ImageRef[] }} BeforeAfterBlock */
 
-/** `bleed` defaults to edge-to-edge on white pages and inset on orange pages. */
+/** With an odd number of items in 2 columns, the last item spans the full width. */
 /**
  * @typedef {BlockBase & {
  *   type: 'gallery',
  *   columns: 1 | 2,
  *   fit: 'cover' | 'contain',
- *   items: ImageRef[],
- *   bleed?: boolean
+ *   items: ImageRef[]
  * }} GalleryBlock
  */
 

@@ -18,6 +18,7 @@
 	/* Grey labels: ≥ 4.5:1 on their background (WCAG AA, any size). */
 	--color-muted-on-paper: rgb(0 0 0 / 0.54);
 	--color-muted-on-accent: rgb(0 0 0 / 0.72);
+	--color-pager-idle: rgb(0 0 0 / 0.45); /* 3:1 for large text (Figma: 35 %) */
 
 	/* ----------------------------------------------------------- Typography */
 	--font-sans:
@@ -45,10 +46,15 @@
 	--tracking-display: -0.04em;
 	--tracking-tight: -0.02em; /* headline, titles, chips */
 
+	/* ------------------------------------------------------ Figma pixel unit */
+	/* 1 Figma px at 1728, fluid like the type scale; for one-off measurements in components:
+	   `calc(116 * var(--u))`. */
+	--u: clamp(0.5px, 100vw / 1728, 1.48px);
+
 	/* --------------------------------------------------------- Layout grid */
 	--margin: 20px;
 	--column-gap: 6px; /* 2 × 841 columns, right column at x 867 */
-	--gutter: 5px; /* image grids */
+	--gutter: 0.3125rem; /* 5 px: padding and gap of image grids (Martial: in rem) */
 
 	/* -------------------------------------------------------------- Spacing */
 	--space-block: clamp(2rem, 2.894vw, 4.625rem); /* 50 */
@@ -57,6 +63,8 @@
 	--space-20: clamp(1rem, 1.157vw, 1.85rem);
 
 	--header-h: clamp(4rem, 5.382vw, 8.6rem); /* compact header, 93 */
+
+	--mark-size: clamp(2rem, 2.315vw, 3.7rem); /* 40 */
 
 	/* ---------------------------------------------------------------- Shape */
 	--radius-screen: 5px;

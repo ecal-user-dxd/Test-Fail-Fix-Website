@@ -9,6 +9,13 @@ export const site = {
 		chapters: 'Chapters',
 		notFound: 'This page does not exist.',
 		error: 'Something went wrong.',
-		backToStart: 'Back to the start'
+		backToStart: 'Back to the start',
+		credits: 'Credits',
+		authors: 'Authors',
+		year: 'Year',
+		documentation: 'Documentation',
+		pdf: 'PDF',
+		beforeAfter: 'Before and after',
+		remarks: 'Remarks'
 	}
 };

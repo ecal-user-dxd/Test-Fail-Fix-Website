@@ -13,13 +13,23 @@
 	 * @property {string} alt                 '' for decorative images
 	 * @property {string} sizes               rendered width, e.g. '50vw'
 	 * @property {'cover' | 'contain'} [fit]
+	 * @property {string} [position]          CSS object-position of a cropped image
 	 * @property {number} [ratio]             frame width / height; defaults to the image ratio
 	 * @property {boolean} [priority]         above the fold: eager + fetchpriority high
 	 * @property {string} [class]
 	 */
 
 	/** @type {Props} */
-	let { src, alt, sizes, fit = 'cover', ratio, priority = false, class: className } = $props();
+	let {
+		src,
+		alt,
+		sizes,
+		fit = 'cover',
+		position = '50% 50%',
+		ratio,
+		priority = false,
+		class: className
+	} = $props();
 
 	const lookup = getPictures();
 	const picture = $derived(lookup(src));
@@ -29,6 +39,7 @@
 	class={['picture', className]}
 	style:aspect-ratio={ratio ?? picture.img.w / picture.img.h}
 	style:--fit={fit}
+	style:--position={position}
 >
 	<enhanced:img
 		class="image"
@@ -42,15 +53,26 @@
 </div>
 
 <style>
+	/* Parents can set --picture-bg (e.g. transparent for drawings) and --picture-radius. */
 	.picture {
 		position: relative;
 		overflow: hidden;
-		background: var(--color-placeholder);
+		background: var(--picture-bg, var(--color-placeholder));
+		border-radius: var(--picture-radius, 0);
+	}
+
+	/* enhanced-img wraps the <img> in a <picture>: it must fill the frame too, otherwise the
+	   image keeps its own ratio and object-fit / object-position have no effect. */
+	.picture :global(picture) {
+		display: block;
+		width: 100%;
+		height: 100%;
 	}
 
 	.picture :global(.image) {
 		width: 100%;
 		height: 100%;
 		object-fit: var(--fit);
+		object-position: var(--position);
 	}
 </style>
