@@ -16,7 +16,11 @@ export default defineConfig({
 
 			// Fully prerendered static site. `404.html` is served by static hosts for unknown URLs
 			// and renders `+error.svelte` client-side.
-			adapter: adapter({ fallback: '404.html' })
+			adapter: adapter({ fallback: '404.html' }),
+
+			// Sub-folder hosting (ECAL): `BASE_PATH=/some/folder pnpm build`. Empty = domain root.
+			// (SvelteKit validates the format: leading slash, no trailing slash.)
+			paths: { base: /** @type {'' | `/${string}`} */ (process.env.BASE_PATH ?? '') }
 		})
 	]
 });

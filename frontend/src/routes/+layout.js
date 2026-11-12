@@ -1,3 +1,5 @@
 // Fully static site: every route is prerendered.
 export const prerender = true;
-export const trailingSlash = 'never';
+// `/rectify/test/` → `rectify/test/index.html`: works on any static server (ECAL hosting),
+// without rewrite rules.
+export const trailingSlash = 'always';
