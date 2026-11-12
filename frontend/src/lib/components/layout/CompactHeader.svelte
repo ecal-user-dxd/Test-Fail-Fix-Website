@@ -42,12 +42,18 @@
 </header>
 
 <style>
+	/* No background (Martial): the page scrolls under the bar. The empty parts of the bar let
+	   clicks through to the content below; only the links catch the pointer. */
 	.compact-header {
 		position: fixed;
 		inset: 0 0 auto;
 		z-index: 10;
 		height: var(--header-h);
-		background: var(--color-paper);
+		pointer-events: none;
+	}
+
+	.compact-header a {
+		pointer-events: auto;
 	}
 
 	.bar {
