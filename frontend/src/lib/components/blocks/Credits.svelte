@@ -1,7 +1,7 @@
 <!--
 	@component
 	Project credits: full-bleed top rule, then Authors / Year / Documentation rows (Figma « Credits »).
-	Reads the project from context. The documentation link downloads the PDF.
+	Reads the project from context. The documentation link downloads the PDF (row hidden while `href` is empty).
 -->
 <script>
 	import { getProject } from '#lib/content/context.js';
@@ -27,14 +27,16 @@
 				<dd>{row.value}</dd>
 			</div>
 		{/each}
-		<div class="row layout-grid">
-			<dt>{site.labels.documentation}</dt>
-			<dd>
-				<a href={staticHref(documentation.href)} download>
-					{documentation.label}<span class="sr-only"> ({site.labels.pdf})</span>
-				</a>
-			</dd>
-		</div>
+		{#if documentation.href}
+			<div class="row layout-grid">
+				<dt>{site.labels.documentation}</dt>
+				<dd>
+					<a href={staticHref(documentation.href)} download>
+						{documentation.label}<span class="sr-only"> ({site.labels.pdf})</span>
+					</a>
+				</dd>
+			</div>
+		{/if}
 	</dl>
 </section>
 
