@@ -89,6 +89,7 @@
 	--duration-slide: 450ms;
 	--ease-fade: ease-out;
 	--ease-slide: ease-in-out;
+	--ease-arrive: cubic-bezier(0.22, 1, 0.36, 1); /* gallery desk: photos landing (ease-out quint) */
 }
 
 @media (max-width: 767px) {

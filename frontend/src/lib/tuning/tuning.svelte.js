@@ -39,7 +39,9 @@ if (import.meta.hot) {
 			if (JSON.stringify(next[section]) === JSON.stringify(saved[section])) continue;
 			// Same section on both sides; the cast spares TS a union of every section's shape.
 			/** @type {Record<TuningSection, unknown>} */ (saved)[section] = structuredClone(next[section]);
-			Object.assign(tuning[section], next[section]);
+			// A section added to the file since this module ran: add it (nothing is bound to it yet).
+			if (section in tuning) Object.assign(tuning[section], next[section]);
+			else /** @type {Record<TuningSection, unknown>} */ (tuning)[section] = structuredClone(next[section]);
 		}
 	});
 }

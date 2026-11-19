@@ -7,7 +7,7 @@
 	`variant`, the block follows `site.galleryVariant`.
 -->
 <script>
-	/** @import { GalleryVariant, ImageRef, Theme } from '#lib/content/types.js' */
+	/** @import { GalleryItem, GalleryVariant, Theme } from '#lib/content/types.js' */
 	import Picture from '#lib/components/ui/Picture.svelte';
 	import { site } from '#lib/content/site.js';
 	import GalleryDesk from './GalleryDesk.svelte';
@@ -16,7 +16,7 @@
 	 * @typedef {object} Props
 	 * @property {1 | 2} columns
 	 * @property {'cover' | 'contain'} fit
-	 * @property {ImageRef[]} items
+	 * @property {GalleryItem[]} items
 	 * @property {Theme} theme
 	 * @property {boolean} [priority]
 	 * @property {GalleryVariant} [variant]  default: `site.galleryVariant`

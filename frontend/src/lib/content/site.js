@@ -37,6 +37,12 @@ export const site = {
 		/** Gallery desk (screen readers): name of the photo list, and how to use it. */
 		desk: 'Photos on a desk',
 		deskHint:
-			'Drag a photo to move it, or select it to put it on top of the pile in the middle. Arrow keys move the focused photo, Shift + arrow keys move it further.'
+			'Drag a photo to move it, or select it to put it on top of the pile in the middle. Arrow keys move the focused photo, Shift + arrow keys move it further.',
+		/** Gallery desk: icon button (top right) that puts every photo back in place. */
+		deskReset: 'Put the photos back in place',
+		/** Gallery desk: name of the group labels (screen readers), and how a lined-up group works. */
+		deskGroups: 'Show one group of photos',
+		deskGroupHint:
+			'Select a photo to bring it to the front. Select the group again, or press Escape, to put the photos back on the desk.'
 	}
 };

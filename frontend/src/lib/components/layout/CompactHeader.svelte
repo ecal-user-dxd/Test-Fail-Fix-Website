@@ -1,12 +1,15 @@
 <!--
 	@component
-	Fixed header of the chapter pages (Figma Index / Variant3, 550:1427).
+	Fixed header of the chapter pages (Figma Index / Variant3, 550:1427). Slides up out of the way
+	while a full-screen block is in focus (gallery desk, see immersive.svelte.js), and back as soon
+	as a link in it gets the keyboard focus.
 -->
 <script>
 	/** @import { Project } from '#lib/content/types.js' */
 	import { resolve } from '$app/paths';
 	import { chapterNav, projectHref } from '#lib/content/routes.js';
 	import { site } from '#lib/content/site.js';
+	import { immersive, openTransition } from './immersive.svelte.js';
 
 	/**
 	 * @typedef {object} Props
@@ -20,7 +23,7 @@
 	const items = $derived(chapterNav(project, current));
 </script>
 
-<header class="compact-header">
+<header class={['compact-header', immersive.count > 0 && 'away']} style={openTransition()}>
 	<div class="bar layout-grid">
 		<p class="brand">
 			<a class="site" href={resolve('/')}>{site.shortTitle}</a>
@@ -50,6 +53,25 @@
 		z-index: 10;
 		height: var(--header-h);
 		pointer-events: none;
+		transition:
+			translate var(--open-duration) var(--open-ease),
+			opacity var(--open-duration) var(--open-ease);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.compact-header {
+			transition: none;
+		}
+	}
+
+	.away {
+		translate: 0 -100%;
+		opacity: 0;
+	}
+
+	.away:focus-within {
+		translate: none;
+		opacity: 1;
 	}
 
 	.compact-header a {

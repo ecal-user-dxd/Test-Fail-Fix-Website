@@ -17,6 +17,38 @@
 		"background": "#f2f2f5",
 		"inertia": 1,
 		"friction": 6,
-		"bounce": 0.35
+		"bounce": 0.35,
+		"arrive": true,
+		"arriveDuration": 1100,
+		"arriveStagger": 90,
+		"arriveScale": 1.15
+	},
+	"immersive": {
+		"duration": 450,
+		"ease": "ease-in-out",
+		"x1": 0.65,
+		"y1": 0,
+		"x2": 0.35,
+		"y2": 1,
+		"cardMargin": 20,
+		"cardScale": 0.97
+	},
+	"reveal": {
+		"tilt": 6,
+		"perspective": 1.6,
+		"tiltSpeed": 7,
+		"highlight": 0.1,
+		"followSpeed": 16,
+		"playDuration": 1400,
+		"swapDuration": 1100,
+		"frontWidth": 0.12,
+		"edgeSoftness": 0.008,
+		"darken": 0.3,
+		"shadow": 0.25,
+		"rim": 0.3,
+		"push": 0.06,
+		"split": 0.35,
+		"ripple": 0.18,
+		"rippleSpeed": 0.25
 	}
 }
