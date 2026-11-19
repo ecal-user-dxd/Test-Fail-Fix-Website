@@ -73,10 +73,10 @@ const lostAndFound = {
 					columns: 2,
 					fit: "contain",
 					items: [
-						{ image: "intro/tangible-prototype.jpg", alt: "The tangible prototype: a bank of 16 cardboard boxes used as lockers, one of them open." }, // Intro/TangiblePrototype.JPG
-						{ image: "intro/lost-and-found.jpg", alt: "Setting up the iPad mounted vertically inside one of the cardboard lockers." }, // Intro/Lost&Found.JPG
-						{ image: "intro/interactive.jpg", alt: "A student taps the interface on the iPad inside the locker." }, // Intro/Interactive.jpeg
-						{ image: "intro/user-flow.jpg", alt: "User flow diagram of the Lost & Found system." }, // Intro/User flow.jpg
+						{ image: "intro/tangible-prototype.jpg", alt: "The tangible prototype: a bank of 16 cardboard boxes used as lockers, one of them open.", group: "Prototype" }, // Intro/TangiblePrototype.JPG
+						{ image: "intro/lost-and-found.jpg", alt: "Setting up the iPad mounted vertically inside one of the cardboard lockers.", group: "Prototype" }, // Intro/Lost&Found.JPG
+						{ image: "intro/interactive.jpg", alt: "A student taps the interface on the iPad inside the locker.", group: "Prototype" }, // Intro/Interactive.jpeg
+						{ image: "intro/user-flow.jpg", alt: "User flow diagram of the Lost & Found system.", group: "User flow" }, // Intro/User flow.jpg
 					],
 				},
 				{
@@ -116,12 +116,12 @@ const lostAndFound = {
 					columns: 2,
 					fit: "contain",
 					items: [
-						{ image: "test/testing-setup.jpg", alt: "Testing setup: the cardboard locker bank behind a table with the test documents and the camera to register." }, // Test/TestingSetup.JPG
-						{ image: "test/testing-setup-2.jpg", alt: "Testing setup, a second view of the locker bank and the table." }, // Test/TestingSetup2.JPG
-						{ image: "test/testing-documents.jpg", alt: "Test documents on the table, with a pen, the camera and a student card." }, // Test/TestingDocuments.JPG
-						{ image: "test/test-procedure.jpg", alt: "Diagram of the test procedure: pre-test, test and post-test steps." }, // Test/TestDocumentation/TestProcedure.jpg
-						{ image: "test/explaining-scenario.jpg", alt: "The facilitator explains the scenario to a participant." }, // Test/Explaining Scenario.JPG
-						{ image: "test/reading-test-procedures.jpg", alt: "A participant fills in the Likert scale questionnaire." }, // Test/ReadingTestProcedures.JPG
+						{ image: "test/testing-setup.jpg", alt: "Testing setup: the cardboard locker bank behind a table with the test documents and the camera to register.", group: "Setup" }, // Test/TestingSetup.JPG
+						{ image: "test/testing-setup-2.jpg", alt: "Testing setup, a second view of the locker bank and the table.", group: "Setup" }, // Test/TestingSetup2.JPG
+						{ image: "test/testing-documents.jpg", alt: "Test documents on the table, with a pen, the camera and a student card.", group: "Setup" }, // Test/TestingDocuments.JPG
+						{ image: "test/test-procedure.jpg", alt: "Diagram of the test procedure: pre-test, test and post-test steps.", group: "Procedure" }, // Test/TestDocumentation/TestProcedure.jpg
+						{ image: "test/explaining-scenario.jpg", alt: "The facilitator explains the scenario to a participant.", group: "Procedure" }, // Test/Explaining Scenario.JPG
+						{ image: "test/reading-test-procedures.jpg", alt: "A participant fills in the Likert scale questionnaire.", group: "Procedure" }, // Test/ReadingTestProcedures.JPG
 					],
 				},
 				// verbatim — Scenario.docx, « Tasks: » et leur liste (une tâche par ligne)
@@ -135,13 +135,13 @@ const lostAndFound = {
 					columns: 2,
 					fit: "contain",
 					items: [
-						{ image: "test/test-in-progress-1.jpg", alt: "Test in progress: a participant writes at the table while the facilitator watches." }, // Test/TestinProgress1.JPG
-						{ image: "test/test-in-progress-2.jpg", alt: "Test in progress: a participant at the table, the facilitator standing next to her." }, // Test/TestinProgress2.JPG
-						{ image: "test/performing-tasks.jpg", alt: "A participant attaches the tag to the object in front of the screen." }, // Test/PerformingTasks.jpeg
-						{ image: "test/test-in-progress-3.jpg", alt: "A participant follows the on-screen instructions, scenario in hand." }, // Test/TestinProgress3.jpeg
-						{ image: "test/test-in-progress-4.jpg", alt: "A participant reads the scenario in front of the locker and the screen." }, // Test/TestinProgress4.jpeg
-						{ image: "test/user-interacting.jpg", alt: "A participant taps the screen inside the locker." }, // Test/UserInteracting.jpeg
-						{ image: "test/user-interacting-2.jpg", alt: "A participant stands in front of the locker bank and the screen." }, // Test/UserInteracting2.JPG
+						{ image: "test/test-in-progress-1.jpg", alt: "Test in progress: a participant writes at the table while the facilitator watches.", group: "At the table" }, // Test/TestinProgress1.JPG
+						{ image: "test/test-in-progress-2.jpg", alt: "Test in progress: a participant at the table, the facilitator standing next to her.", group: "At the table" }, // Test/TestinProgress2.JPG
+						{ image: "test/performing-tasks.jpg", alt: "A participant attaches the tag to the object in front of the screen.", group: "At the locker" }, // Test/PerformingTasks.jpeg
+						{ image: "test/test-in-progress-3.jpg", alt: "A participant follows the on-screen instructions, scenario in hand.", group: "At the locker" }, // Test/TestinProgress3.jpeg
+						{ image: "test/test-in-progress-4.jpg", alt: "A participant reads the scenario in front of the locker and the screen.", group: "At the locker" }, // Test/TestinProgress4.jpeg
+						{ image: "test/user-interacting.jpg", alt: "A participant taps the screen inside the locker.", group: "At the locker" }, // Test/UserInteracting.jpeg
+						{ image: "test/user-interacting-2.jpg", alt: "A participant stands in front of the locker bank and the screen.", group: "At the locker" }, // Test/UserInteracting2.JPG
 					],
 				},
 			],
@@ -196,11 +196,11 @@ const lostAndFound = {
 					columns: 2,
 					fit: "contain",
 					items: [
-						{ image: "fail/student-tapping.jpg", alt: "A participant tries to tap the student card at the screen while the facilitator watches." }, // Fail/StudentTapping.JPG
-						{ image: "fail/user-thinking.jpg", alt: "A participant hesitates in front of the screen, hand on his chin." }, // Fail/User Thinking.JPG
-						{ image: "fail/accessibility-issue.jpg", alt: "A participant leans in to read the screen mounted in the locker bank." }, // Fail/accesibilityIssue.JPG
-						{ image: "fail/tangible-prototype.jpg", alt: "The locker bank of 16 cardboard boxes, with the round handle of the scanner box." }, // Fail/TangiblePrototype.JPG
-						{ image: "fail/tangible-prototype-2.jpg", alt: "A participant opens one of the cardboard lockers." }, // Fail/TangibleProtoype.JPG
+						{ image: "fail/student-tapping.jpg", alt: "A participant tries to tap the student card at the screen while the facilitator watches.", group: "Participants" }, // Fail/StudentTapping.JPG
+						{ image: "fail/user-thinking.jpg", alt: "A participant hesitates in front of the screen, hand on his chin.", group: "Participants" }, // Fail/User Thinking.JPG
+						{ image: "fail/accessibility-issue.jpg", alt: "A participant leans in to read the screen mounted in the locker bank.", group: "Participants" }, // Fail/accesibilityIssue.JPG
+						{ image: "fail/tangible-prototype.jpg", alt: "The locker bank of 16 cardboard boxes, with the round handle of the scanner box.", group: "Prototype" }, // Fail/TangiblePrototype.JPG
+						{ image: "fail/tangible-prototype-2.jpg", alt: "A participant opens one of the cardboard lockers.", group: "Prototype" }, // Fail/TangibleProtoype.JPG
 					],
 				},
 				// verbatim — Fail/documents/Findings.docx, 1er paragraphe (libellé = sa 1re ligne)
@@ -290,25 +290,78 @@ const lostAndFound = {
 					label: "",
 					text: "Based on user insights that we gathered through user testing, we focused mainly on improving digital interface and made some minor yet significant changes regarding the general accessibility of our digital interface. We focused on:\n• Improving test readability\n• Making buttons more interactive\n• Improving the tapping card feature by adding more visual cues\n• Reduced the amount of text on the interface to improve cognitive load\n• Increased the size of buttons\n• Removed unused information like locker number from the interface",
 				},
-				// Pas de carrousel « beforeAfter » : chaque image montre déjà avant → après côte à côte.
+				// Comparaisons avant → après découpées pour le bloc « beforeAfterReveal » (originaux gardés dans fix/).
 				// Ordre : celui de leur liste quand l'image correspond à un point, puis les autres.
 				{
+					type: "beforeAfterReveal",
+					pairs: [
+						// fix/text-size-improvement.png, découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/text-size-improvement-before.png", alt: "Register card, first version, with small text." },
+							after: { image: "fix/text-size-improvement-after.png", alt: "Register card with larger text." },
+						},
+						// fix/font-size.png, découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/font-size-before.png", alt: "Folder tabs with small vertical text." },
+							after: { image: "fix/font-size-after.png", alt: "Folder tabs with larger vertical text." },
+						},
+						// fix/making-button-interactive.png, découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/making-button-interactive-before.png", alt: "A flat “Start describing” button." },
+							after: { image: "fix/making-button-interactive-after.png", alt: "The “Start describing” button made to look clickable." },
+						},
+						// fix/improving-tapping-card.png, découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/improving-tapping-card-before.png", alt: "Contact slip, first version." },
+							after: { image: "fix/improving-tapping-card-after.png", alt: "Contact slip with a dashed area “Tap your student card here to autofill your details.”" },
+						},
+						// fix/improving-all-buttons.png, découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/improving-all-buttons-before.png", alt: "Small answer buttons." },
+							after: { image: "fix/improving-all-buttons-after.png", alt: "Larger, more visible answer buttons." },
+						},
+						// fix/improving-all-buttons-2.png, découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/improving-all-buttons-2-before.png", alt: "Object card with small answer buttons." },
+							after: { image: "fix/improving-all-buttons-2-after.png", alt: "Object card with larger answer buttons." },
+						},
+						// fix/removing-locker-number.png, découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/removing-locker-number-before.png", alt: "Record tag with the locker number." },
+							after: { image: "fix/removing-locker-number-after.png", alt: "Record tag without the locker number." },
+						},
+						// fix/improving-date-picker.png, découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/improving-date-picker-before.png", alt: "Found date picker: a list of numbers." },
+							after: { image: "fix/improving-date-picker-after.png", alt: "Found date picker: a keypad." },
+						},
+						// fix/interface-1.png, découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/interface-1-before.png", alt: "Home screen, first version." },
+							after: { image: "fix/interface-1-after.png", alt: "Home screen, second version." },
+						},
+						// fix/interface-2.png, découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/interface-2-before.png", alt: "Object card screen, first version." },
+							after: { image: "fix/interface-2-after.png", alt: "Object card screen, second version." },
+						},
+						// fix/interface-3.png, découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/interface-3-before.png", alt: "Found date screen, first version." },
+							after: { image: "fix/interface-3-after.png", alt: "Found date screen, second version." },
+						},
+						// fix/interface-4.png, découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/interface-4-before.png", alt: "Found date screen with the keypad, first version." },
+							after: { image: "fix/interface-4-after.png", alt: "Found date screen with the keypad, second version." },
+						},
+					],
+				},
+				{
 					type: "gallery",
-					columns: 2,
+					columns: 1,
 					fit: "contain",
 					items: [
-						{ image: "fix/text-size-improvement.png", alt: "Before and after: larger text on the register card." }, // Fix/TextSizeImprovement.png
-						{ image: "fix/font-size.png", alt: "Before and after: larger vertical text on the folder tabs." }, // Fix/FontSize.png
-						{ image: "fix/making-button-interactive.png", alt: "Before and after: the “Start describing” button made to look clickable." }, // Fix/MakingButtonInteractive.png
-						{ image: "fix/improving-tapping-card.png", alt: "Before and after: the contact slip gets a dashed area “Tap your student card here to autofill your details.”" }, // Fix/ImprovingTappingCard.png
-						{ image: "fix/improving-all-buttons.png", alt: "Before and after: larger, more visible answer buttons." }, // Fix/ImprovingAllButtons.png
-						{ image: "fix/improving-all-buttons-2.png", alt: "Before and after: the object card with larger answer buttons." }, // Fix/ImprovingAllButtons2.png
-						{ image: "fix/removing-locker-number.png", alt: "Before and after: the locker number removed from the record tag." }, // Fix/RemovingLockerNumber.png
-						{ image: "fix/improving-date-picker.png", alt: "Before and after: the found date picker, from a list of numbers to a keypad." }, // Fix/ImprovingDatePicker.png
-						{ image: "fix/interface-1.png", alt: "Before and after: the home screen." }, // Fix/Interface1.png
-						{ image: "fix/interface-2.png", alt: "Before and after: the object card screen." }, // Fix/Interface2.png
-						{ image: "fix/interface-3.png", alt: "Before and after: the found date screen." }, // Fix/Interface3.png
-						{ image: "fix/interface-4.png", alt: "Before and after: the found date screen with the keypad." }, // Fix/Interface4.png
 						{ image: "fix/figma.png", alt: "The second version of the interface in Figma." }, // Fix/Figma.png
 					],
 				},
@@ -355,13 +408,13 @@ const lostAndFound = {
 					columns: 2,
 					fit: "contain",
 					items: [
-						{ image: "showcase/interface-1-home.png", alt: "Final interface, home screen." }, // Showcase_image/Showcase Interface/interface_1_home.png
-						{ image: "showcase/interface-2-found.png", alt: "Final interface, register card." }, // Showcase_image/Showcase Interface/interface_2_found.png
-						{ image: "showcase/interface-3-details.png", alt: "Final interface, object card with larger answer buttons." }, // Showcase_image/Showcase Interface/interface_3_details.png
-						{ image: "showcase/interface-4-card.png", alt: "Final interface, contact slip with the student card area." }, // Showcase_image/Showcase Interface/interface_4_card.png
-						{ image: "showcase/interface-5-print.png", alt: "Final interface, the printed record tag." }, // Showcase_image/Showcase Interface/interface_5_print.png
-						{ image: "showcase/interface-6-end.png", alt: "Final interface, closing screen." }, // Showcase_image/Showcase Interface/interface_6_end.png
-						{ image: "showcase/showcase-6.jpg", alt: "A hand next to the iPad showing the home screen in the locker." }, // Showcase_image/lost_and_found_image_showcase_6.jpg
+						{ image: "showcase/interface-1-home.png", alt: "Final interface, home screen.", group: "Interface" }, // Showcase_image/Showcase Interface/interface_1_home.png
+						{ image: "showcase/interface-2-found.png", alt: "Final interface, register card.", group: "Interface" }, // Showcase_image/Showcase Interface/interface_2_found.png
+						{ image: "showcase/interface-3-details.png", alt: "Final interface, object card with larger answer buttons.", group: "Interface" }, // Showcase_image/Showcase Interface/interface_3_details.png
+						{ image: "showcase/interface-4-card.png", alt: "Final interface, contact slip with the student card area.", group: "Interface" }, // Showcase_image/Showcase Interface/interface_4_card.png
+						{ image: "showcase/interface-5-print.png", alt: "Final interface, the printed record tag.", group: "Interface" }, // Showcase_image/Showcase Interface/interface_5_print.png
+						{ image: "showcase/interface-6-end.png", alt: "Final interface, closing screen.", group: "Interface" }, // Showcase_image/Showcase Interface/interface_6_end.png
+						{ image: "showcase/showcase-6.jpg", alt: "A hand next to the iPad showing the home screen in the locker.", group: "In use" }, // Showcase_image/lost_and_found_image_showcase_6.jpg
 					],
 				},
 				// verbatim — suite de « Conclusion: » (2 paragraphes)

@@ -415,7 +415,7 @@ Pour chaque composant : fichier, props, rendu, états, accessibilité. **Valide 
 - ~~Viewport 16:9 (1688×950), rayon 5, padding 40 / 20.~~ Revu par Martial (19.11.2026) : carrousel en **boucle**, slides 16:9 aux **coins arrondis** (`--radius-slide`, 16), les slides voisines **dépassent sur les côtés** (60 + espace 20), filet 1 px pour les slides blanches ; padding vertical 40.
 - Pager sous l'image (espacement 14) : boutons `01`…`06`.
 
-**`BeforeAfterReveal`** (bloc `beforeAfterReveal`, ajouté par Martial le 19.11.2026) — fork WebGL (Three.js, chargé à la demande) du carrousel : une image `before` qui devient l'image `after`. Front radial depuis le milieu du bord gauche, ombrage radial dans un shader, inclinaison 3D vers le curseur. Commandes : glisser l'image, range « Before / After » dessous, clic = joue la transition. Repli CSS (cercle) sans WebGL. Exemple provisoire sur Rectify / Fix (images à remplacer).
+**`BeforeAfterReveal`** (bloc `beforeAfterReveal`, ajouté par Martial le 19.11.2026) — fork WebGL (Three.js, chargé à la demande) du carrousel. **Un seul viewer par page** avec `pairs: [{ before, after }, …]` ; des **vignettes** sous le range changent de paire (Martial). Chaque paire passe de l'image `before` à l'image `after` : front radial depuis le milieu du bord gauche, ombrage radial dans un shader, inclinaison 3D vers le curseur ; le changement de paire utilise le même front. Cadre au **ratio de l'image before**, images jamais recadrées (contain), le tout tient dans la hauteur de l'écran. Commandes : glisser l'image, range « Before / After », clic = joue la transition, vignettes (← / →). Repli CSS (cercle) sans WebGL.
 
 **`Gallery`**
 - Grille 2 colonnes, cellules 16:9, gouttières 5.

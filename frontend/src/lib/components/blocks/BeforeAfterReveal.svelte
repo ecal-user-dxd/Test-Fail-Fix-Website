@@ -4,38 +4,64 @@
 	appears in a radial front growing from the middle of the left edge, with a radial shading on
 	the front (shader, see #lib/webgl/reveal.js). The image tilts in 3D towards the cursor.
 
+	Frame: the ratio of the before image, never cropped (Martial): both images are fitted whole, so
+	their elements stay at the same place; an after image of another ratio is letterboxed. The
+	frame shrinks so the image and the range below fit in the viewport under the compact header.
+
 	Controls: drag the image left → right, the range below (arrows, Page Up / Down, Home / End), or
 	click the image to play the whole transition one way or the other.
+
+	Several pairs share one viewer (Martial): small thumbnails below switch pairs (click, or ← / →
+	and Home / End among them). The new pair starts on its before image, revealed with the same
+	shader over the image that was shown.
 
 	Three.js loads only when the block comes near the viewport. Until then, and without WebGL, the
 	HTML images show the same reveal with a CSS circle (no shading, no tilt). They also carry the
 	alt texts for screen readers; the canvas is decorative.
 -->
 <script>
-	/** @import { ImageRef, Picture as PictureData } from '#lib/content/types.js' */
+	/** @import { Picture as PictureData, RevealPair } from '#lib/content/types.js' */
 	/** @import { Reveal } from '#lib/webgl/reveal.js' */
 	import { prefersReducedMotion } from 'svelte/motion';
 	import { dev } from '$app/env';
 	import Picture from '#lib/components/ui/Picture.svelte';
 	import { getPictures } from '#lib/content/context.js';
 	import { site } from '#lib/content/site.js';
+	import { tuning } from '#lib/tuning/tuning.svelte.js';
 
 	/**
 	 * @typedef {object} Props
-	 * @property {ImageRef} before
-	 * @property {ImageRef} after
+	 * @property {RevealPair[]} pairs
 	 * @property {boolean} [priority]
 	 */
 
 	/** @type {Props} */
-	let { before, after, priority = false } = $props();
+	let { pairs, priority = false } = $props();
 
 	/** Px before a press counts as a drag. */
 	const DRAG_START = 4;
-	/** Length of the transition played on click, in ms. */
-	const PLAY_DURATION = 1400;
+	// Effect settings: `tuning.reveal` (#lib/tuning/values.json, live in the dev tuning panel).
 
 	const lookup = getPictures();
+
+	/** Pair in the viewer. Back to the first one when other pairs come in (client navigation). */
+	let index = $derived.by(() => {
+		void pairs;
+		return 0;
+	});
+	const pair = $derived(pairs[index] ?? pairs[0]);
+
+	/**
+	 * Ratio (width / height) of an image.
+	 * @param {string} image
+	 */
+	const ratioOf = (image) => {
+		const { w, h } = lookup(image).img;
+		return w / h;
+	};
+
+	/** Frame ratio: the before image's own. */
+	const ratio = $derived(ratioOf(pair.before.image));
 
 	/** 0 = before, 1 = after. */
 	let progress = $state(0);
@@ -54,6 +80,14 @@
 	let press = null;
 	/** A drag just ended: the click it produces must not play the transition. */
 	let dragged = false;
+
+	/** Width the textures were picked for (frame width × pixel ratio), set when WebGL starts. */
+	let textureWidth = 0;
+	/** Texture files already requested by a thumbnail hover / focus. */
+	const preloaded = new Set();
+
+	/** @type {HTMLButtonElement[]} */
+	const thumbs = [];
 
 	const valueText = $derived(
 		progress === 0 ? site.labels.before : progress === 1 ? site.labels.after : `${Math.round(progress * 100)} %`
@@ -97,7 +131,6 @@
 		const element = frame;
 		const surface = canvas;
 		if (!element || !surface) return;
-		const pictures = [lookup(before.image), lookup(after.image)];
 
 		let disposed = false;
 		let started = false;
@@ -107,12 +140,14 @@
 		async function start() {
 			try {
 				const { createReveal } = await import('#lib/webgl/reveal.js');
-				const width = /** @type {HTMLElement} */ (element).clientWidth * Math.min(window.devicePixelRatio, 2);
+				// Read after the await: the pair at this moment, not a dependency of the effect.
+				textureWidth = /** @type {HTMLElement} */ (element).clientWidth * Math.min(window.devicePixelRatio, 2);
+				const urls = textureUrls(pair);
 				const created = await createReveal({
 					canvas: /** @type {HTMLCanvasElement} */ (surface),
 					frame: /** @type {HTMLElement} */ (element),
-					before: textureUrl(pictures[0], width),
-					after: textureUrl(pictures[1], width),
+					before: urls.before,
+					after: urls.after,
 					progress,
 					reducedMotion: prefersReducedMotion.current,
 					onLost: () => {
@@ -154,6 +189,75 @@
 	$effect(() => {
 		reveal?.setReducedMotion(prefersReducedMotion.current);
 	});
+
+	// Dev panel: redraw as soon as a setting moves (the render only runs on demand).
+	$effect(() => {
+		const controller = reveal;
+		JSON.stringify(tuning.reveal);
+		controller?.refresh();
+	});
+
+	// Another pair: the controller skips the pair it already shows (e.g. right after it starts).
+	$effect(() => {
+		const urls = textureUrls(pair);
+		const controller = reveal;
+		if (!controller) return;
+		controller.setPair(urls.before, urls.after).then(() => {
+			// The range was moved while the textures loaded: follow it.
+			if (progress !== 0) controller.setProgress(progress);
+		});
+	});
+
+	/**
+	 * Texture files of a pair, at the width chosen when WebGL started.
+	 * @param {RevealPair} item
+	 */
+	function textureUrls(item) {
+		return {
+			before: textureUrl(lookup(item.before.image), textureWidth),
+			after: textureUrl(lookup(item.after.image), textureWidth)
+		};
+	}
+
+	/**
+	 * Warms the HTTP cache with a pair's textures, so a click swaps without waiting.
+	 * @param {RevealPair} item
+	 */
+	function preload(item) {
+		if (!reveal) return;
+		for (const url of Object.values(textureUrls(item))) {
+			if (preloaded.has(url)) continue;
+			preloaded.add(url);
+			new Image().src = url;
+		}
+	}
+
+	/** @param {number} i */
+	function select(i) {
+		const next = mod(i, pairs.length);
+		if (next === index) return;
+		index = next;
+		progress = 0;
+		thumbs[next]?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+	}
+
+	/** @param {KeyboardEvent} event */
+	function onthumbkeydown(event) {
+		const last = pairs.length - 1;
+		const next = { ArrowLeft: index - 1, ArrowRight: index + 1, Home: 0, End: last }[event.key];
+		if (next === undefined || event.altKey || event.ctrlKey || event.metaKey) return;
+		event.preventDefault();
+		select(next);
+		thumbs[mod(next, pairs.length)]?.focus();
+	}
+
+	/**
+	 * @param {number} a
+	 * @param {number} b
+	 */
+	function mod(a, b) {
+		return ((a % b) + b) % b;
+	}
 
 	/** @param {PointerEvent} event */
 	function aim(event) {
@@ -216,16 +320,17 @@
 			dragged = false;
 			return;
 		}
-		update(progress < 0.5 ? 1 : 0, PLAY_DURATION);
+		update(progress < 0.5 ? 1 : 0, tuning.reveal.playDuration);
 	}
 </script>
 
-<section class="reveal" aria-label={site.labels.beforeAfter}>
+<section class={['reveal', pairs.length > 1 && 'has-thumbs']} aria-label={site.labels.beforeAfter}>
 	<!-- Drag and click are pointer shortcuts; the range below is the keyboard equivalent. -->
 	<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
 	<div
 		class={['frame', ready && 'ready', dragging && 'dragging']}
 		style:--progress={progress}
+		style:--ratio={ratio}
 		bind:this={frame}
 		{onclick}
 		{onpointerdown}
@@ -238,9 +343,10 @@
 		<div class="layer">
 			<span class="sr-only">{site.labels.before}:</span>
 			<Picture
-				src={before.image}
-				alt={before.alt}
-				ratio={16 / 9}
+				src={pair.before.image}
+				alt={pair.before.alt}
+				{ratio}
+				fit="contain"
 				sizes="(max-width: 864px) calc(100vw - 80px), 91vw"
 				{priority}
 			/>
@@ -248,9 +354,10 @@
 		<div class="layer after">
 			<span class="sr-only">{site.labels.after}:</span>
 			<Picture
-				src={after.image}
-				alt={after.alt}
-				ratio={16 / 9}
+				src={pair.after.image}
+				alt={pair.after.alt}
+				{ratio}
+				fit="contain"
 				sizes="(max-width: 864px) calc(100vw - 80px), 91vw"
 				loading="eager"
 			/>
@@ -273,6 +380,36 @@
 		/>
 		<span class="end" aria-hidden="true">{site.labels.after}</span>
 	</div>
+
+	{#if pairs.length > 1}
+		<!-- ← / → and Home / End move between the thumbnail buttons (they bubble up from them). -->
+		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+		<ul class="thumbs" onkeydown={onthumbkeydown}>
+			{#each pairs as item, i (item.before.image)}
+				<li>
+					<button
+						type="button"
+						class="thumb"
+						style:--thumb-ratio={ratioOf(item.before.image)}
+						aria-current={i === index ? 'true' : undefined}
+						aria-label="{site.labels.slide} {i + 1} {site.labels.of} {pairs.length}"
+						bind:this={thumbs[i]}
+						onclick={() => select(i)}
+						onpointerenter={() => preload(item)}
+						onfocus={() => preload(item)}
+					>
+						<Picture
+							src={item.before.image}
+							alt=""
+							ratio={ratioOf(item.before.image)}
+							fit="contain"
+							sizes="160px"
+						/>
+					</button>
+				</li>
+			{/each}
+		</ul>
+	{/if}
 </section>
 
 <style>
@@ -281,12 +418,28 @@
 		--inset: calc(80 * var(--u));
 		/* Room around the frame for the tilted corners. */
 		--bleed: calc(60 * var(--u));
+		/* Thumbnail height, and the space the row takes under the range (0 with one pair). */
+		--thumb-h: max(40px, calc(64 * var(--u)));
+		--thumbs-space: 0px;
+		/* Tallest frame that keeps the image, the range and the thumbnails in the viewport, under
+		   the compact header (block padding 40 + 40, range 14 + 44). */
+		--fit-height: max(
+			240px,
+			calc(100svh - var(--header-h) - 94 * var(--u) - 44px - var(--thumbs-space))
+		);
 		padding: calc(40 * var(--u)) var(--inset);
+	}
+
+	.has-thumbs {
+		/* Row: thumbnails + 2 × 6 px padding for the focus ring, 10 above. */
+		--thumbs-space: calc(var(--thumb-h) + 12px + 10 * var(--u));
 	}
 
 	.frame {
 		position: relative;
-		aspect-ratio: 16 / 9;
+		aspect-ratio: var(--ratio);
+		width: min(100%, calc(var(--fit-height) * var(--ratio)));
+		margin-inline: auto;
 		border-radius: var(--radius-slide);
 		cursor: ew-resize;
 		touch-action: pan-y;
@@ -317,9 +470,9 @@
 	}
 
 	/* CSS reveal (before WebGL, or without it): a circle from the middle of the left edge.
-	   130 % of the circle() reference reaches the far corners of a 16:9 frame. */
+	   142 % (≈ √2) of the circle() reference reaches the far corners at any frame ratio. */
 	.after {
-		clip-path: circle(calc(var(--progress) * 130%) at 0 50%);
+		clip-path: circle(calc(var(--progress) * 142%) at 0 50%);
 	}
 
 	canvas {
@@ -347,6 +500,49 @@
 		justify-content: center;
 		gap: calc(16 * var(--u));
 		margin-top: calc(14 * var(--u));
+	}
+
+	/* Centred when they fit, scrolled sideways when they don't (12 pairs on a phone). */
+	.thumbs {
+		display: flex;
+		justify-content: safe center;
+		gap: calc(8 * var(--u));
+		margin-top: calc(10 * var(--u));
+		padding: 6px;
+		overflow-x: auto;
+		scrollbar-width: none;
+	}
+
+	.thumbs::-webkit-scrollbar {
+		display: none;
+	}
+
+	.thumb {
+		display: block;
+		flex: none;
+		width: calc(var(--thumb-h) * var(--thumb-ratio));
+		height: var(--thumb-h);
+		border-radius: var(--radius-chip);
+		opacity: 0.45;
+		cursor: pointer;
+		transition:
+			opacity var(--duration-hover),
+			box-shadow var(--duration-hover);
+		--picture-radius: var(--radius-chip);
+		--picture-bg: var(--color-gallery);
+	}
+
+	.thumb:hover {
+		opacity: 1;
+	}
+
+	.thumb[aria-current='true'] {
+		opacity: 1;
+		box-shadow: 0 0 0 2px var(--color-ink);
+	}
+
+	.thumb:focus-visible {
+		outline-offset: 4px;
 	}
 
 	.end {

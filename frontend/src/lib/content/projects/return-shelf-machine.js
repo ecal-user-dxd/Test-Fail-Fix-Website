@@ -178,11 +178,11 @@ const returnShelfMachine = {
 					columns: 2,
 					fit: "contain",
 					items: [
-						{ image: "fail-04.png", alt: "Test sessions in context: participants taking books from the shelf and using the screen." }, // Fail/…Failimages_04.png
-						{ image: "fail-06.png", alt: "Raw data spreadsheet of the usability test." }, // Fail/…Failimages_06.png
-						{ image: "fail-07.png", alt: "Observations by task, on sticky notes." }, // Fail/…Failimages_07.png
-						{ image: "fail-08.png", alt: "Post-test feedback on sticky notes." }, // Fail/…Failimages_08.png
-						{ image: "fail-09.png", alt: "Affinity mapping of all the observations." }, // Fail/…Failimages_09.png
+						{ image: "fail-04.png", alt: "Test sessions in context: participants taking books from the shelf and using the screen.", group: "Sessions" }, // Fail/…Failimages_04.png
+						{ image: "fail-06.png", alt: "Raw data spreadsheet of the usability test.", group: "Raw data" }, // Fail/…Failimages_06.png
+						{ image: "fail-07.png", alt: "Observations by task, on sticky notes.", group: "Sticky notes" }, // Fail/…Failimages_07.png
+						{ image: "fail-08.png", alt: "Post-test feedback on sticky notes.", group: "Sticky notes" }, // Fail/…Failimages_08.png
+						{ image: "fail-09.png", alt: "Affinity mapping of all the observations.", group: "Sticky notes" }, // Fail/…Failimages_09.png
 					],
 				},
 				// Failimages_05 (vidéo de [2-Fail-04~09]) : après la galerie, pour ne pas couper le bureau en deux.
@@ -230,16 +230,33 @@ const returnShelfMachine = {
 					label: "",
 					text: "We then iterated toward v2, addressing the main problems the test surfaced across the navigation, the interface, and the physical setup.",
 				},
-				// Pas de carrousel « beforeAfter » : leurs comparaisons V1 / V2 sont déjà côte à côte dans une
-				// seule image, plus large que 16:9. Galerie pleine largeur à la place (fit contain).
+				// Comparaisons V1 / V2 découpées pour le bloc « beforeAfterReveal », chaque côté avec ses notes
+				// « V1 → … » / « V2 → … ». Le titre en bas de l'image d'origine (« Legible Navigation »…) n'est pas repris.
+				{
+					type: "beforeAfterReveal",
+					pairs: [
+						// fix-02.png (Fix/…Fixmages_02.png), découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/fix-02-before.png", alt: "Legible navigation, V1: tags often misread, confusing text hierarchy." },
+							after: { image: "fix/fix-02-after.png", alt: "Legible navigation, V2: clearer text hierarchy, a description for each tag, clickable items." },
+						},
+						// fix-03.png (Fix/…Fixmages_03.png), découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/fix-03-before.png", alt: "First encounter, V1: the interface with book covers and no scan feedback." },
+							after: { image: "fix/fix-03-after.png", alt: "First encounter, V2: “Returned Book Shelf” with a scanning feedback." },
+						},
+						// fix-05.png (Fix/…Fixmages_05.png), découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/fix-05-before.png", alt: "Physical embodiment, V1: the prototype is too low and the books lie flat." },
+							after: { image: "fix/fix-05-after.png", alt: "Physical embodiment, V2: a higher prototype, the books stand on their side." },
+						},
+					],
+				},
 				{
 					type: "gallery",
 					columns: 1,
 					fit: "contain",
 					items: [
-						{ image: "fix-02.png", alt: "Legible navigation, V1 and V2: clearer text hierarchy, a description for each tag, clickable items." }, // Fix/…Fixmages_02.png
-						{ image: "fix-03.png", alt: "First encounter, V1 and V2: a scanning feedback and a clearer change of states." }, // Fix/…Fixmages_03.png
-						{ image: "fix-05.png", alt: "Physical embodiment, V1 and V2: the prototype is higher and the books stand on their side." }, // Fix/…Fixmages_05.png
 						{ image: "fix-08.png", alt: "Potential amelioration: comparing two picked books, Words form language and The Life of Things." }, // Fix/…Fixmages_08.png
 					],
 				},

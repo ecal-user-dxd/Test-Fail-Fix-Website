@@ -106,18 +106,22 @@ const helmetric = {
 						{
 							image: "test-01.jpg", // 1-Test/P1288727.JPG
 							alt: "The test setup: the wooden scanning machine with an iPad and a motorcycle helmet on a table, a chair for the tester and a camera on a tripod.",
+							group: "Setup",
 						},
 						{
 							image: "test-02.jpg", // 1-Test/P1288735.JPG (pivotée selon l'EXIF)
 							alt: "Close-up of the machine: a helmet in the lit box below the iPad showing “Welcome to Helmetric.”",
+							group: "Setup",
 						},
 						{
 							image: "test-03.png", // 1-Test/User5.png (petite image : 544 px de large)
 							alt: "User 5 holds the head measurement device while the facilitator opens the box of the machine.",
+							group: "Testers",
 						},
 						{
 							image: "test-04.png", // 1-Test/User6.png
 							alt: "User 6 places a helmet into the box of the machine.",
+							group: "Testers",
 						},
 					],
 				},
@@ -215,18 +219,53 @@ const helmetric = {
 					type: "headline",
 					text: "Following an analysis of our insights, we set about modifying our prototype.",
 				},
+				// Diapositives avant / après de la présentation, découpées pour le bloc « beforeAfterReveal » (ex-carrousel).
 				{
-					type: "beforeAfter",
-					// Diapositives avant / après de la présentation (03-presentation-slides.pdf p. 53, 54, 57, 58, 60, 62, 64, 66), exportées en 3840×2160
-					pages: [
-						{ image: "fix-01.png", alt: "What should I read? Head scan result, before and after." },
-						{ image: "fix-02.png", alt: "What should I read? Helmet scan result, before and after." },
-						{ image: "fix-03.png", alt: "Not just on the screen: collecting the helmet from the box, before and after." },
-						{ image: "fix-04.png", alt: "Not just on the screen: taking the head measurement device from the drawer, before and after." },
-						{ image: "fix-05.png", alt: "Not brand affiliated: the helmet selection page, before and after." },
-						{ image: "fix-06.png", alt: "Smile, you're on camera: the new camera access notification, before and after." },
-						{ image: "fix-07.png", alt: "Internal damage: the scanning screen, before and after." },
-						{ image: "fix-08.png", alt: "Hands-free: examples of helmet holders and hooks." },
+					type: "beforeAfterReveal",
+					pairs: [
+						// fix-01.png, découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/fix-01-before.png", alt: "What should I read? The “Your results” screen, first version." },
+							after: { image: "fix/fix-01-after.png", alt: "What should I read? The “Your head scan result” screen." },
+						},
+						// fix-02.png, découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/fix-02-before.png", alt: "What should I read? The “Result” screen, first version." },
+							after: { image: "fix/fix-02-after.png", alt: "What should I read? The “Helmet scan result” screen." },
+						},
+						// fix-03.png, découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/fix-03-before.png", alt: "Not just on the screen: “Before looking at the result…”, first version." },
+							after: { image: "fix/fix-03-after.png", alt: "Not just on the screen: “Please collect your helmet from the box.”" },
+						},
+						// fix-04.png, découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/fix-04-before.png", alt: "Not just on the screen: “Let’s measure your head”, first version." },
+							after: { image: "fix/fix-04-after.png", alt: "Not just on the screen: “Please take the device from the drawer and wear it.”" },
+						},
+						// fix-05.png, découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/fix-05-before.png", alt: "Not brand affiliated: “Your selection” with brand filters." },
+							after: { image: "fix/fix-05-after.png", alt: "Not brand affiliated: “Best fit for you” with three helmets." },
+						},
+						// fix-06.png, découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/fix-06-before.png", alt: "Smile, you’re on camera: “Let’s measure your head” without any notice." },
+							after: { image: "fix/fix-06-after.png", alt: "Smile, you’re on camera: the new camera access notification." },
+						},
+						// fix-07.png, découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/fix-07-before.png", alt: "Internal damage: the “Scanning your helmet…” screen." },
+							after: { image: "fix/fix-07-after.png", alt: "Internal damage: “Scanning in progress…” with the UV disinfection." },
+						},
+					],
+				},
+				{
+					type: "gallery",
+					columns: 1,
+					fit: "contain",
+					items: [
+						{ image: "fix-08.png", alt: "Hands-free: examples of helmet holders and hooks." }, // diapositive « Hands-free », pas une paire avant / après
 					],
 				},
 				// 3-Fix/2a-z-after.mp4 et 5-z-after.mp4 : écrans « après », côte à côte.

@@ -104,30 +104,37 @@ const rectify = {
 						{
 							image: "test-01.png",
 							alt: "Presentation slide: 5 participants, amateur and expert users, 25–30 min per session, 3 tasks in a given scenario.",
+							group: "Overview",
 						},
 						{
 							image: "test-02.png",
 							alt: "Testing plan diagram: intro, pre-test interview, core testing, post-test questionnaire and interview.",
+							group: "Overview",
 						},
 						{
 							image: "test-03.png",
 							alt: "Testing plan, step 1: installation introduction, consent form, structure of the test.",
+							group: "Steps",
 						},
 						{
 							image: "test-04.png",
 							alt: "Testing plan, pre-test: demographic information, music listening habits, prior experience with vinyls.",
+							group: "Steps",
 						},
 						{
 							image: "test-05.png",
 							alt: "Testing plan, core testing: learn and listen to a record, test affordances, discard records.",
+							group: "Steps",
 						},
 						{
 							image: "test-06.png",
 							alt: "Testing plan, post-test: purchase decisions, Likert scale, disengaging aspects.",
+							group: "Steps",
 						},
 						{
 							image: "test-07.png",
 							alt: "Research plan pages from the documentation.",
+							group: "Overview",
 						},
 					],
 				},
@@ -311,42 +318,52 @@ const rectify = {
 						{
 							image: "fail-01.png",
 							alt: "Two participants testing the installation at the researchers’ apartment.",
+							group: "Sessions",
 						},
 						{
 							image: "fail-10.png",
 							alt: "A participant placing records in the scanning box.",
+							group: "Sessions",
 						},
 						{
 							image: "fail-03.png",
 							alt: "Post-test questionnaire results (Likert scale).",
+							group: "Questionnaire",
 						},
 						{
 							image: "fail-04.png",
 							alt: "Post-test questionnaire results, detail.",
+							group: "Questionnaire",
 						},
 						{
 							image: "fail-02.png",
 							alt: "Affinity map of the interview notes.",
+							group: "Interviews",
 						},
 						{
 							image: "fail-05.png",
 							alt: "Interview notes on yellow and green post-its.",
+							group: "Interviews",
 						},
 						{
 							image: "fail-06.png",
 							alt: "Interview responses theme: revamping the music listening experience.",
+							group: "Interviews",
 						},
 						{
 							image: "fail-07.png",
 							alt: "Interview responses theme: building a controlled recommendation system.",
+							group: "Interviews",
 						},
 						{
 							image: "fail-08.png",
 							alt: "Interview responses theme: re-look the mapping experience.",
+							group: "Interviews",
 						},
 						{
 							image: "fail-09.png",
 							alt: "List of iterations decided after the tests.",
+							group: "Iterations",
 						},
 					],
 				},
@@ -398,18 +415,18 @@ const rectify = {
 						},
 					],
 				},
-				// EXEMPLE (Martial, 19.11.2026) — fork WebGL du carrousel. Images provisoires, à remplacer
-				// par une vraie paire avant / après (même cadrage, idéalement 16:9).
+				// EXEMPLE (Martial, 19.11.2026) — fork WebGL du carrousel, avec une vraie paire : fix-13 (page album),
+				// écrans screens/fix13-before|after.png posés en 16:9 (split_fix_pairs.py). Paires prêtes aussi pour
+				// fix-12, fix-14, fix-15 et fix-16 dans fix/.
 				{
 					type: "beforeAfterReveal",
-					before: {
-						image: "fix-13.png",
-						alt: "Album page, first version and updated version: upcoming show tag, other albums in store, read more, play/pause button.",
-					},
-					after: {
-						image: "fix-16.png",
-						alt: "Waiting screen, first version and the new version with store recommendations.",
-					},
+					pairs: [
+						// fix-13.png, découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/fix-13-before.png", alt: "Album page, first version." },
+							after: { image: "fix/fix-13-after.png", alt: "Album page, updated version: upcoming show tag, other albums in store, read more, play/pause button." },
+						},
+					],
 				},
 				// verbatim — documentation p. 11 (Results post-test interview)
 				// rule: filet bord à bord au-dessus du groupe 01–04, comme dans Figma (validé par Martial)
@@ -492,13 +509,15 @@ const rectify = {
 						{
 							image: "fix-09.png",
 							alt: "A hand drops records into the scanning box, now marked “Place records here”.",
+							group: "Setup",
 						},
 						{
 							image: "fix-18.png",
 							alt: "The updated setup in the apartment, with store recommendations on the screen.",
+							group: "Setup",
 						},
-						{ image: "fix-10.png", alt: "Updated user flow diagram." },
-						{ image: "fix-11.png", alt: "List of the implemented iterations." },
+						{ image: "fix-10.png", alt: "Updated user flow diagram.", group: "Iterations" },
+						{ image: "fix-11.png", alt: "List of the implemented iterations.", group: "Iterations" },
 					],
 				},
 			],
@@ -539,31 +558,38 @@ const rectify = {
 						{
 							image: "fix-01.png",
 							alt: "Final prototype: album page on the vertical screen above the record box.",
+							group: "Screens",
 						},
 						{
 							image: "fix-02.png",
 							alt: "Final prototype: the “Removed from the selection” screen.",
+							group: "Screens",
 						},
 						{
 							image: "fix-03.png",
 							alt: "A visitor using the waiting screen with store recommendations.",
+							group: "In use",
 						},
 						{
 							image: "fix-04.png",
 							alt: "Final prototype: “Your selection” mapping.",
+							group: "Screens",
 						},
-						{ image: "fix-05.png", alt: "Final prototype: timeline mapping." },
+						{ image: "fix-05.png", alt: "Final prototype: timeline mapping.", group: "Screens" },
 						{
 							image: "fix-07.png",
 							alt: "A hand presses the new play button on the album page.",
+							group: "In use",
 						},
 						{
 							image: "fix-08.png",
 							alt: "A hand turns the snippet wheel on the album page.",
+							group: "In use",
 						},
 						{
 							image: "fix-06.png",
 							alt: "A visitor exploring the final prototype.",
+							group: "In use",
 						},
 					],
 				},

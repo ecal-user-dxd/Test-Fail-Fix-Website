@@ -90,16 +90,16 @@ const freshdrop = {
 					columns: 2,
 					fit: "contain",
 					items: [
-						{ image: "test-12.png", alt: "First machine prototype: a black top-opening box with a banana and a printed tag." }, // Test/OldMachine.png
-						{ image: "test-03.png", alt: "First version: landing screen “Check Food Freshness Before Donating”." }, // Test/OldUI1.png
-						{ image: "test-04.png", alt: "First version: “Place your donation here.”" }, // Test/OldUI2.png
-						{ image: "test-05.png", alt: "First version: “Is the food sealed?”" }, // Test/OldUI3.png
-						{ image: "test-06.png", alt: "First version: “Unsealed food cannot be scanned.”" }, // Test/OldUI4.png
-						{ image: "test-07.png", alt: "First version: “What type of food is it?” category screen." }, // Test/OldUI5.png
-						{ image: "test-08.png", alt: "First version: scanning screen." }, // Test/OldUI6.png
-						{ image: "test-09.png", alt: "First version: scanning checks in progress." }, // Test/OldUI7.png
-						{ image: "test-10.png", alt: "First version: “Place in the refrigerated compartment.” with the printed tag." }, // Test/OldUI8.png
-						{ image: "test-11.png", alt: "First version: “Place your donation in the fridge.”" }, // Test/OldUI9.png
+						{ image: "test-12.png", alt: "First machine prototype: a black top-opening box with a banana and a printed tag.", group: "Machine" }, // Test/OldMachine.png
+						{ image: "test-03.png", alt: "First version: landing screen “Check Food Freshness Before Donating”.", group: "Start" }, // Test/OldUI1.png
+						{ image: "test-04.png", alt: "First version: “Place your donation here.”", group: "Start" }, // Test/OldUI2.png
+						{ image: "test-05.png", alt: "First version: “Is the food sealed?”", group: "Questions" }, // Test/OldUI3.png
+						{ image: "test-06.png", alt: "First version: “Unsealed food cannot be scanned.”", group: "Questions" }, // Test/OldUI4.png
+						{ image: "test-07.png", alt: "First version: “What type of food is it?” category screen.", group: "Questions" }, // Test/OldUI5.png
+						{ image: "test-08.png", alt: "First version: scanning screen.", group: "Scan" }, // Test/OldUI6.png
+						{ image: "test-09.png", alt: "First version: scanning checks in progress.", group: "Scan" }, // Test/OldUI7.png
+						{ image: "test-10.png", alt: "First version: “Place in the refrigerated compartment.” with the printed tag.", group: "Drop-off" }, // Test/OldUI8.png
+						{ image: "test-11.png", alt: "First version: “Place your donation in the fridge.”", group: "Drop-off" }, // Test/OldUI9.png
 					],
 				},
 			],
@@ -213,15 +213,36 @@ const freshdrop = {
 					type: "headline",
 					text: "We looked at all the feedback, grouped the problems people shared, and started with the ones that blocked them the most.",
 				},
+				// Diapositives avant → après de la présentation, découpées pour le bloc « beforeAfterReveal » (ex-carrousel).
+				// Les phrases sous les diapositives (« Added a progress in every steps… ») ne sont pas reprises.
 				{
-					type: "beforeAfter",
-					// Diapositives avant → après de la présentation (p. 70, 73, 76, 78, 81), dans l'ordre des fixes
-					pages: [
-						{ image: "fix-01.png", alt: "Progress bar: the scanning screen before and after, with the new step bar." },
-						{ image: "fix-02.png", alt: "Clearer scan: the scanning box animation before and after." },
-						{ image: "fix-03.png", alt: "Less text: the “Is the food sealed?” screen before and after." },
-						{ image: "fix-04.png", alt: "Better ending: the empty end screen replaced by “Thanks for donating”." },
-						{ image: "fix-05.png", alt: "New machine shape: the top-opening box replaced by a front-opening machine." },
+					type: "beforeAfterReveal",
+					pairs: [
+						// fix-01.png, découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/fix-01-before.png", alt: "Progress bar: the scanning screen without a step bar." },
+							after: { image: "fix/fix-01-after.png", alt: "Progress bar: the scanning screen with the new step bar, framed in red." },
+						},
+						// fix-02.png, découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/fix-02-before.png", alt: "Clearer scan: the scanning box animation, first version." },
+							after: { image: "fix/fix-02-after.png", alt: "Clearer scan: the scanning box animation, new version." },
+						},
+						// fix-03.png, découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/fix-03-before.png", alt: "Less text: the “Is the food sealed?” screen, first version." },
+							after: { image: "fix/fix-03-after.png", alt: "Less text: the “Is the food sealed?” screen with less text." },
+						},
+						// fix-04.png, découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/fix-04-before.png", alt: "Better ending: the flow ended on “Place your donation in the fridge”." },
+							after: { image: "fix/fix-04-after.png", alt: "Better ending: the new “Thanks for donating” screen." },
+						},
+						// fix-05.png, découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							before: { image: "fix/fix-05-before.png", alt: "New machine shape: the first box, opening from the top." },
+							after: { image: "fix/fix-05-after.png", alt: "New machine shape: a front-opening machine with the tablet on top." },
+						},
 					],
 				},
 				// verbatim — suite de « HOW WE WORKED »
@@ -273,16 +294,16 @@ const freshdrop = {
 					columns: 2,
 					fit: "contain",
 					items: [
-						{ image: "fix-06.png", alt: "New landing screen “Check Food Freshness Before Donating”, with the step bar on top." }, // Fix/FixedUI1.png
-						{ image: "fix-07.png", alt: "New “Place your donation inside the scanner” screen." }, // Fix/FixedUI2.png
-						{ image: "fix-08.png", alt: "New “What did you bring today?” category screen, Canned / Tinned selected." }, // Fix/FixedUI3.png
-						{ image: "fix-09.png", alt: "New “Is the food sealed?” screen with an info button." }, // Fix/FixedUI4.png
-						{ image: "fix-10.png", alt: "New scanning screen listing each check." }, // Fix/FixedUI6.png
-						{ image: "fix-11.png", alt: "New result screen “Safe to donate” with the freshness checks and the tag preview." }, // Fix/FixedUI7.png
-						{ image: "fix-12.png", alt: "New “Attach the tag to your item” screen." }, // Fix/FixedUI8.png
-						{ image: "fix-13.png", alt: "New “Place item in donation box” screen." }, // Fix/FixedUI9.png
-						{ image: "fix-14.png", alt: "New “Thanks for donating” end screen: from you, to Cartons du Cœur, to families." }, // Fix/FixedUI10.png
-						{ image: "fix-15.png", alt: "The new front-opening machine with a tin inside the scanning box." }, // Fix/NewMachine.png
+						{ image: "fix-06.png", alt: "New landing screen “Check Food Freshness Before Donating”, with the step bar on top.", group: "Start" }, // Fix/FixedUI1.png
+						{ image: "fix-07.png", alt: "New “Place your donation inside the scanner” screen.", group: "Start" }, // Fix/FixedUI2.png
+						{ image: "fix-08.png", alt: "New “What did you bring today?” category screen, Canned / Tinned selected.", group: "Questions" }, // Fix/FixedUI3.png
+						{ image: "fix-09.png", alt: "New “Is the food sealed?” screen with an info button.", group: "Questions" }, // Fix/FixedUI4.png
+						{ image: "fix-10.png", alt: "New scanning screen listing each check.", group: "Scan" }, // Fix/FixedUI6.png
+						{ image: "fix-11.png", alt: "New result screen “Safe to donate” with the freshness checks and the tag preview.", group: "Scan" }, // Fix/FixedUI7.png
+						{ image: "fix-12.png", alt: "New “Attach the tag to your item” screen.", group: "Drop-off" }, // Fix/FixedUI8.png
+						{ image: "fix-13.png", alt: "New “Place item in donation box” screen.", group: "Drop-off" }, // Fix/FixedUI9.png
+						{ image: "fix-14.png", alt: "New “Thanks for donating” end screen: from you, to Cartons du Cœur, to families.", group: "Drop-off" }, // Fix/FixedUI10.png
+						{ image: "fix-15.png", alt: "The new front-opening machine with a tin inside the scanning box.", group: "Machine" }, // Fix/NewMachine.png
 					],
 				},
 			],

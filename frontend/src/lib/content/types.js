@@ -109,8 +109,16 @@
 /** @typedef {BlockBase & { type: 'beforeAfter', pages: ImageRef[] }} BeforeAfterBlock */
 
 /**
- * WebGL fork of the carousel (Martial): one image turning into another, radial shader reveal.
- * @typedef {BlockBase & { type: 'beforeAfterReveal', before: ImageRef, after: ImageRef }} BeforeAfterRevealBlock
+ * One before → after comparison: two images of the same framing (same ratio).
+ * @typedef {object} RevealPair
+ * @property {ImageRef} before
+ * @property {ImageRef} after
+ */
+
+/**
+ * WebGL fork of the carousel (Martial): one viewer, each pair turning from before to after with a
+ * radial shader reveal; thumbnails below switch pairs.
+ * @typedef {BlockBase & { type: 'beforeAfterReveal', pairs: RevealPair[] }} BeforeAfterRevealBlock
  */
 
 /**
@@ -119,13 +127,20 @@
  * @typedef {'grid' | 'desk'} GalleryVariant
  */
 
+/**
+ * A gallery image. `group` (desk only, Martial's label, not a student text): the photos sharing a
+ * label are shown together; the labels are listed on the desk in order of first appearance, and
+ * a group lines up in the order of the items.
+ * @typedef {ImageRef & { group?: string }} GalleryItem
+ */
+
 /** With an odd number of items in 2 columns, the last item spans the full width. */
 /**
  * @typedef {BlockBase & {
  *   type: 'gallery',
  *   columns: 1 | 2,
  *   fit: 'cover' | 'contain',
- *   items: ImageRef[],
+ *   items: GalleryItem[],
  *   variant?: GalleryVariant
  * }} GalleryBlock
  */
