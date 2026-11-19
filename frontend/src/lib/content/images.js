@@ -33,17 +33,16 @@ export function collectImages(page) {
 	for (const block of page.blocks) {
 		switch (block.type) {
 			case 'screens':
-			case 'gallery':
 				for (const item of block.items) paths.add(item.image);
+				break;
+			case 'gallery':
+				for (const item of block.items) {
+					paths.add(item.image);
+					if (item.after) paths.add(item.after.image);
+				}
 				break;
 			case 'beforeAfter':
 				for (const item of block.pages) paths.add(item.image);
-				break;
-			case 'beforeAfterReveal':
-				for (const pair of block.pairs) {
-					paths.add(pair.before.image);
-					paths.add(pair.after.image);
-				}
 				break;
 			case 'remarks':
 			case 'figure':

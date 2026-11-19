@@ -79,7 +79,7 @@ const SECTIONS = {
 		}
 	},
 	reveal: {
-		title: 'Before / after (WebGL)',
+		title: 'Gallery viewer (WebGL)',
 		controls: {
 			tilt: { label: 'Tilt (°)', min: 0, max: 20, step: 0.5 },
 			perspective: { label: 'Camera distance (× width)', min: 0.5, max: 5, step: 0.05 },

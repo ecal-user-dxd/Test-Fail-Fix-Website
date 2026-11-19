@@ -213,34 +213,42 @@ const freshdrop = {
 					type: "headline",
 					text: "We looked at all the feedback, grouped the problems people shared, and started with the ones that blocked them the most.",
 				},
-				// Diapositives avant → après de la présentation, découpées pour le bloc « beforeAfterReveal » (ex-carrousel).
+				// Diapositives avant → après de la présentation, découpées pour le bloc « gallery » (vue viewer) (ex-carrousel).
 				// Les phrases sous les diapositives (« Added a progress in every steps… ») ne sont pas reprises.
 				{
-					type: "beforeAfterReveal",
-					pairs: [
+					type: "gallery",
+					variant: "viewer",
+					columns: 1,
+					fit: "contain",
+					items: [
 						// fix-01.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/fix-01-before.png", alt: "Progress bar: the scanning screen without a step bar." },
+							image: "fix/fix-01-before.png",
+							alt: "Progress bar: the scanning screen without a step bar.",
 							after: { image: "fix/fix-01-after.png", alt: "Progress bar: the scanning screen with the new step bar, framed in red." },
 						},
 						// fix-02.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/fix-02-before.png", alt: "Clearer scan: the scanning box animation, first version." },
+							image: "fix/fix-02-before.png",
+							alt: "Clearer scan: the scanning box animation, first version.",
 							after: { image: "fix/fix-02-after.png", alt: "Clearer scan: the scanning box animation, new version." },
 						},
 						// fix-03.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/fix-03-before.png", alt: "Less text: the “Is the food sealed?” screen, first version." },
+							image: "fix/fix-03-before.png",
+							alt: "Less text: the “Is the food sealed?” screen, first version.",
 							after: { image: "fix/fix-03-after.png", alt: "Less text: the “Is the food sealed?” screen with less text." },
 						},
 						// fix-04.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/fix-04-before.png", alt: "Better ending: the flow ended on “Place your donation in the fridge”." },
+							image: "fix/fix-04-before.png",
+							alt: "Better ending: the flow ended on “Place your donation in the fridge”.",
 							after: { image: "fix/fix-04-after.png", alt: "Better ending: the new “Thanks for donating” screen." },
 						},
 						// fix-05.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/fix-05-before.png", alt: "New machine shape: the first box, opening from the top." },
+							image: "fix/fix-05-before.png",
+							alt: "New machine shape: the first box, opening from the top.",
 							after: { image: "fix/fix-05-after.png", alt: "New machine shape: a front-opening machine with the tablet on top." },
 						},
 					],

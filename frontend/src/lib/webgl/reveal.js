@@ -1,5 +1,5 @@
 /**
- * WebGL before → after reveal (Three.js), used by the BeforeAfterReveal block.
+ * WebGL before → after reveal (Three.js), used by the viewer of the gallery block (GalleryViewer).
  *
  * One plane, in CSS pixels: the plane is the size of the frame at rest and the camera sees the
  * canvas exactly, so the untilted render lines up with the HTML image underneath. The canvas is
@@ -9,8 +9,9 @@
  * inside it, with a radial shading (before side darkens as the front comes, shadow and light rim
  * on the front), a radial push of the pixels and a slight colour split on the front.
  *
- * Several pairs share one viewer: setPair() reveals the new pair's before image over the image
- * shown, with the same shader, then hands over to the new pair.
+ * One viewer shows many items: setPair() reveals the next item's (before) image over the image
+ * shown, with the same shader, then hands over to it. A plain image is a pair whose two images are
+ * the same file (loaded once).
  *
  * Renders on demand only: while the progress or the tilt are easing, or while the cursor is on a
  * visible front (the front slowly ripples). Nothing runs at rest or off screen.
@@ -236,9 +237,21 @@ export async function createReveal({ canvas, frame, before, after, progress, red
 	 * @returns {Promise<TexturePair>}
 	 */
 	async function loadPair(beforeUrl, afterUrl) {
-		const maps = await Promise.all([loader.loadAsync(beforeUrl), loader.loadAsync(afterUrl)]);
-		for (const map of maps) map.anisotropy = anisotropy;
-		return { before: maps[0], after: maps[1], key: `${beforeUrl} ${afterUrl}` };
+		const [first, second] = await Promise.all([
+			loader.loadAsync(beforeUrl),
+			afterUrl === beforeUrl ? null : loader.loadAsync(afterUrl)
+		]);
+		const pair = { before: first, after: second ?? first, key: `${beforeUrl} ${afterUrl}` };
+		for (const map of textures(pair)) map.anisotropy = anisotropy;
+		return pair;
+	}
+
+	/**
+	 * The distinct textures of a pair (one for a plain image).
+	 * @param {{ before: Texture, after: Texture }} pair
+	 */
+	function textures(pair) {
+		return pair.before === pair.after ? [pair.before] : [pair.before, pair.after];
 	}
 
 	/** Pair shown at rest (the one the range drives). */
@@ -489,8 +502,7 @@ export async function createReveal({ canvas, frame, before, after, progress, red
 				return; // keep the current pair
 			}
 			if (destroyed || call !== request) {
-				next.before.dispose();
-				next.after.dispose();
+				for (const map of textures(next)) map.dispose();
 				return;
 			}
 
@@ -503,12 +515,11 @@ export async function createReveal({ canvas, frame, before, after, progress, red
 			current.progress = 0;
 
 			if (reduced) {
-				old.before.dispose();
-				old.after.dispose();
+				for (const map of textures(old)) map.dispose();
 				bind(pair.before, pair.after);
 			} else {
 				bind(was, pair.before);
-				swap = { retire: [old.before, old.after], start: performance.now() };
+				swap = { retire: textures(old), start: performance.now() };
 			}
 			// The first frame of the swap must not show the new pair at the old progress.
 			uniforms.uProgress.value = 0;
@@ -565,8 +576,7 @@ export async function createReveal({ canvas, frame, before, after, progress, red
 			observer.disconnect();
 			canvas.removeEventListener('webglcontextlost', handleLost);
 			finishSwap();
-			pair.before.dispose();
-			pair.after.dispose();
+			for (const map of textures(pair)) map.dispose();
 			geometry.dispose();
 			material.dispose();
 			renderer.dispose();

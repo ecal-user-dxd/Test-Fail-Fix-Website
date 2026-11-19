@@ -6,7 +6,8 @@
 export const site = {
 	/**
 	 * View of every `gallery` block that does not set its own `variant`:
-	 * 'grid' (image grid) or 'desk' (photos to drag around, see GalleryDesk).
+	 * 'grid' (image grid), 'desk' (photos to drag around, see GalleryDesk) or 'viewer' (one image
+	 * at a time with thumbnails, before / after pairs, see GalleryViewer).
 	 * @type {GalleryVariant}
 	 */
 	galleryVariant: 'desk',
@@ -30,9 +31,11 @@ export const site = {
 		/** Carousel: « Slide 2 of 6 » (live region, pager buttons), « 2 of 6 » (each slide). */
 		slide: 'Slide',
 		of: 'of',
-		/** Before → after reveal: ends of the range, screen-reader prefix of each image. */
+		/** Gallery viewer: ends of the range and screen-reader prefix of a pair's images; name of
+		 * a viewer without pairs (a viewer with pairs is called `beforeAfter`). */
 		before: 'Before',
 		after: 'After',
+		viewer: 'Image viewer',
 		remarks: 'Remarks',
 		/** Gallery desk (screen readers): name of the photo list, and how to use it. */
 		desk: 'Photos on a desk',

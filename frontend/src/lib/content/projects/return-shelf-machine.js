@@ -230,24 +230,30 @@ const returnShelfMachine = {
 					label: "",
 					text: "We then iterated toward v2, addressing the main problems the test surfaced across the navigation, the interface, and the physical setup.",
 				},
-				// Comparaisons V1 / V2 découpées pour le bloc « beforeAfterReveal », chaque côté avec ses notes
+				// Comparaisons V1 / V2 découpées pour le bloc « gallery » (vue viewer), chaque côté avec ses notes
 				// « V1 → … » / « V2 → … ». Le titre en bas de l'image d'origine (« Legible Navigation »…) n'est pas repris.
 				{
-					type: "beforeAfterReveal",
-					pairs: [
+					type: "gallery",
+					variant: "viewer",
+					columns: 1,
+					fit: "contain",
+					items: [
 						// fix-02.png (Fix/…Fixmages_02.png), découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/fix-02-before.png", alt: "Legible navigation, V1: tags often misread, confusing text hierarchy." },
+							image: "fix/fix-02-before.png",
+							alt: "Legible navigation, V1: tags often misread, confusing text hierarchy.",
 							after: { image: "fix/fix-02-after.png", alt: "Legible navigation, V2: clearer text hierarchy, a description for each tag, clickable items." },
 						},
 						// fix-03.png (Fix/…Fixmages_03.png), découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/fix-03-before.png", alt: "First encounter, V1: the interface with book covers and no scan feedback." },
+							image: "fix/fix-03-before.png",
+							alt: "First encounter, V1: the interface with book covers and no scan feedback.",
 							after: { image: "fix/fix-03-after.png", alt: "First encounter, V2: “Returned Book Shelf” with a scanning feedback." },
 						},
 						// fix-05.png (Fix/…Fixmages_05.png), découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/fix-05-before.png", alt: "Physical embodiment, V1: the prototype is too low and the books lie flat." },
+							image: "fix/fix-05-before.png",
+							alt: "Physical embodiment, V1: the prototype is too low and the books lie flat.",
 							after: { image: "fix/fix-05-after.png", alt: "Physical embodiment, V2: a higher prototype, the books stand on their side." },
 						},
 					],

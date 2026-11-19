@@ -108,30 +108,22 @@
 
 /** @typedef {BlockBase & { type: 'beforeAfter', pages: ImageRef[] }} BeforeAfterBlock */
 
-/**
- * One before → after comparison: two images of the same framing (same ratio).
- * @typedef {object} RevealPair
- * @property {ImageRef} before
- * @property {ImageRef} after
- */
-
-/**
- * WebGL fork of the carousel (Martial): one viewer, each pair turning from before to after with a
- * radial shader reveal; thumbnails below switch pairs.
- * @typedef {BlockBase & { type: 'beforeAfterReveal', pairs: RevealPair[] }} BeforeAfterRevealBlock
- */
 
 /**
  * 'grid' = image grid; 'desk' = photos scattered on a desk, to drag around and pile up in the
- * middle (`columns` and `fit` are then ignored). Default: `site.galleryVariant`.
- * @typedef {'grid' | 'desk'} GalleryVariant
+ * middle; 'viewer' = one image at a time in a WebGL viewer, thumbnails below, before / after pairs
+ * revealed with a shader (Martial). `columns` and `fit` only apply to 'grid'.
+ * Default: `site.galleryVariant`.
+ * @typedef {'grid' | 'desk' | 'viewer'} GalleryVariant
  */
 
 /**
- * A gallery image. `group` (desk only, Martial's label, not a student text): the photos sharing a
- * label are shown together; the labels are listed on the desk in order of first appearance, and
- * a group lines up in the order of the items.
- * @typedef {ImageRef & { group?: string }} GalleryItem
+ * A gallery image. `group` (desk and viewer, Martial's label, not a student text): the photos
+ * sharing a label are shown together; the labels are listed in order of first appearance, and a
+ * group lines up in the order of the items. `after` (viewer only): the same view after the fix,
+ * same framing; the item is then a before / after pair (`image` = before). Grid and desk show
+ * `image` only.
+ * @typedef {ImageRef & { group?: string, after?: ImageRef }} GalleryItem
  */
 
 /** With an odd number of items in 2 columns, the last item spans the full width. */
@@ -170,8 +162,8 @@
 
 /**
  * @typedef {HeadlineBlock | TextRowBlock | NumberedRowBlock | ScreensBlock | RemarksBlock
- *   | StatsBlock | ListBlock | BeforeAfterBlock | BeforeAfterRevealBlock | GalleryBlock | FigureBlock
- *   | VideoBlock | CreditsBlock} Block
+ *   | StatsBlock | ListBlock | BeforeAfterBlock | GalleryBlock | FigureBlock | VideoBlock
+ *   | CreditsBlock} Block
  */
 
 /** @typedef {Block['type']} BlockType */

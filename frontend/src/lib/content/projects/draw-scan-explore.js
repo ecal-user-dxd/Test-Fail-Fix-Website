@@ -223,34 +223,42 @@ const drawScanExplore = {
 					label: "",
 					text: "Five before / after comparisons show the redesign: a clear \"Touch to begin\" onboarding with drawings inviting interaction, a merged drawing flow, immediate feedback right after the scan, a plain-language \"Yes / No\" scan result, and a new \"Sign your drawing\" ending that gives the experience a proper close.",
 				},
-				// Comparaisons avant / après découpées pour le bloc « beforeAfterReveal ». Les légendes écrites
+				// Comparaisons avant / après découpées pour le bloc « gallery » (vue viewer). Les légendes écrites
 				// sous chaque image d'origine (« Onboarding - a lock screen… ») ne sont pas reprises (originaux gardés).
 				{
-					type: "beforeAfterReveal",
-					pairs: [
+					type: "gallery",
+					variant: "viewer",
+					columns: 1,
+					fit: "contain",
+					items: [
 						// fix-01.png (Fix/…FixImages_01.png), découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/fix-01-before.png", alt: "Onboarding: a lock screen with “Draw a fruit or vegetable”." },
+							image: "fix/fix-01-before.png",
+							alt: "Onboarding: a lock screen with “Draw a fruit or vegetable”.",
 							after: { image: "fix/fix-01-after.png", alt: "Onboarding: “Be part of the collection.” with drawings floating in and “Touch to begin”." },
 						},
 						// fix-02.png (Fix/…FixImages_02.png), découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/fix-02-before.png", alt: "Drawing: the first instruction screen, “Pick a card and draw.”" },
+							image: "fix/fix-02-before.png",
+							alt: "Drawing: the first instruction screen, “Pick a card and draw.”",
 							after: { image: "fix/fix-02-after.png", alt: "Drawing: one step-by-step screen, “Pick a paper card and draw.”" },
 						},
 						// fix-03.png (Fix/…FixImages_03.png), découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/fix-03-before.png", alt: "Scanning: “Scanning your drawing…” in low contrast." },
+							image: "fix/fix-03-before.png",
+							alt: "Scanning: “Scanning your drawing…” in low contrast.",
 							after: { image: "fix/fix-03-after.png", alt: "Scanning: a high-contrast scan with live detection feedback." },
 						},
 						// fix-04.png (Fix/…FixImages_04.png), découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/fix-04-before.png", alt: "Scan result: “Scan complete! Banana” with two confirmation buttons." },
+							image: "fix/fix-04-before.png",
+							alt: "Scan result: “Scan complete! Banana” with two confirmation buttons.",
 							after: { image: "fix/fix-04-after.png", alt: "Scan result: “Scan complete! Banana” with a plain-language confirmation." },
 						},
 						// fix-05.png (Fix/…FixImages_05.png), découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/fix-05-before.png", alt: "Ending: the collection list with a hidden name field." },
+							image: "fix/fix-05-before.png",
+							alt: "Ending: the collection list with a hidden name field.",
 							after: { image: "fix/fix-05-after.png", alt: "Ending: “Sign your drawing.” with drawings floating around." },
 						},
 					],

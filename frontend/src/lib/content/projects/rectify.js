@@ -419,11 +419,15 @@ const rectify = {
 				// écrans screens/fix13-before|after.png posés en 16:9 (split_fix_pairs.py). Paires prêtes aussi pour
 				// fix-12, fix-14, fix-15 et fix-16 dans fix/.
 				{
-					type: "beforeAfterReveal",
-					pairs: [
+					type: "gallery",
+					variant: "viewer",
+					columns: 1,
+					fit: "contain",
+					items: [
 						// fix-13.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/fix-13-before.png", alt: "Album page, first version." },
+							image: "fix/fix-13-before.png",
+							alt: "Album page, first version.",
 							after: { image: "fix/fix-13-after.png", alt: "Album page, updated version: upcoming show tag, other albums in store, read more, play/pause button." },
 						},
 					],

@@ -219,43 +219,53 @@ const helmetric = {
 					type: "headline",
 					text: "Following an analysis of our insights, we set about modifying our prototype.",
 				},
-				// Diapositives avant / après de la présentation, découpées pour le bloc « beforeAfterReveal » (ex-carrousel).
+				// Diapositives avant / après de la présentation, découpées pour le bloc « gallery » (vue viewer) (ex-carrousel).
 				{
-					type: "beforeAfterReveal",
-					pairs: [
+					type: "gallery",
+					variant: "viewer",
+					columns: 1,
+					fit: "contain",
+					items: [
 						// fix-01.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/fix-01-before.png", alt: "What should I read? The “Your results” screen, first version." },
+							image: "fix/fix-01-before.png",
+							alt: "What should I read? The “Your results” screen, first version.",
 							after: { image: "fix/fix-01-after.png", alt: "What should I read? The “Your head scan result” screen." },
 						},
 						// fix-02.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/fix-02-before.png", alt: "What should I read? The “Result” screen, first version." },
+							image: "fix/fix-02-before.png",
+							alt: "What should I read? The “Result” screen, first version.",
 							after: { image: "fix/fix-02-after.png", alt: "What should I read? The “Helmet scan result” screen." },
 						},
 						// fix-03.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/fix-03-before.png", alt: "Not just on the screen: “Before looking at the result…”, first version." },
+							image: "fix/fix-03-before.png",
+							alt: "Not just on the screen: “Before looking at the result…”, first version.",
 							after: { image: "fix/fix-03-after.png", alt: "Not just on the screen: “Please collect your helmet from the box.”" },
 						},
 						// fix-04.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/fix-04-before.png", alt: "Not just on the screen: “Let’s measure your head”, first version." },
+							image: "fix/fix-04-before.png",
+							alt: "Not just on the screen: “Let’s measure your head”, first version.",
 							after: { image: "fix/fix-04-after.png", alt: "Not just on the screen: “Please take the device from the drawer and wear it.”" },
 						},
 						// fix-05.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/fix-05-before.png", alt: "Not brand affiliated: “Your selection” with brand filters." },
+							image: "fix/fix-05-before.png",
+							alt: "Not brand affiliated: “Your selection” with brand filters.",
 							after: { image: "fix/fix-05-after.png", alt: "Not brand affiliated: “Best fit for you” with three helmets." },
 						},
 						// fix-06.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/fix-06-before.png", alt: "Smile, you’re on camera: “Let’s measure your head” without any notice." },
+							image: "fix/fix-06-before.png",
+							alt: "Smile, you’re on camera: “Let’s measure your head” without any notice.",
 							after: { image: "fix/fix-06-after.png", alt: "Smile, you’re on camera: the new camera access notification." },
 						},
 						// fix-07.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/fix-07-before.png", alt: "Internal damage: the “Scanning your helmet…” screen." },
+							image: "fix/fix-07-before.png",
+							alt: "Internal damage: the “Scanning your helmet…” screen.",
 							after: { image: "fix/fix-07-after.png", alt: "Internal damage: “Scanning in progress…” with the UV disinfection." },
 						},
 					],

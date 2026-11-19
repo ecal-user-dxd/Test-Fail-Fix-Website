@@ -3,14 +3,16 @@
 	Image grid of 16:9 cells, 5 px gaps and top/bottom padding, side margins = `--margin` like the
 	figure block (Martial). Grey frame on white pages,
 	transparent on orange ones. In two columns, an odd last item spans the full width.
-	`variant: 'desk'` shows the photos scattered on a desk instead (see GalleryDesk); without a
-	`variant`, the block follows `site.galleryVariant`.
+	`variant: 'desk'` shows the photos scattered on a desk instead (see GalleryDesk), `variant:
+	'viewer'` one at a time in a WebGL viewer with thumbnails and before / after pairs (see
+	GalleryViewer); without a `variant`, the block follows `site.galleryVariant`.
 -->
 <script>
 	/** @import { GalleryItem, GalleryVariant, Theme } from '#lib/content/types.js' */
 	import Picture from '#lib/components/ui/Picture.svelte';
 	import { site } from '#lib/content/site.js';
 	import GalleryDesk from './GalleryDesk.svelte';
+	import GalleryViewer from './GalleryViewer.svelte';
 
 	/**
 	 * @typedef {object} Props
@@ -31,6 +33,8 @@
 
 {#if variant === 'desk'}
 	<GalleryDesk {items} {theme} {priority} />
+{:else if variant === 'viewer'}
+	<GalleryViewer {items} {theme} {priority} />
 {:else}
 	<ul class="gallery" data-surface={theme} style:--columns={columns}>
 		{#each items as item, i (item.image)}

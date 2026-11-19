@@ -290,69 +290,84 @@ const lostAndFound = {
 					label: "",
 					text: "Based on user insights that we gathered through user testing, we focused mainly on improving digital interface and made some minor yet significant changes regarding the general accessibility of our digital interface. We focused on:\n• Improving test readability\n• Making buttons more interactive\n• Improving the tapping card feature by adding more visual cues\n• Reduced the amount of text on the interface to improve cognitive load\n• Increased the size of buttons\n• Removed unused information like locker number from the interface",
 				},
-				// Comparaisons avant → après découpées pour le bloc « beforeAfterReveal » (originaux gardés dans fix/).
+				// Comparaisons avant → après découpées pour le bloc « gallery » (vue viewer) (originaux gardés dans fix/).
 				// Ordre : celui de leur liste quand l'image correspond à un point, puis les autres.
 				{
-					type: "beforeAfterReveal",
-					pairs: [
+					type: "gallery",
+					variant: "viewer",
+					columns: 1,
+					fit: "contain",
+					items: [
 						// fix/text-size-improvement.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/text-size-improvement-before.png", alt: "Register card, first version, with small text." },
+							image: "fix/text-size-improvement-before.png",
+							alt: "Register card, first version, with small text.",
 							after: { image: "fix/text-size-improvement-after.png", alt: "Register card with larger text." },
 						},
 						// fix/font-size.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/font-size-before.png", alt: "Folder tabs with small vertical text." },
+							image: "fix/font-size-before.png",
+							alt: "Folder tabs with small vertical text.",
 							after: { image: "fix/font-size-after.png", alt: "Folder tabs with larger vertical text." },
 						},
 						// fix/making-button-interactive.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/making-button-interactive-before.png", alt: "A flat “Start describing” button." },
+							image: "fix/making-button-interactive-before.png",
+							alt: "A flat “Start describing” button.",
 							after: { image: "fix/making-button-interactive-after.png", alt: "The “Start describing” button made to look clickable." },
 						},
 						// fix/improving-tapping-card.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/improving-tapping-card-before.png", alt: "Contact slip, first version." },
+							image: "fix/improving-tapping-card-before.png",
+							alt: "Contact slip, first version.",
 							after: { image: "fix/improving-tapping-card-after.png", alt: "Contact slip with a dashed area “Tap your student card here to autofill your details.”" },
 						},
 						// fix/improving-all-buttons.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/improving-all-buttons-before.png", alt: "Small answer buttons." },
+							image: "fix/improving-all-buttons-before.png",
+							alt: "Small answer buttons.",
 							after: { image: "fix/improving-all-buttons-after.png", alt: "Larger, more visible answer buttons." },
 						},
 						// fix/improving-all-buttons-2.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/improving-all-buttons-2-before.png", alt: "Object card with small answer buttons." },
+							image: "fix/improving-all-buttons-2-before.png",
+							alt: "Object card with small answer buttons.",
 							after: { image: "fix/improving-all-buttons-2-after.png", alt: "Object card with larger answer buttons." },
 						},
 						// fix/removing-locker-number.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/removing-locker-number-before.png", alt: "Record tag with the locker number." },
+							image: "fix/removing-locker-number-before.png",
+							alt: "Record tag with the locker number.",
 							after: { image: "fix/removing-locker-number-after.png", alt: "Record tag without the locker number." },
 						},
 						// fix/improving-date-picker.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/improving-date-picker-before.png", alt: "Found date picker: a list of numbers." },
+							image: "fix/improving-date-picker-before.png",
+							alt: "Found date picker: a list of numbers.",
 							after: { image: "fix/improving-date-picker-after.png", alt: "Found date picker: a keypad." },
 						},
 						// fix/interface-1.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/interface-1-before.png", alt: "Home screen, first version." },
+							image: "fix/interface-1-before.png",
+							alt: "Home screen, first version.",
 							after: { image: "fix/interface-1-after.png", alt: "Home screen, second version." },
 						},
 						// fix/interface-2.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/interface-2-before.png", alt: "Object card screen, first version." },
+							image: "fix/interface-2-before.png",
+							alt: "Object card screen, first version.",
 							after: { image: "fix/interface-2-after.png", alt: "Object card screen, second version." },
 						},
 						// fix/interface-3.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/interface-3-before.png", alt: "Found date screen, first version." },
+							image: "fix/interface-3-before.png",
+							alt: "Found date screen, first version.",
 							after: { image: "fix/interface-3-after.png", alt: "Found date screen, second version." },
 						},
 						// fix/interface-4.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							before: { image: "fix/interface-4-before.png", alt: "Found date screen with the keypad, first version." },
+							image: "fix/interface-4-before.png",
+							alt: "Found date screen with the keypad, first version.",
 							after: { image: "fix/interface-4-after.png", alt: "Found date screen with the keypad, second version." },
 						},
 					],
