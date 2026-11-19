@@ -8,6 +8,22 @@
 	import SkipLink from '#lib/components/layout/SkipLink.svelte';
 
 	let { children } = $props();
+
+	// Tuning panel (lil-gui), `pnpm dev` only. `import.meta.env.DEV` is replaced at build time,
+	// so neither the panel nor lil-gui reaches the static site.
+	$effect(() => {
+		if (import.meta.env.DEV) {
+			let unmount = () => {};
+			let gone = false;
+			import('#lib/tuning/panel.js').then(({ mountTuningPanel }) => {
+				if (!gone) unmount = mountTuningPanel();
+			});
+			return () => {
+				gone = true;
+				unmount();
+			};
+		}
+	});
 </script>
 
 <svelte:head>

@@ -2,9 +2,12 @@ import adapter from '@sveltejs/adapter-static';
 import { enhancedImages } from '@sveltejs/enhanced-img';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
+import { tuning } from './vite-plugin-tuning.js';
 
 export default defineConfig({
 	plugins: [
+		// Dev only: saves the tuning panel's values (src/lib/tuning/values.json).
+		tuning(),
 		// Must come before the SvelteKit plugin.
 		enhancedImages(),
 		sveltekit({

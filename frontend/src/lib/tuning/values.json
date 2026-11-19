@@ -1,0 +1,22 @@
+{
+	"postIt": {
+		"enabled": true,
+		"maxTurn": 8,
+		"depth": 1090,
+		"speed": 8,
+		"perspective": 1000,
+		"light": 2,
+		"shadowShift": 0.8
+	},
+	"desk": {
+		"grid": true,
+		"spacing": 40,
+		"lineWidth": 1,
+		"lineColor": "#000000",
+		"lineOpacity": 0.08,
+		"background": "#f2f2f5",
+		"inertia": 1,
+		"friction": 6,
+		"bounce": 0.35
+	}
+}
