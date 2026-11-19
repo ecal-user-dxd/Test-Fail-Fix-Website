@@ -12,8 +12,11 @@ import returnShelfMachine from './return-shelf-machine.js';
 
 /** @import { Project } from '../types.js' */
 
+/** Alphabetical by title (Martial): neutral between groups, a new project files itself. */
 /** @type {Project[]} */
-export const projects = [rectify, helmetric, freshdrop, returnShelfMachine, drawScanExplore, lostAndFound];
+export const projects = [rectify, helmetric, freshdrop, returnShelfMachine, drawScanExplore, lostAndFound].sort(
+	(a, b) => a.title.localeCompare(b.title, 'en', { sensitivity: 'base' })
+);
 
 /** @param {string} slug */
 export const getProject = (slug) => projects.find((p) => p.slug === slug);
