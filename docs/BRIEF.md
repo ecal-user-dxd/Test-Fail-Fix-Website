@@ -412,8 +412,10 @@ Pour chaque composant : fichier, props, rendu, états, accessibilité. **Valide 
 - Sémantique `<ol>`.
 
 **`BeforeAfter`** (Fix) — Figma `579:192`, **interactif**, voir §9.
-- Viewport 16:9 (1688×950), rayon 5, padding 40 / 20.
+- ~~Viewport 16:9 (1688×950), rayon 5, padding 40 / 20.~~ Revu par Martial (19.11.2026) : carrousel en **boucle**, slides 16:9 aux **coins arrondis** (`--radius-slide`, 16), les slides voisines **dépassent sur les côtés** (60 + espace 20), filet 1 px pour les slides blanches ; padding vertical 40.
 - Pager sous l'image (espacement 14) : boutons `01`…`06`.
+
+**`BeforeAfterReveal`** (bloc `beforeAfterReveal`, ajouté par Martial le 19.11.2026) — fork WebGL (Three.js, chargé à la demande) du carrousel : une image `before` qui devient l'image `after`. Front radial depuis le milieu du bord gauche, ombrage radial dans un shader, inclinaison 3D vers le curseur. Commandes : glisser l'image, range « Before / After » dessous, clic = joue la transition. Repli CSS (cercle) sans WebGL. Exemple provisoire sur Rectify / Fix (images à remplacer).
 
 **`Gallery`**
 - Grille 2 colonnes, cellules 16:9, gouttières 5.
@@ -518,7 +520,7 @@ Les blocs viennent du fichier de contenu, dans cet ordre. Compare toujours avec 
 - Pager `01`…`06` :
   - clic : va à la page ;
   - page active : style actif + `aria-current="true"`.
-- Clic sur l'image : page suivante (boucle de 06 vers 01).
+- Clic sur l'image : page suivante (boucle de 06 vers 01) ; clic sur la slide qui dépasse à gauche : page précédente.
 - Clavier : ← / → quand le composant a le focus.
 - Tactile : swipe horizontal (pointer events, sans librairie).
 - Accessibilité :

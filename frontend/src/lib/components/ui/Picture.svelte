@@ -16,6 +16,8 @@
 	 * @property {string} [position]          CSS object-position of a cropped image
 	 * @property {number} [ratio]             frame width / height; defaults to the image ratio
 	 * @property {boolean} [priority]         above the fold: eager + fetchpriority high
+	 * @property {'lazy' | 'eager'} [loading]  overrides the default (eager if priority, else lazy),
+	 *                                         e.g. carousel slides hidden by overflow but shown soon
 	 * @property {string} [class]
 	 */
 
@@ -28,6 +30,7 @@
 		position = '50% 50%',
 		ratio,
 		priority = false,
+		loading,
 		class: className
 	} = $props();
 
@@ -46,7 +49,7 @@
 		src={picture}
 		{alt}
 		{sizes}
-		loading={priority ? 'eager' : 'lazy'}
+		loading={loading ?? (priority ? 'eager' : 'lazy')}
 		fetchpriority={priority ? 'high' : 'auto'}
 		decoding="async"
 	/>
