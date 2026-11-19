@@ -181,15 +181,19 @@ const freshdrop = {
 					label: "The key lesson",
 					text: "The two biggest problems were both on the result screen: people couldn't tell what was happening, and didn't understand why. Those had to be fixed first.",
 				},
+				// Le seul média du dossier Fail (à la place des diapositives de la présentation, Martial).
+				// [À CONFIRMER] une participante est filmée : consentement à la publication ? Piste audio : parole ?
 				{
-					type: "gallery",
-					columns: 2,
-					fit: "contain",
-					// Diapositives de la présentation (p. 62, 63, 66) : le dossier Fail n'a qu'une vidéo
+					type: "video",
+					columns: 1,
 					items: [
-						{ image: "fail-01.png", alt: "Presentation slide: participants' notes, colour-coded by task." },
-						{ image: "fail-02.png", alt: "Presentation slide: participants' notes, colour-coded by task (continued)." },
-						{ image: "fail-03.png", alt: "Presentation slide: coding the observations into friction themes." },
+						{
+							src: "/projects/freshdrop/videos/fail-confusion.mp4", // Fail/Confusion_UserTest.mp4
+							poster: "/projects/freshdrop/videos/fail-confusion.webp",
+							width: 576,
+							height: 1024,
+							label: "User test: a participant hesitates in front of the FreshDrop machine, tin in hand.",
+						},
 					],
 				},
 			],
@@ -308,6 +312,20 @@ const freshdrop = {
 					image: "main-01.jpg", // Showcase_image/Freshdrop_Hero image.jpg
 					alt: "The FreshDrop machine on a white plinth: a tablet above a glass scanning box and a drawer.",
 				},
+				// [À CONFIRMER] piste audio : parole ou musique ?
+				{
+					type: "video",
+					columns: 1,
+					items: [
+						{
+							src: "/projects/freshdrop/videos/demo.mp4", // Intro/Freshdrop_Video.mp4 (= Showcase_image/Freshdrop_Video.mp4)
+							poster: "/projects/freshdrop/videos/demo.webp",
+							width: 1920,
+							height: 1080,
+							label: "Demo: opening the FreshDrop machine, answering “Is the food sealed?” and placing a tin inside.",
+						},
+					],
+				},
 				{
 					type: "gallery",
 					columns: 2,
@@ -354,8 +372,8 @@ const freshdrop = {
 			"Total errors observed: 7 on Task 1, 9 on Task 2. That is 1.17 vs 1.50 errors per participant.",
 			"One critical failure by the study's own definition (blocks completion or produces a wrong outcome the user does not realise is wrong): P04 on Task 2.",
 		],
-		// Médias non utilisés : vidéos (Showcase_image/Freshdrop_Video.mp4, Fail/Confusion_UserTest.mp4,
-		// FreshDrop_Interface.mov), MachinePrototype.jpeg (740 px), Deliverables_SeoyunDelphine.fig.
+		// Médias non utilisés : vidéo FreshDrop_Interface.mov, diapositives de la présentation p. 62, 63
+		// et 66 (remplacées en Fail par leur vidéo), MachinePrototype.jpeg (740 px), Deliverables_SeoyunDelphine.fig.
 	},
 };
 

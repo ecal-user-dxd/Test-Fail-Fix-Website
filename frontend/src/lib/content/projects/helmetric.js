@@ -229,6 +229,28 @@ const helmetric = {
 						{ image: "fix-08.png", alt: "Hands-free: examples of helmet holders and hooks." },
 					],
 				},
+				// 3-Fix/2a-z-after.mp4 et 5-z-after.mp4 : écrans « après », côte à côte.
+				// [À CONFIRMER] piste audio : parole ou ambiance ?
+				{
+					type: "video",
+					columns: 2,
+					items: [
+						{
+							src: "/projects/helmetric/videos/fix-2a-after.mp4", // 3-Fix/2a-z-after.mp4
+							poster: "/projects/helmetric/videos/fix-2a-after.webp",
+							width: 1308,
+							height: 946,
+							label: "After: the screen “Please place your helmet in the open box.”, then the “It's in the box” button appears.",
+						},
+						{
+							src: "/projects/helmetric/videos/fix-5-after.mp4", // 3-Fix/5-z-after.mp4
+							poster: "/projects/helmetric/videos/fix-5-after.webp",
+							width: 1310,
+							height: 944,
+							label: "After: the scanning screen “Scanning in progress…”, with the helmet scan animation.",
+						},
+					],
+				},
 				// verbatim — suite du 1er paragraphe et 2e paragraphe (libellé = titre de la page « Design iteration » de la documentation V2)
 				{
 					type: "textRow",
@@ -398,7 +420,7 @@ const helmetric = {
 			{ number: "06", title: "Hands-free", improvement: "Location of the helmet during the head scan", affectedTesters: "5/6" },
 		],
 		// Médias du dossier non utilisés : captures avant / après séparées (3-Fix/*.png, 3-Fix/extra/*),
-		// vidéos 3-Fix/2a-z-after.mp4 et 5-z-after.mp4, RAW 1-Test/*.RW2, fichiers .fig / .jam, code des prototypes (Prototypes/*.zip).
+		// RAW 1-Test/*.RW2, fichiers .fig / .jam, code des prototypes (Prototypes/*.zip).
 	},
 };
 

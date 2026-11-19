@@ -185,7 +185,20 @@ const returnShelfMachine = {
 						{ image: "fail-09.png", alt: "Affinity mapping of all the observations." }, // Fail/…Failimages_09.png
 					],
 				},
-				// Failimages_05 est une vidéo (mp4) : pas de bloc vidéo dans le gabarit.
+				// Failimages_05 (vidéo de [2-Fail-04~09]) : après la galerie, pour ne pas couper le bureau en deux.
+				{
+					type: "video",
+					columns: 1,
+					items: [
+						{
+							src: "/projects/return-shelf-machine/videos/fail-05.mp4", // Fail/…Failimages_05.mp4
+							poster: "/projects/return-shelf-machine/videos/fail-05.webp",
+							width: 1404,
+							height: 754,
+							label: "The tablet interface during the test, next to the phone used to control it.",
+						},
+					],
+				},
 			],
 			next: { label: "Next chapter", number: "03", title: "Fix", to: "fix" },
 		},
@@ -230,7 +243,35 @@ const returnShelfMachine = {
 						{ image: "fix-08.png", alt: "Potential amelioration: comparing two picked books, Words form language and The Life of Things." }, // Fix/…Fixmages_08.png
 					],
 				},
-				// Fixmages_04, 06 et 07 sont des vidéos (mp4) : pas de bloc vidéo dans le gabarit.
+				// Fixmages_04, 06 et 07 (vidéos de [3-Fix-02~08]) : après les comparaisons, dans l'ordre.
+				// [À CONFIRMER] 04 et 06 ont une piste audio : parole ou ambiance ? (sous-titres si parole)
+				{
+					type: "video",
+					columns: 1,
+					items: [
+						{
+							src: "/projects/return-shelf-machine/videos/fix-04.mp4", // Fix/…Fixmages_04.mp4
+							poster: "/projects/return-shelf-machine/videos/fix-04.webp",
+							width: 1556,
+							height: 1080,
+							label: "V2 first encounter: the scanned book appears on the screen, then its details open.",
+						},
+						{
+							src: "/projects/return-shelf-machine/videos/fix-06.mp4", // Fix/…Fixmages_06.mp4
+							poster: "/projects/return-shelf-machine/videos/fix-06.webp",
+							width: 1546,
+							height: 1080,
+							label: "V2 navigation: related books linked to their place on the library shelves.",
+						},
+						{
+							src: "/projects/return-shelf-machine/videos/fix-07.mp4", // Fix/…Fixmages_07.mp4
+							poster: "/projects/return-shelf-machine/videos/fix-07.webp",
+							width: 1546,
+							height: 1080,
+							label: "V2 navigation: switching between the Designer, Returned with and Materiality tags.",
+						},
+					],
+				},
 			],
 			next: {
 				label: "Next chapter",
@@ -253,6 +294,20 @@ const returnShelfMachine = {
 					type: "figure",
 					image: "main-01.png", // Showcase_image/…Intro2.png
 					alt: "The Returned Book Shelf: books standing on a shelf next to a tablet on a stand.",
+				},
+				// [À CONFIRMER] piste audio : parole ou musique ? (les sous-titres sont incrustés dans l'image)
+				{
+					type: "video",
+					columns: 1,
+					items: [
+						{
+							src: "/projects/return-shelf-machine/videos/demo.mp4", // Intro/…TestFailFix_Demo.mp4
+							poster: "/projects/return-shelf-machine/videos/demo.webp",
+							width: 1920,
+							height: 1080,
+							label: "Demo: a book is taken from the shelf, and the tablet shows related books in the library.",
+						},
+					],
 				},
 				{
 					type: "gallery",
@@ -292,8 +347,8 @@ const returnShelfMachine = {
 		researchQuestion: "Does the interface allow a designer to discover material and visual references they would not have found through conventional search, and does the experience feel natural and self-explanatory?",
 		// UserBehaviorDiscovery…pdf, fin de « 5.2. v2 improvement objectives »
 		v2Decision: "Decision made to work mainly on Objective 1,2, and partially on 3.\nLeave Objective 4 as a future improvement.",
-		// Médias non utilisés : vidéos (Showcase_image/…Demo.mp4, Fail/…Failimages_05.mp4, Fix/…Fixmages_04/06/07.mp4,
-		// WizardOfOz_RemoteControllerSetup….mov), variantes Intro/…Intro2 copy*.png et .psd, 2 .docx (= les 2 PDF).
+		// Médias non utilisés : vidéos Showcase_image/…Demo.mp4 (= Intro/…Demo.mp4, utilisée) et
+		// WizardOfOz_RemoteControllerSetup….mov, variantes Intro/…Intro2 copy*.png et .psd, 2 .docx (= les 2 PDF).
 	},
 };
 
