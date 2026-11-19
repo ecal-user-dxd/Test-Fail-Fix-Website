@@ -132,13 +132,31 @@
 
 /** @typedef {BlockBase & { type: 'figure', image: ImagePath, alt: string }} FigureBlock */
 
+/**
+ * A video in `static/` (paths as for `Documentation.href`): H.264 MP4 re-encoded from the group's
+ * file (1080p max, `+faststart`), a WebP poster frame, and its pixel size.
+ * @typedef {object} VideoRef
+ * @property {string} src
+ * @property {string} poster
+ * @property {number} width
+ * @property {number} height
+ * @property {string} label       accessible name: what the video shows (not a student text)
+ * @property {string} [captions]  WebVTT file, for videos with speech
+ */
+
+/**
+ * Videos in the gallery grid, at their own ratio, with native controls. No autoplay.
+ * With an odd number of items in 2 columns, the last item spans the full width.
+ * @typedef {BlockBase & { type: 'video', columns: 1 | 2, items: VideoRef[] }} VideoBlock
+ */
+
 /** Reads `project.authors`, `year` and `documentation`. */
 /** @typedef {BlockBase & { type: 'credits' }} CreditsBlock */
 
 /**
  * @typedef {HeadlineBlock | TextRowBlock | NumberedRowBlock | ScreensBlock | RemarksBlock
  *   | StatsBlock | ListBlock | BeforeAfterBlock | BeforeAfterRevealBlock | GalleryBlock | FigureBlock
- *   | CreditsBlock} Block
+ *   | VideoBlock | CreditsBlock} Block
  */
 
 /** @typedef {Block['type']} BlockType */

@@ -20,6 +20,7 @@
 	import Screens from './Screens.svelte';
 	import Stats from './Stats.svelte';
 	import TextRow from './TextRow.svelte';
+	import Video from './Video.svelte';
 
 	/**
 	 * @typedef {object} Props
@@ -43,6 +44,7 @@
 		beforeAfterReveal: BeforeAfterReveal,
 		gallery: Gallery,
 		figure: Figure,
+		video: Video,
 		credits: Credits
 	};
 
@@ -80,6 +82,12 @@
 	}
 
 	[data-block='figure'] + [data-block='gallery'] {
+		margin-top: 0;
+	}
+
+	/* Conclusion with a demo video: figure, video and gallery stack 5 apart, like figure → gallery. */
+	[data-block='figure'] + [data-block='video'],
+	[data-block='figure'] + [data-block='video'] + [data-block='gallery'] {
 		margin-top: 0;
 	}
 
