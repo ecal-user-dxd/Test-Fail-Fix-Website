@@ -9,6 +9,7 @@
 	/** @import { Block, BlockType, Theme } from '#lib/content/types.js' */
 	import { dev } from '$app/env';
 	import BeforeAfter from './BeforeAfter.svelte';
+	import BeforeAfterReveal from './BeforeAfterReveal.svelte';
 	import Credits from './Credits.svelte';
 	import Figure from './Figure.svelte';
 	import Gallery from './Gallery.svelte';
@@ -39,13 +40,14 @@
 		stats: Stats,
 		list: List,
 		beforeAfter: BeforeAfter,
+		beforeAfterReveal: BeforeAfterReveal,
 		gallery: Gallery,
 		figure: Figure,
 		credits: Credits
 	};
 
 	/** @type {Set<BlockType>} */
-	const MEDIA = new Set(['screens', 'remarks', 'beforeAfter', 'gallery', 'figure']);
+	const MEDIA = new Set(['screens', 'remarks', 'beforeAfter', 'beforeAfterReveal', 'gallery', 'figure']);
 
 	/** The first media block is above the fold on every page: it loads with high priority. */
 	const firstMedia = $derived(blocks.findIndex((block) => MEDIA.has(block.type)));

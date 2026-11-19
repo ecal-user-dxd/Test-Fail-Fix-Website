@@ -39,6 +39,10 @@ export function collectImages(page) {
 			case 'beforeAfter':
 				for (const item of block.pages) paths.add(item.image);
 				break;
+			case 'beforeAfterReveal':
+				paths.add(block.before.image);
+				paths.add(block.after.image);
+				break;
 			case 'remarks':
 			case 'figure':
 				paths.add(block.image);
