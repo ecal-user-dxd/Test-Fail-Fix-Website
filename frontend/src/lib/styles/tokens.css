@@ -14,6 +14,11 @@
 	--color-grey: #d9d9d9;
 	--color-ink-soft: #303030;
 	--color-year: #00ff22;
+	--color-slide-edge: rgb(0 0 0 / 0.1); /* hairline around before / after slides */
+
+	/* Post-it notes, one colour per review type (Figma Fail/Post-it 483:46). */
+	--color-note-worked: #b3efbb; /* Tone=Praise */
+	--color-note-didnt: #fde096; /* Tone=Pain */
 
 	/* Grey labels: ≥ 4.5:1 on their background (WCAG AA, any size). */
 	--color-muted-on-paper: rgb(0 0 0 / 0.54);
@@ -28,13 +33,13 @@
 
 	--type-display: clamp(4.5rem, 12.731vw, 20.35rem); /* 220 */
 	--type-headline: clamp(2.5rem, 5.787vw, 9.25rem); /* 100 */
-	--type-edition: clamp(1.5rem, 2.894vw, 4.625rem); /* 50 */
 	--type-compact-title: clamp(1.25rem, 1.91vw, 3.05rem); /* 33 */
 	--type-label: clamp(1.25rem, 1.736vw, 2.775rem); /* 30 */
 	--type-body: clamp(1.0625rem, 1.447vw, 2.3125rem); /* 25 */
 	--type-number: clamp(0.875rem, 1.157vw, 1.85rem); /* 20 */
 	--type-button: clamp(0.875rem, 1.157vw, 1.85rem); /* 20, uppercase */
 	--type-small: clamp(0.8125rem, 0.955vw, 1.525rem); /* 16.5 */
+	--type-note: clamp(0.9375rem, 1.042vw, 1.665rem); /* 18, post-it text */
 
 	--leading-display: 0.85;
 	--leading-headline: 1;
@@ -55,6 +60,7 @@
 	--margin: 20px;
 	--column-gap: 6px; /* 2 × 841 columns, right column at x 867 */
 	--gutter: 0.3125rem; /* 5 px: padding and gap of image grids (Martial: in rem) */
+	--brand-gap: clamp(1rem, 4.167vw, 6.66rem); /* 72: « Scan Everything » → project title */
 
 	/* -------------------------------------------------------------- Spacing */
 	--space-block: clamp(2rem, 2.894vw, 4.625rem); /* 50 */
@@ -68,8 +74,14 @@
 
 	/* ---------------------------------------------------------------- Shape */
 	--radius-screen: 5px;
+	--radius-slide: calc(16 * var(--u)); /* before / after slides (Martial) */
 	--radius-chip: 3px;
 	--rule: 1px solid var(--color-ink);
+	--shadow-note: 0 calc(3.7 * var(--u)) calc(45.75 * var(--u)) calc(6.46 * var(--u))
+		rgb(0 0 0 / 0.25); /* Figma effect « drop » */
+	/* Gallery desk: photo lying on the desk, and picked up (hover, drag). */
+	--shadow-photo: 0 calc(2 * var(--u)) calc(10 * var(--u)) rgb(0 0 0 / 0.18);
+	--shadow-photo-lifted: 0 calc(24 * var(--u)) calc(50 * var(--u)) rgb(0 0 0 / 0.28);
 
 	/* --------------------------------------------------------------- Motion */
 	--duration-hover: 150ms;

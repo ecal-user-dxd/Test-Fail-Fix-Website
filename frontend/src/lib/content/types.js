@@ -22,7 +22,7 @@
 /**
  * @typedef {object} Documentation
  * @property {string} label
- * @property {string} href  path of the file in `static/` (a leading slash is tolerated)
+ * @property {string} href  path of the file in `static/` (a leading slash is tolerated); '' hides the credits row
  */
 
 /**
@@ -90,16 +90,34 @@
  */
 
 /**
+ * 'postits' = post-it board grouped by `tone`, `legend` as titles: the default when any item has
+ * a tone. 'rows' = ruled list: the default otherwise, or set it to keep a toned list ruled.
+ * @typedef {'rows' | 'postits'} ListVariant
+ */
+
+/**
  * @typedef {BlockBase & {
  *   type: 'list',
  *   columns: 1 | 2,
  *   items: ListItem[],
  *   legend?: Record<Tone, string>,
- *   showTone?: boolean
+ *   showTone?: boolean,
+ *   variant?: ListVariant
  * }} ListBlock
  */
 
 /** @typedef {BlockBase & { type: 'beforeAfter', pages: ImageRef[] }} BeforeAfterBlock */
+
+/**
+ * WebGL fork of the carousel (Martial): one image turning into another, radial shader reveal.
+ * @typedef {BlockBase & { type: 'beforeAfterReveal', before: ImageRef, after: ImageRef }} BeforeAfterRevealBlock
+ */
+
+/**
+ * 'grid' = image grid; 'desk' = photos scattered on a desk, to drag around and pile up in the
+ * middle (`columns` and `fit` are then ignored). Default: `site.galleryVariant`.
+ * @typedef {'grid' | 'desk'} GalleryVariant
+ */
 
 /** With an odd number of items in 2 columns, the last item spans the full width. */
 /**
@@ -107,7 +125,8 @@
  *   type: 'gallery',
  *   columns: 1 | 2,
  *   fit: 'cover' | 'contain',
- *   items: ImageRef[]
+ *   items: ImageRef[],
+ *   variant?: GalleryVariant
  * }} GalleryBlock
  */
 
@@ -118,7 +137,8 @@
 
 /**
  * @typedef {HeadlineBlock | TextRowBlock | NumberedRowBlock | ScreensBlock | RemarksBlock
- *   | StatsBlock | ListBlock | BeforeAfterBlock | GalleryBlock | FigureBlock | CreditsBlock} Block
+ *   | StatsBlock | ListBlock | BeforeAfterBlock | BeforeAfterRevealBlock | GalleryBlock | FigureBlock
+ *   | CreditsBlock} Block
  */
 
 /** @typedef {Block['type']} BlockType */
@@ -154,6 +174,7 @@
  * @property {string} [accent]       CSS colour overriding --color-accent
  * @property {Page} home
  * @property {Chapter[]} chapters
+ * @property {Record<string, unknown>} [extra]  group info the template does not show (yet), kept verbatim
  */
 
 /* ------------------------------------------------------------------ Runtime */
