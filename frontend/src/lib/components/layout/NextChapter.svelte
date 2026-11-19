@@ -5,6 +5,7 @@
 -->
 <script>
 	/** @import { Next } from '#lib/content/types.js' */
+	import DisplayLink from '#lib/components/ui/DisplayLink.svelte';
 
 	/**
 	 * @typedef {object} Props
@@ -15,48 +16,14 @@
 
 	/** @type {Props} */
 	let { next, href, surface } = $props();
-
-	const arrow = $derived(next.arrow === 'up' ? '↑' : '→');
 </script>
 
-<nav class="next" aria-label={next.label} data-surface={surface}>
-	<a {href}>
-		<span class="sr-only">{next.label}{next.number ? ` ${next.number}` : ''}:</span>
-		<span class="title">{next.title} <span aria-hidden="true">{arrow}</span></span>
-	</a>
+<nav aria-label={next.label}>
+	<DisplayLink
+		{href}
+		title={next.title}
+		arrow={next.arrow}
+		{surface}
+		hint="{next.label}{next.number ? ` ${next.number}` : ''}:"
+	/>
 </nav>
-
-<style>
-	.next {
-		border-top: var(--rule);
-	}
-
-	a {
-		display: block;
-		padding: var(--space-40) var(--margin);
-		background: var(--surface-bg);
-		transition: background-color var(--duration-hover);
-	}
-
-	[data-surface='paper'] {
-		--surface-bg: var(--color-paper);
-		--surface-hover: var(--color-accent);
-	}
-
-	[data-surface='accent'] {
-		--surface-bg: var(--color-accent);
-		--surface-hover: var(--color-paper);
-	}
-
-	a:hover {
-		background: var(--surface-hover);
-	}
-
-	.title {
-		display: block;
-		font-size: var(--type-display);
-		line-height: var(--leading-display);
-		letter-spacing: var(--tracking-display);
-		white-space: nowrap;
-	}
-</style>

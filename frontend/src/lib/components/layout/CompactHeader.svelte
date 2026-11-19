@@ -64,7 +64,7 @@
 	.brand {
 		display: flex;
 		align-items: center;
-		gap: clamp(1rem, 4.167vw, 6.66rem); /* 72 */
+		gap: var(--brand-gap);
 		letter-spacing: var(--tracking-tight);
 		line-height: 1;
 	}
