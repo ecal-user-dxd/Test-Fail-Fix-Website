@@ -19,7 +19,7 @@
 
 <a {href} data-surface={surface}>
 	{#if hint}<span class="sr-only">{hint}</span>{/if}
-	<span class="title">{title} <span aria-hidden="true">{arrow === 'up' ? '↑' : '→'}</span></span>
+	<span class="title">{title.replaceAll(' - ', '\u00a0- ')}&nbsp;<span aria-hidden="true">{arrow === 'up' ? '↑' : '→'}</span></span>
 </a>
 
 <style>
@@ -29,6 +29,10 @@
 		background: var(--surface-bg);
 		border-top: var(--rule);
 		transition: background-color var(--duration-hover);
+		/* The font's ascent + descent is taller than the tight display leading: the text boxes
+		   spilled past the link and left a strip of page colour under the footer. The glyphs
+		   themselves stay well inside the padding. */
+		overflow-y: clip;
 	}
 
 	[data-surface='paper'] {
@@ -50,6 +54,10 @@
 		font-size: var(--type-display);
 		line-height: var(--leading-display);
 		letter-spacing: var(--tracking-display);
-		white-space: nowrap;
+		/* Long titles (« Return Shelf Machine », « Draw - Scan - Explore ») ran past the screen on one
+		   line: they wrap now, in balanced lines, the arrow kept on the last word and a dash on the word
+		   before it (« Draw - Scan - Explore » never starts a line with « - »). */
+		text-wrap: balance;
+		overflow-wrap: break-word;
 	}
 </style>

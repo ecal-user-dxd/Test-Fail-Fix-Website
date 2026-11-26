@@ -6,9 +6,11 @@
 	`variant: 'desk'` shows the photos scattered on a desk instead (see GalleryDesk), `variant:
 	'viewer'` one at a time in a WebGL viewer with thumbnails and before / after pairs (see
 	GalleryViewer); without a `variant`, the block follows `site.galleryVariant`.
+	Videos only ever show on a desk (Martial): a gallery with a video item is a desk, whatever its
+	`variant`.
 -->
 <script>
-	/** @import { GalleryItem, GalleryVariant, Theme } from '#lib/content/types.js' */
+	/** @import { GalleryImage, GalleryItem, GalleryVariant, Theme } from '#lib/content/types.js' */
 	import Picture from '#lib/components/ui/Picture.svelte';
 	import { site } from '#lib/content/site.js';
 	import GalleryDesk from './GalleryDesk.svelte';
@@ -29,15 +31,21 @@
 
 	/** @param {number} i */
 	const isWide = (i) => columns === 2 && items.length % 2 === 1 && i === items.length - 1;
+
+	/** @type {(item: GalleryItem) => item is GalleryImage} */
+	const isImage = (item) => !item.video;
+
+	/** Grid and viewer: only reached without videos, so this is every item. */
+	const images = $derived(items.filter(isImage));
 </script>
 
-{#if variant === 'desk'}
+{#if variant === 'desk' || images.length < items.length}
 	<GalleryDesk {items} {theme} {priority} />
 {:else if variant === 'viewer'}
-	<GalleryViewer {items} {theme} {priority} />
+	<GalleryViewer items={images} {theme} {priority} />
 {:else}
 	<ul class="gallery" data-surface={theme} style:--columns={columns}>
-		{#each items as item, i (item.image)}
+		{#each images as item, i (item.image)}
 			<li class={['cell', isWide(i) && 'wide']}>
 				<Picture
 					src={item.image}

@@ -57,6 +57,17 @@
 
 /** @typedef {BlockBase & { type: 'numberedRow', number: string, title: string, text: string }} NumberedRowBlock */
 
+/**
+ * A finding (`title` + `text`) or a list item (`number` + `text`, same shape as ListItem).
+ * @typedef {object} BentoItem
+ * @property {string} [title]
+ * @property {string} [number]
+ * @property {string} text  same line breaks as TextRowBlock.text
+ */
+
+/** Squircle cards in a bento grid; the card sizes follow from the number of items. */
+/** @typedef {BlockBase & { type: 'bento', items: BentoItem[] }} BentoBlock */
+
 /** @typedef {BlockBase & { type: 'screens', items: ImageRef[] }} ScreensBlock */
 
 /**
@@ -118,13 +129,24 @@
  */
 
 /**
- * A gallery image. `group` (desk and viewer, Martial's label, not a student text): the photos
- * sharing a label are shown together; the labels are listed in order of first appearance, and a
- * group lines up in the order of the items. `after` (viewer only): the same view after the fix,
+ * A gallery image. `group` (desk and viewer): a label copied from the students' own material
+ * (slide titles, caption tags printed on the images, the interface's step bar, headings of their
+ * texts; only text set in capitals is put in sentence case), never written by us — sources in
+ * docs/desk-legends.md. The photos sharing a label are shown together; the labels are listed in
+ * order of first appearance, and a group lines up in the order of the items. `after` (viewer only): the same view after the fix,
  * same framing; the item is then a before / after pair (`image` = before). Grid and desk show
  * `image` only.
- * @typedef {ImageRef & { group?: string, after?: ImageRef }} GalleryItem
+ * @typedef {ImageRef & { group?: string, after?: ImageRef, video?: undefined }} GalleryImage
  */
+
+/**
+ * A gallery video, `{ video: VideoRef }` in place of the image. Videos only ever show on a desk,
+ * among the photos, played in place (Martial): a gallery holding one is always a desk, whatever
+ * its `variant`. `group` as for an image.
+ * @typedef {{ video: VideoRef, group?: string, image?: undefined, after?: undefined }} GalleryVideo
+ */
+
+/** @typedef {GalleryImage | GalleryVideo} GalleryItem */
 
 /** With an odd number of items in 2 columns, the last item spans the full width. */
 /**
@@ -137,7 +159,17 @@
  * }} GalleryBlock
  */
 
-/** @typedef {BlockBase & { type: 'figure', image: ImagePath, alt: string }} FigureBlock */
+/**
+ * A film on Vimeo, shown by a cover page (Conclusion) in place of its first figure: a large poster
+ * with a play badge; a click loads the Vimeo player in its place and the film plays in the page.
+ * @typedef {object} VideoLink
+ * @property {string} href       Vimeo page URL (`vimeo.com/<id>` or `vimeo.com/<id>/<hash>`)
+ * @property {ImagePath} poster  a still of the film, optimised like every image
+ * @property {string} label      accessible name: what the film shows (not a student text)
+ */
+
+/** `video`: set by CoverPage from `Page.video`, not written in content files. */
+/** @typedef {BlockBase & { type: 'figure', image: ImagePath, alt: string, video?: VideoLink }} FigureBlock */
 
 /**
  * A video in `static/` (paths as for `Documentation.href`): H.264 MP4 re-encoded from the group's
@@ -152,18 +184,22 @@
  */
 
 /**
- * Videos in the gallery grid, at their own ratio, with native controls. No autoplay.
- * With an odd number of items in 2 columns, the last item spans the full width.
- * @typedef {BlockBase & { type: 'video', columns: 1 | 2, items: VideoRef[] }} VideoBlock
+ * A line of the Conclusion credits: a file in `static/` (downloaded, path as for `Documentation.href`)
+ * or an external URL (opens in a new tab). '' hides the line.
+ * @typedef {object} CreditLink
+ * @property {string} label  the group's own file or link name
+ * @property {string} href
  */
 
-/** Reads `project.authors`, `year` and `documentation`. */
-/** @typedef {BlockBase & { type: 'credits' }} CreditsBlock */
+/**
+ * Reads `project.authors`, `year` and `documentation`. A Conclusion can list every file of the
+ * group in `documents` (shown in place of `documentation`) and its Figma, prototypes… in `links`.
+ * @typedef {BlockBase & { type: 'credits', documents?: CreditLink[], links?: CreditLink[] }} CreditsBlock
+ */
 
 /**
- * @typedef {HeadlineBlock | TextRowBlock | NumberedRowBlock | ScreensBlock | RemarksBlock
- *   | StatsBlock | ListBlock | BeforeAfterBlock | GalleryBlock | FigureBlock | VideoBlock
- *   | CreditsBlock} Block
+ * @typedef {HeadlineBlock | TextRowBlock | NumberedRowBlock | BentoBlock | ScreensBlock | RemarksBlock
+ *   | StatsBlock | ListBlock | BeforeAfterBlock | GalleryBlock | FigureBlock | CreditsBlock} Block
  */
 
 /** @typedef {Block['type']} BlockType */
@@ -175,6 +211,7 @@
  * @property {Layout} layout
  * @property {Theme} theme
  * @property {Drawing} [drawing]
+ * @property {VideoLink} [video]  replaces the first figure block (CoverPage)
  * @property {Block[]} blocks
  * @property {Next} next
  */

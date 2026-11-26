@@ -29,6 +29,7 @@ export function collectImages(page) {
 	/** @type {Set<ImagePath>} */
 	const paths = new Set();
 	if (page.drawing) paths.add(page.drawing.image);
+	if (page.video) paths.add(page.video.poster);
 
 	for (const block of page.blocks) {
 		switch (block.type) {
@@ -37,6 +38,8 @@ export function collectImages(page) {
 				break;
 			case 'gallery':
 				for (const item of block.items) {
+					// Videos are in `static/`, posters included: nothing to optimise.
+					if (item.video) continue;
 					paths.add(item.image);
 					if (item.after) paths.add(item.after.image);
 				}

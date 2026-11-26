@@ -1,18 +1,22 @@
 <!--
 	@component
-	Orange cover header (Figma Site/Header, Page6 = home, Home = conclusion): a 406 masthead with the
-	project title and chapter index, plus the isometric drawing — large below the masthead on the
-	home, small in the top-right corner on the conclusion. On the home, the parent page sits left of
-	the title as in the compact header: « Scan Everything », 72, project title. Positions are
-	measured on the 1:1 captures (the PNG has a 40 px transparent margin).
+	Header of the orange cover pages (home and Conclusion). Since 26.11.2026 (Martial: « compact
+	header everywhere ») it is the same fixed compact header as the chapter pages, so the header
+	never changes from page to page. Below it, on the home only: the project title as the page's
+	h1 in headline size. The big name of the opening animation (ProjectIntro) glides into it
+	(`data-intro-title`); back to the index, the title glides into the project's row
+	(project-name.js). The isometric plan is drawn by the opening only for now (Martial, 26.11: it
+	used to sit in the top-right corner here, see .tmp-review/name/CoverHeader.before-scroll.svelte). A 'center' drawing from the content
+	still shows under the title. The Conclusion's 'corner' drawing is not shown any more. The former
+	masthead with the giant chapter index is kept in git history (and
+	.tmp-review/CoverHeader.before-compact.svelte).
 -->
 <script>
 	/** @import { Drawing, Project } from '#lib/content/types.js' */
-	import { resolve } from "$app/paths";
-	import ChapterIndex from "./ChapterIndex.svelte";
-	import Picture from "#lib/components/ui/Picture.svelte";
-	import { projectHref } from "#lib/content/routes.js";
-	import { site } from "#lib/content/site.js";
+	import CompactHeader from './CompactHeader.svelte';
+	import Picture from '#lib/components/ui/Picture.svelte';
+	import { onNavigate } from '$app/navigation';
+	import { leaveHome } from './project-name.js';
 
 	/**
 	 * @typedef {object} Props
@@ -24,88 +28,51 @@
 
 	/** @type {Props} */
 	let { project, current, isHome, drawing } = $props();
+
+	onNavigate(leaveHome);
 </script>
 
-<header class="cover-header">
-	<div class="masthead">
-		<div class="top">
-			{#if isHome}
-				<a class="site" href={resolve("/")}>{site.shortTitle}</a>
-				<h1 class="title">{project.title}</h1>
-			{:else}
-				<p class="title"><a href={projectHref(project)}>{project.title}</a></p>
-			{/if}
-		</div>
+<CompactHeader {project} current={current ?? ''} />
 
-		<div class="index">
-			<ChapterIndex {project} {current} />
-		</div>
-	</div>
-
-	{#if drawing}
-		<div class="drawing" data-placement={drawing.placement}>
-			<Picture
-				src={drawing.image}
-				alt={drawing.alt}
-				sizes={drawing.placement === "center" ? "34vw" : "14vw"}
-				fit="contain"
-				priority
-			/>
+<div class="cover-header">
+	{#if isHome}
+		<div class="home-top layout-grid">
+			<h1 class="title" data-intro-title>{project.title.replaceAll(' - ', '\u00a0- ')}</h1>
 		</div>
 	{/if}
-</header>
+
+	{#if drawing?.placement === 'center'}
+		<div class="drawing" data-placement={drawing.placement}>
+			<Picture src={drawing.image} alt={drawing.alt} sizes="34vw" fit="contain" priority />
+		</div>
+	{/if}
+</div>
 
 <style>
+	/* The compact header is fixed: this block starts below it. */
 	.cover-header {
 		position: relative;
+		padding-top: var(--header-h);
 		--picture-bg: transparent;
 	}
 
-	.masthead {
-		display: grid;
-		grid-template-rows: auto 1fr auto;
-		min-height: calc(406 * var(--u));
-		padding-block: var(--margin);
+	.home-top {
+		align-items: start;
+		padding-top: calc(40 * var(--u));
 	}
 
-	/* Parent and title read as one line: small label on the title's baseline. */
-	.top {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: baseline;
-		column-gap: var(--brand-gap);
-		padding-inline: var(--margin);
-		letter-spacing: var(--tracking-tight);
-	}
-
-	.site {
-		font-size: var(--type-small);
-		line-height: 1;
-	}
-
+	/* Headline size with the proportions of the index row and of the opening's name (display
+	   leading and tracking, balanced lines): they glide into it and become it (project-name.js). */
 	.title {
 		font-size: var(--type-headline);
-		line-height: var(--leading-headline);
+		line-height: var(--leading-display);
+		letter-spacing: var(--tracking-display);
+		text-wrap: balance;
 	}
 
-	.index {
-		grid-row: 3;
-		padding-inline: var(--margin);
-		border-top: 1px solid black;
-		border-bottom: 1px solid black;
-	}
-
-	/* Home: image box 584×948 at x 550, 11 below the masthead, 60 above the next block. */
-	.drawing[data-placement="center"] {
+	/* Home: image box 584 wide at x 550. */
+	.drawing[data-placement='center'] {
 		width: calc(584 / 1728 * 100%);
 		margin: calc(11 * var(--u)) 0 calc(60 * var(--u)) calc(550 / 1728 * 100%);
-	}
-
-	/* Conclusion: image box 230×374, top 12, right edge at x 1599. */
-	.drawing[data-placement="corner"] {
-		position: absolute;
-		top: calc(12 * var(--u));
-		right: calc(129 / 1728 * 100%);
-		width: calc(230 / 1728 * 100%);
 	}
 </style>

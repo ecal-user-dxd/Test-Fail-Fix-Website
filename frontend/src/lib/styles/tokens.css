@@ -14,21 +14,23 @@
 	--color-grey: #d9d9d9;
 	--color-ink-soft: #303030;
 	--color-year: #00ff22;
-	--color-slide-edge: rgb(0 0 0 / 0.1); /* hairline around before / after slides */
+	--color-slide-edge: rgb(
+		0 0 0 / 0.1
+	); /* hairline around before / after slides */
 
 	/* Post-it notes, one colour per review type (Figma Fail/Post-it 483:46). */
 	--color-note-worked: #b3efbb; /* Tone=Praise */
 	--color-note-didnt: #fde096; /* Tone=Pain */
 
 	/* Grey labels: ≥ 4.5:1 on their background (WCAG AA, any size). */
-	--color-muted-on-paper: rgb(0 0 0 / 0.54);
+	--color-muted-on-paper: rgb(191, 191, 191);
 	--color-muted-on-accent: rgb(0 0 0 / 0.72);
 	--color-pager-idle: rgb(0 0 0 / 0.45); /* 3:1 for large text (Figma: 35 %) */
 
 	/* ----------------------------------------------------------- Typography */
 	--font-sans:
-		"Suisse Int'l", 'Suisse Fallback', 'Suisse Fallback Arial', 'Helvetica Neue', Helvetica, Arial,
-		sans-serif;
+		"Suisse Int'l", "Suisse Fallback", "Suisse Fallback Arial",
+		"Helvetica Neue", Helvetica, Arial, sans-serif;
 	--weight-medium: 500; /* the only weight of the site (Martial) */
 
 	--type-display: clamp(4.5rem, 12.731vw, 20.35rem); /* 220 */
@@ -57,10 +59,23 @@
 	--u: clamp(0.5px, 100vw / 1728, 1.48px);
 
 	/* --------------------------------------------------------- Layout grid */
-	--margin: 20px;
+	/* Base margin (Figma: 20 at 1728, 16 on a phone). The gallery desk and the Conclusion film are
+	   built on it: a card inset by `--card-inset` and scaled down by `--card-scale` (defaults of
+	   `tuning.immersive`; immersive.svelte.js keeps the live values on the root). */
+	--margin-base: 20px;
+	--card-inset: var(--margin-base);
+	--card-scale: 0.97;
+	/* Page margin (Martial, 26.11.2026: « all margins built on the desk view »): the visible edge of
+	   the desk's card, so the text, the header, the images and the links line up with it
+	   (≈ 45 px at 1728, 21 px at 390). */
+	--margin: calc(var(--card-inset) * var(--card-scale) + 100vw * (1 - var(--card-scale)) / 2);
 	--column-gap: 6px; /* 2 × 841 columns, right column at x 867 */
 	--gutter: 0.3125rem; /* 5 px: padding and gap of image grids (Martial: in rem) */
-	--brand-gap: clamp(1rem, 4.167vw, 6.66rem); /* 72: « Scan Everything » → project title */
+	--brand-gap: clamp(
+		1rem,
+		4.167vw,
+		6.66rem
+	); /* 72: « Scan Everything » → project title */
 
 	/* -------------------------------------------------------------- Spacing */
 	--space-block: clamp(2rem, 2.894vw, 4.625rem); /* 50 */
@@ -76,12 +91,15 @@
 	--radius-screen: 5px;
 	--radius-slide: calc(16 * var(--u)); /* before / after slides (Martial) */
 	--radius-chip: 3px;
+	--radius-squircle: calc(48 * var(--u)); /* bento cards (Martial) */
+	--gap-card: calc(10 * var(--u)); /* between bento cards */
 	--rule: 1px solid var(--color-ink);
-	--shadow-note: 0 calc(3.7 * var(--u)) calc(45.75 * var(--u)) calc(6.46 * var(--u))
-		rgb(0 0 0 / 0.25); /* Figma effect « drop » */
+	--shadow-note: 0 calc(3.7 * var(--u)) calc(45.75 * var(--u))
+		calc(6.46 * var(--u)) rgb(0 0 0 / 0.25); /* Figma effect « drop » */
 	/* Gallery desk: photo lying on the desk, and picked up (hover, drag). */
 	--shadow-photo: 0 calc(2 * var(--u)) calc(10 * var(--u)) rgb(0 0 0 / 0.18);
-	--shadow-photo-lifted: 0 calc(24 * var(--u)) calc(50 * var(--u)) rgb(0 0 0 / 0.28);
+	--shadow-photo-lifted: 0 calc(24 * var(--u)) calc(50 * var(--u))
+		rgb(0 0 0 / 0.28);
 
 	/* --------------------------------------------------------------- Motion */
 	--duration-hover: 150ms;
@@ -89,12 +107,21 @@
 	--duration-slide: 450ms;
 	--ease-fade: ease-out;
 	--ease-slide: ease-in-out;
-	--ease-arrive: cubic-bezier(0.22, 1, 0.36, 1); /* gallery desk: photos landing (ease-out quint) */
+	--ease-arrive: cubic-bezier(
+		0.22,
+		1,
+		0.36,
+		1
+	); /* gallery desk: photos landing (ease-out quint) */
+	--duration-spin: 500ms; /* gallery desk: one turn of the reset icon on hover */
+	--ease-spin: cubic-bezier(0.76, 0, 0.24, 1); /* quart in-out */
+	--duration-bar: 400ms; /* gallery viewer: the before / after bar growing in */
+	--ease-bar: cubic-bezier(0.76, 0, 0.24, 1); /* quart in-out */
 }
 
 @media (max-width: 767px) {
 	:root {
-		--margin: 16px;
+		--margin-base: 16px;
 	}
 }
 
@@ -103,17 +130,21 @@
 		--duration-hover: 0ms;
 		--duration-fade: 0ms;
 		--duration-slide: 0ms;
+		--duration-spin: 0ms;
+		--duration-bar: 0ms;
 	}
 }
 
 /* ------------------------------------------------------------------ Themes */
 
-[data-theme='white'] {
+[data-theme="white"] {
 	--page-bg: var(--color-paper);
 	--muted: var(--color-muted-on-paper);
+	--surface: var(--color-gallery); /* bento cards */
 }
 
-[data-theme='orange'] {
+[data-theme="orange"] {
 	--page-bg: var(--color-accent);
 	--muted: var(--color-muted-on-accent);
+	--surface: var(--color-paper);
 }

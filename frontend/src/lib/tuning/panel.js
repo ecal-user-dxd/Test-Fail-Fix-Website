@@ -62,7 +62,11 @@ const SECTIONS = {
 			arrive: { label: 'Arrival' },
 			arriveDuration: { label: 'Arrival (ms)', min: 200, max: 3000, step: 50 },
 			arriveStagger: { label: 'Arrival stagger (ms)', min: 0, max: 400, step: 10 },
-			arriveScale: { label: 'Arrival scale (start)', min: 0.5, max: 2, step: 0.01 }
+			arriveScale: { label: 'Arrival scale (start)', min: 0.5, max: 2, step: 0.01 },
+			labelsDelay: { label: 'Labels delay (ms)', min: 0, max: 2000, step: 50 },
+			labelsDuration: { label: 'Labels entrance (ms)', min: 100, max: 2000, step: 50 },
+			labelsStagger: { label: 'Labels stagger (ms)', min: 0, max: 300, step: 10 },
+			labelsScale: { label: 'Labels scale (start)', min: 0.5, max: 1, step: 0.01 }
 		}
 	},
 	immersive: {
@@ -75,7 +79,11 @@ const SECTIONS = {
 			x2: { label: 'Custom x2', min: 0, max: 1, step: 0.01 },
 			y2: { label: 'Custom y2', min: -1, max: 2, step: 0.01 },
 			cardMargin: { label: 'Card margin (px, desktop)', min: 0, max: 200, step: 1 },
-			cardScale: { label: 'Card scale', min: 0.8, max: 1, step: 0.005 }
+			cardScale: { label: 'Card scale', min: 0.8, max: 1, step: 0.005 },
+			innerShadow: { label: 'Card inner shadow (opacity)', min: 0, max: 0.8, step: 0.01 },
+			innerShadowBlur: { label: 'Inner shadow blur (px at 1728)', min: 0, max: 200, step: 1 },
+			innerShadowY: { label: 'Inner shadow offset Y (px at 1728)', min: -60, max: 60, step: 1 },
+			parallax: { label: 'Parallax (× screen height, 0 = off)', min: 0, max: 0.3, step: 0.005 }
 		}
 	},
 	reveal: {
@@ -85,11 +93,24 @@ const SECTIONS = {
 			perspective: { label: 'Camera distance (× width)', min: 0.5, max: 5, step: 0.05 },
 			tiltSpeed: { label: 'Tilt speed', min: 1, max: 30, step: 0.5 },
 			highlight: { label: 'Highlight', min: 0, max: 0.5, step: 0.01 },
-			followSpeed: { label: 'Drag follow speed', min: 2, max: 40, step: 1 },
+			followSpeed: { label: 'Follow speed (grab, range)', min: 2, max: 40, step: 1 },
+			edgeZone: { label: 'Drag: edge zone (share of width)', min: 0.05, max: 0.5, step: 0.01 },
+			throw: { label: 'Throw (0 = off)', min: 0, max: 3, step: 0.05 },
+			friction: { label: 'Throw: friction (1/s)', min: 0.5, max: 20, step: 0.5 },
+			elasticity: { label: 'Throw: elasticity (0 = none)', min: 0, max: 0.8, step: 0.05 },
 			playDuration: { label: 'Click: play (ms)', min: 200, max: 4000, step: 50 },
 			swapDuration: { label: 'Thumbnail: swap (ms)', min: 200, max: 4000, step: 50 },
 			frontWidth: { label: 'Front: shading width', min: 0.02, max: 0.4, step: 0.005 },
-			edgeSoftness: { label: 'Front: edge softness', min: 0.001, max: 0.1, step: 0.001 },
+			edgeSoftness: { label: 'Blend zone (0 = sharp cut)', min: 0.001, max: 1, step: 0.005 },
+			zoom: { label: 'Blend: zoom', min: 0, max: 0.5, step: 0.01 },
+			blur: { label: 'Blend: blur (mip levels)', min: 0, max: 6, step: 0.1 },
+			flow: { label: 'Blend: liquid flow', min: 0, max: 0.2, step: 0.005 },
+			pairMorph: { label: 'Before / after: blend share', min: 0, max: 1, step: 0.05 },
+			wave: { label: 'Sheet: wave height', min: 0, max: 0.2, step: 0.005 },
+			waveWidth: { label: 'Sheet: wave width', min: 0.05, max: 0.6, step: 0.01 },
+			press: { label: 'Sheet: dent under cursor', min: 0, max: 0.15, step: 0.005 },
+			pressRadius: { label: 'Sheet: dent radius', min: 0.05, max: 1, step: 0.01 },
+			shade: { label: 'Sheet: light on relief', min: 0, max: 3, step: 0.05 },
 			darken: { label: 'Before side: darken', min: 0, max: 1, step: 0.01 },
 			shadow: { label: 'After side: shadow', min: 0, max: 1, step: 0.01 },
 			rim: { label: 'Front: light rim', min: 0, max: 1, step: 0.01 },

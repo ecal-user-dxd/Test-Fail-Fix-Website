@@ -6,9 +6,18 @@
 	the middle of the left edge.
 
 	Items: a plain image, or a before / after pair (`after` on the item). On a pair, the after image
-	appears in the same radial front, with a radial shading: drag the image left → right, use the
-	range below it (arrows, Page Up / Down, Home / End), or click to play the whole transition. On a
-	plain image, a click shows the next one.
+	appears in the same radial front, with a radial shading: drag it (the front passes under the
+	cursor and moves exactly with it, then eases ahead near the sides: 0 % at the left edge of the
+	frame, 100 % at the right edge; let go during a quick
+	move, it is thrown and glides on, as a photo on the desk, settling with a little spring), use the
+	bar below it (a range: arrows, Page Up / Down, Home / End), or click to play the whole
+	transition. The bar is a plain line as wide as the image, like the desk videos' progress, always
+	there, and so is its knob (Martial); the knob grows a little when the pointer comes within 10vw
+	of it, or when it gets the keyboard focus. Until the visitor acts, a pair carries a cue on its
+	left, where the reveal starts: "Drag to compare" beside a burst of hairlines that shoot out
+	from a dot (the isometric plans' line, Martial). The first time the viewer comes into view on a
+	pair, a teaser plays once: the reveal goes to 35 % and back, so the drag shows (not with reduced
+	motion, nor once the visitor has acted). On a plain image, a click shows the next one.
 
 	Groups: like on the desk, items can carry a `group` label. The labels sit above the thumbnails;
 	picking one keeps only that group's thumbnails (they come in one after the other) and opens its
@@ -25,20 +34,21 @@
 	(#lib/tuning/values.json, live in the dev tuning panel).
 -->
 <script>
-	/** @import { GalleryItem, Picture as PictureData, Theme } from '#lib/content/types.js' */
+	/** @import { GalleryImage, Picture as PictureData, Theme } from '#lib/content/types.js' */
 	/** @import { Reveal } from '#lib/webgl/reveal.js' */
 	import { flip } from 'svelte/animate';
 	import { prefersReducedMotion } from 'svelte/motion';
-	import { scale } from 'svelte/transition';
+	import { fade, scale } from 'svelte/transition';
 	import { dev } from '$app/env';
 	import Picture from '#lib/components/ui/Picture.svelte';
 	import { getPictures } from '#lib/content/context.js';
 	import { site } from '#lib/content/site.js';
 	import { tuning } from '#lib/tuning/tuning.svelte.js';
+	import { dragRadius } from '#lib/webgl/front.js';
 
 	/**
 	 * @typedef {object} Props
-	 * @property {GalleryItem[]} items
+	 * @property {GalleryImage[]} items  images only (Gallery leaves the videos out)
 	 * @property {Theme} theme
 	 * @property {boolean} [priority]
 	 */
@@ -48,8 +58,32 @@
 
 	/** Px before a press counts as a drag. */
 	const DRAG_START = 4;
+	/** The before / after bar shows when the pointer comes this close to it (share of the
+	   viewport width, Martial: 10vw). */
+	const REACH = 0.1;
 	/** Thumbnails of a group come in one after the other, this far apart (ms). */
 	const STAGGER = 40;
+	/** Teaser, the first time the viewer comes into view on a pair (Martial): the reveal goes this
+	   far and back, once. */
+	const TEASE = 0.35;
+	/** Each way, ms (a click plays 0 → 1 in tuning.reveal.playDuration). */
+	const TEASE_DURATION = 900;
+	/** Pause at TEASE before going back, ms. */
+	const TEASE_HOLD = 250;
+	/** Wait once the viewer is in view and WebGL is up, so the before image shows first, ms. */
+	const TEASE_DELAY = 500;
+	/** Share of the frame that must be in view. */
+	const TEASE_IN_VIEW = 0.6;
+	/** Cue's burst (viewBox units, centre 0 0): rays every 30°, long and short in turn, from
+	   `from` to `to` away from the centre. */
+	const RAYS = Array.from({ length: 12 }, (_, i) => {
+		const angle = (i * Math.PI) / 6;
+		const [from, to] = i % 2 ? [9, 17] : [8, 25];
+		const at = (/** @type {number} */ r) => [Math.cos(angle) * r, Math.sin(angle) * r].map((v) => +v.toFixed(2));
+		const [x1, y1] = at(from);
+		const [x2, y2] = at(to);
+		return { x1, y1, x2, y2, short: i % 2 === 1 };
+	});
 
 	const lookup = getPictures();
 
@@ -99,10 +133,33 @@
 	/** @type {Reveal | null} */
 	let reveal = $state.raw(null);
 
-	/** @type {{ id: number, x: number, y: number, from: number } | null} */
+	/** The pointer is within REACH of the bar, or presses it: the bar shows. */
+	let near = $state(false);
+	let holding = $state(false);
+	/** Duration of the bar's fill change: the click's play, 0 while it follows (drag, range). */
+	let fillDuration = $state(0);
+	/** @type {HTMLInputElement | undefined} */
+	let range = $state();
+	/** Row of the bar, tilted with the image. */
+	/** @type {HTMLElement | undefined} */
+	let control = $state();
+	/** Last pointer position (mouse, pen), to check the reach again when the page scrolls. */
+	/** @type {{ x: number, y: number } | null} */
+	let lastPointer = null;
+
+	/** @type {{ id: number, x: number, y: number } | null} */
 	let press = null;
 	/** A drag just ended: the click it produces must not act. */
 	let dragged = false;
+
+	/** The teaser has played, or will not: the visitor acted first. Once per viewer. */
+	let teased = $state(false);
+	/** The visitor pressed the image, used the range or the thumbnails: the cue goes. */
+	let acted = $state(false);
+	/** TEASE_IN_VIEW of the frame is in view. */
+	let inView = $state(false);
+	/** Pending way back of the teaser. */
+	let teaseTimer = 0;
 
 	/** Width the textures were picked for (frame width × pixel ratio), set when WebGL starts. */
 	let textureWidth = 0;
@@ -149,7 +206,7 @@
 	/**
 	 * Texture files of an item, at the width chosen when WebGL started. A plain image is its own
 	 * after image (the controller loads it once).
-	 * @param {GalleryItem} entry
+	 * @param {GalleryImage} entry
 	 */
 	function textureUrls(entry) {
 		const before = textureUrl(lookup(entry.image), textureWidth);
@@ -162,7 +219,57 @@
 	 */
 	function update(value, duration = 0) {
 		progress = value;
+		fillDuration = duration;
 		reveal?.setProgress(value, duration);
+	}
+
+	/** Teaser: the reveal goes to TEASE and back, the bar with it, as a click plays it. */
+	function tease() {
+		teased = true;
+		update(TEASE, TEASE_DURATION);
+		teaseTimer = window.setTimeout(() => {
+			teaseTimer = 0;
+			update(0, TEASE_DURATION);
+		}, TEASE_DURATION + TEASE_HOLD);
+	}
+
+	/** The visitor acts (press on the image, range, thumbnails): no teaser, or no way back, and
+	   no cue. */
+	function stopTease() {
+		teased = true;
+		acted = true;
+		clearTimeout(teaseTimer);
+		teaseTimer = 0;
+	}
+
+	/**
+	 * Tilts the bar and the cue with the image, on each frame of the WebGL render (straight to the element:
+	 * no Svelte update per frame). -1..1 of `tuning.reveal.tilt`, see the `.control` CSS.
+	 * @param {number} x  right side away
+	 * @param {number} y  bottom side away
+	 */
+	function tiltBar(x, y) {
+		for (const element of [control, frame]) {
+			element?.style.setProperty('--tilt-x', String(x));
+			element?.style.setProperty('--tilt-y', String(y));
+		}
+	}
+
+	/** Distance from the last pointer position to the bar (its line, the middle of the range). */
+	function checkReach() {
+		if (!range || !lastPointer) return;
+		const box = range.getBoundingClientRect();
+		const dx = Math.max(box.left - lastPointer.x, 0, lastPointer.x - box.right);
+		const dy = lastPointer.y - (box.top + box.height / 2);
+		near = Math.hypot(dx, dy) <= REACH * window.innerWidth;
+	}
+
+	/** @param {PointerEvent} event */
+	function onwindowpointermove(event) {
+		// Touch screens: the bar is always there (CSS).
+		if (!hasPairs || event.pointerType === 'touch') return;
+		lastPointer = { x: event.clientX, y: event.clientY };
+		checkReach();
 	}
 
 	// Load Three.js and the textures once the block is near the viewport; pause off screen.
@@ -192,6 +299,13 @@
 					onLost: () => {
 						ready = false;
 						reveal = null;
+						tiltBar(0, 0);
+					},
+					onTilt: tiltBar,
+					// Thrown front: the bar follows its glide.
+					onGlide: (value) => {
+						progress = value;
+						fillDuration = 0;
 					}
 				});
 				if (disposed) return created.destroy();
@@ -228,6 +342,32 @@
 		};
 	});
 
+	// Teaser: how much of the frame is in view, until it has played.
+	$effect(() => {
+		const element = frame;
+		if (!element || !hasPairs || teased) return;
+		const observer = new IntersectionObserver(
+			([entry]) => {
+				inView = entry.intersectionRatio >= TEASE_IN_VIEW * 0.99;
+			},
+			{ threshold: TEASE_IN_VIEW }
+		);
+		observer.observe(element);
+		return () => observer.disconnect();
+	});
+
+	// It plays once the frame is in view on a pair and WebGL is up (the CSS fallback does not
+	// animate), after a short wait; scrolled away meanwhile, it waits for the next time. Reduced
+	// motion: never.
+	$effect(() => {
+		if (teased || !inView || !ready || !item.after || prefersReducedMotion.current) return;
+		const timer = window.setTimeout(tease, TEASE_DELAY);
+		return () => clearTimeout(timer);
+	});
+
+	// Leaving the page during the teaser.
+	$effect(() => () => clearTimeout(teaseTimer));
+
 	$effect(() => {
 		reveal?.setReducedMotion(prefersReducedMotion.current);
 	});
@@ -252,7 +392,7 @@
 
 	/**
 	 * Warms the HTTP cache with an item's textures, so a click swaps without waiting.
-	 * @param {GalleryItem} entry
+	 * @param {GalleryImage} entry
 	 */
 	function preload(entry) {
 		if (!reveal) return;
@@ -266,8 +406,10 @@
 	/** @param {number} i  index in `items` */
 	function select(i) {
 		if (i === index) return;
+		stopTease();
 		index = i;
 		progress = 0;
+		fillDuration = 0;
 		thumbs[i]?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
 	}
 
@@ -325,11 +467,34 @@
 		);
 	}
 
+	/**
+	 * The front follows the dragged cursor: it passes under it and moves exactly with it. WebGL
+	 * aims it through the tilt (reveal.drag); the CSS circle (no WebGL yet) takes the cursor's
+	 * distance to the middle of the left edge as its radius.
+	 * @param {PointerEvent} event
+	 */
+	function dragFront(event) {
+		fillDuration = 0;
+		if (reveal) {
+			progress = reveal.drag(event.clientX, event.clientY);
+			return;
+		}
+		if (!frame) return;
+		const box = frame.getBoundingClientRect();
+		const x = event.clientX - box.left;
+		const y = event.clientY - box.top - box.height / 2;
+		// Radius of the circle at 1: 142 % of the circle() reference (see CSS).
+		const end = (1.42 * Math.hypot(box.width, box.height)) / Math.SQRT2;
+		const radius = dragRadius(Math.hypot(x, y), x / box.width, tuning.reveal.edgeZone, 0, end);
+		progress = clamp(radius / end);
+	}
+
 	/** @param {PointerEvent} event */
 	function onpointerdown(event) {
 		dragged = false;
 		if (!item.after || !event.isPrimary || event.button !== 0) return;
-		press = { id: event.pointerId, x: event.clientX, y: event.clientY, from: progress };
+		stopTease();
+		press ={ id: event.pointerId, x: event.clientX, y: event.clientY };
 	}
 
 	/** @param {PointerEvent & { currentTarget: HTMLElement }} event */
@@ -348,7 +513,7 @@
 			dragging = true;
 			event.currentTarget.setPointerCapture(event.pointerId);
 		}
-		update(clamp(press.from + dx / event.currentTarget.clientWidth));
+		dragFront(event);
 	}
 
 	/** @param {PointerEvent} event */
@@ -358,6 +523,7 @@
 		if (!dragging) return;
 		dragging = false;
 		dragged = true;
+		reveal?.release();
 	}
 
 	/** @param {PointerEvent} event */
@@ -365,6 +531,7 @@
 		if (!press || event.pointerId !== press.id) return;
 		press = null;
 		dragging = false;
+		reveal?.release(false);
 	}
 
 	function onpointerleave() {
@@ -381,11 +548,21 @@
 	}
 </script>
 
+<svelte:window
+	onpointermove={onwindowpointermove}
+	onscroll={checkReach}
+	onpointerup={() => (holding = false)}
+	onpointercancel={() => (holding = false)}
+/>
+
 <section
 	class={['viewer', hasPairs && 'has-pairs', groups.length && 'has-groups', items.length > 1 && 'has-thumbs']}
 	data-surface={theme}
 	aria-label={hasPairs ? site.labels.beforeAfter : site.labels.viewer}
 	style:--ratio-min={minRatio}
+	style:--ratio={ratio}
+	style:--tilt={tuning.reveal.tilt}
+	style:--perspective={tuning.reveal.perspective}
 >
 	<div class="stage">
 		<!-- Drag and click are pointer shortcuts; the range and the thumbnails are the keyboard way. -->
@@ -393,7 +570,6 @@
 		<div
 			class={['frame', ready && 'ready', dragging && 'dragging', item.after ? 'pair' : 'single']}
 			style:--progress={progress}
-			style:--ratio={ratio}
 			bind:this={frame}
 			{onclick}
 			{onpointerdown}
@@ -428,25 +604,71 @@
 				</div>
 			{/if}
 			<canvas bind:this={canvas} aria-hidden="true"></canvas>
+			{#if item.after && !acted}
+				<!-- Decorative: the range carries the name. -->
+				<div
+					class="cue"
+					aria-hidden="true"
+					transition:fade={{ duration: prefersReducedMotion.current ? 0 : 300 }}
+				>
+					<svg class="burst" viewBox="-30 -30 60 60">
+						{#each RAYS as ray, i (i)}
+							<line
+								x1={ray.x1}
+								y1={ray.y1}
+								x2={ray.x2}
+								y2={ray.y2}
+								class:short={ray.short}
+								pathLength="1"
+							/>
+						{/each}
+						<circle r="2.5" />
+					</svg>
+					<span class="cue-label">{site.labels.dragToCompare}</span>
+				</div>
+			{/if}
 		</div>
 	</div>
 
 	{#if hasPairs}
-		<!-- The row keeps its place on a plain image, so the page does not move. -->
-		<div class="control" inert={!item.after} class:off={!item.after}>
-			<span class="end" aria-hidden="true">{site.labels.before}</span>
+		<!-- The row keeps its place on a plain image, so the page does not move. The bar is drawn
+		     under a see-through native range: keyboard, screen readers, click and drag on it. -->
+		<div
+			class={[
+				'control',
+				!item.after && 'off',
+				(near || holding) && 'near',
+				holding && 'holding'
+			]}
+			inert={!item.after}
+			bind:this={control}
+		>
+			<span
+				class="bar"
+				aria-hidden="true"
+				style:--fill={progress}
+				style:--fill-duration="{fillDuration}ms"
+			>
+				<span class="knob"></span>
+			</span>
 			<input
 				type="range"
 				min="0"
 				max="1"
 				step="0.01"
 				value={progress}
-				style:--fill="{progress * 100}%"
 				aria-label={site.labels.beforeAfter}
 				aria-valuetext={valueText}
-				oninput={(event) => update(Number(event.currentTarget.value))}
+				bind:this={range}
+				oninput={(event) => {
+					stopTease();
+					update(Number(event.currentTarget.value));
+				}}
+				onpointerdown={() => {
+					stopTease();
+					holding = true;
+				}}
 			/>
-			<span class="end" aria-hidden="true">{site.labels.after}</span>
 		</div>
 	{/if}
 
@@ -521,6 +743,11 @@
 					var(--thumbs-space)
 			)
 		);
+		/* Height of the tallest image at full width (capped by the viewport), and width of the image
+		   shown: the frame and the before / after bar. The cqw resolve where they are used, in
+		   this container. */
+		--stage-h: min(var(--fit-height), calc(100cqw / var(--ratio-min)));
+		--frame-w: min(100cqw, calc(var(--stage-h) * var(--ratio)));
 		container-type: inline-size;
 		padding: calc(40 * var(--u)) var(--inset);
 	}
@@ -543,7 +770,6 @@
 	/* Height of the tallest image at full width (capped by the viewport); each frame is centred
 	   in it, so another ratio does not move the page. */
 	.stage {
-		--stage-h: min(var(--fit-height), calc(100cqw / var(--ratio-min)));
 		display: grid;
 		place-items: center;
 		height: var(--stage-h);
@@ -552,7 +778,7 @@
 	.frame {
 		position: relative;
 		aspect-ratio: var(--ratio);
-		width: min(100cqw, calc(var(--stage-h) * var(--ratio)));
+		width: var(--frame-w);
 		border-radius: var(--radius-slide);
 		touch-action: pan-y;
 		user-select: none;
@@ -619,17 +845,172 @@
 		opacity: 0;
 	}
 
-	.control {
+	/* Cue, until the visitor acts: on the left of the image, where the reveal starts, a burst of
+	   hairlines (the isometric plans' black 1.5 line, round caps) shooting out from a dot, and
+	   "Drag to compare" beside it. Over the image, tilted with it (same transform as .control,
+	   around the frame's middle); presses go through to the frame. */
+	.cue {
+		--burst: max(44px, calc(64 * var(--u)));
+		position: absolute;
+		top: 50%;
+		left: max(4px, calc(24 * var(--u)));
 		display: flex;
 		align-items: center;
-		justify-content: center;
-		gap: calc(16 * var(--u));
-		margin-top: calc(14 * var(--u));
+		gap: calc(4 * var(--u));
+		translate: 0 -50%;
+		pointer-events: none;
+		transform-origin: calc(var(--frame-w) / 2 - max(4px, calc(24 * var(--u)))) 50%;
+		transform: perspective(calc(var(--frame-w) * var(--perspective)))
+			rotateX(calc(var(--tilt-y, 0) * var(--tilt) * -1deg))
+			rotateY(calc(var(--tilt-x, 0) * var(--tilt) * 1deg));
+	}
+
+	.burst {
+		flex: none;
+		width: var(--burst);
+		height: var(--burst);
+		overflow: visible;
+		fill: none;
+		stroke: var(--color-ink);
+		/* viewBox units: about 1.5 px at 1728 px wide. */
+		stroke-width: 1.4;
+		stroke-linecap: round;
+	}
+
+	.burst circle {
+		fill: var(--color-ink);
+		stroke: none;
+	}
+
+	/* A spark per ray: drawn from the dot outwards, then its tail leaves it outwards too; the
+	   short rays a beat later. One burst, then a rest (2.4 s round). */
+	.burst line {
+		stroke-dasharray: 1 1;
+		stroke-dashoffset: 1;
+		animation: spark 2400ms cubic-bezier(0.22, 1, 0.36, 1) infinite;
+	}
+
+	.burst .short {
+		animation-delay: 120ms;
+	}
+
+	@keyframes spark {
+		0% {
+			stroke-dashoffset: 1;
+		}
+		22% {
+			stroke-dashoffset: 0;
+		}
+		45%,
+		100% {
+			stroke-dashoffset: -1;
+		}
+	}
+
+	/* Small, on a paper chip with the same hairline: readable on any image. */
+	.cue-label {
+		padding: 0.35em 0.7em;
+		border: 1px solid var(--color-ink);
+		border-radius: 999px;
+		font-size: var(--type-small);
+		line-height: 1;
+		white-space: nowrap;
+		color: var(--color-ink);
+		background: var(--color-paper);
+	}
+
+	/* Reduced motion: the burst stays drawn, still. */
+	@media (prefers-reduced-motion: reduce) {
+		.burst line {
+			stroke-dashoffset: 0;
+			animation: none;
+		}
+	}
+
+	/* Before / after bar: the desk video's progress line (GalleryDesk .progress), an ink fill on a
+	   light track, as wide as the image, always there, its knob too (Martial). The range lies over
+	   it, see-through. */
+	.control {
+		--control-gap: calc(14 * var(--u));
+		display: grid;
+		place-items: center;
+		margin-top: var(--control-gap);
+		/* Tilts with the image (Martial), as if it lay on its plane: the WebGL tilt (reveal.js,
+		   --tilt-x / --tilt-y set on each frame) with the same camera distance (× image width),
+		   around the middle of the image, half the stage above this row. The bar sits below the
+		   middle, like the image's bottom edge: they move together. */
+		transform-origin: 50% calc(-1 * (var(--stage-h) / 2 + var(--control-gap)));
+		transform: perspective(calc(var(--frame-w) * var(--perspective)))
+			rotateX(calc(var(--tilt-y, 0) * var(--tilt) * -1deg))
+			rotateY(calc(var(--tilt-x, 0) * var(--tilt) * 1deg));
 		transition: opacity var(--duration-fade) var(--ease-fade);
+	}
+
+	.control > * {
+		grid-area: 1 / 1;
 	}
 
 	.control.off {
 		opacity: 0;
+	}
+
+	/* Drawn above the range (positioned, the knob's z-index): presses go through to the range,
+	   on the line and on the knob too. */
+	.bar {
+		--knob: max(14px, calc(18 * var(--u)));
+		position: relative;
+		width: var(--frame-w);
+		height: 3px;
+		border-radius: 2px;
+		background: var(--color-grey);
+		pointer-events: none;
+	}
+
+	/* Fill and knob follow the drag; on a click, they play with the image (the shader's cubic
+	   in-out). */
+	.bar::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: inherit;
+		background: var(--color-ink);
+		transform-origin: left;
+		scale: var(--fill) 1;
+		transition: scale var(--fill-duration) cubic-bezier(0.65, 0, 0.35, 1);
+	}
+
+	/* Knob: always there (Martial); grows a little (scale, quart in-out) when the pointer comes
+	   within REACH of the bar, while it is pressed or has the keyboard focus (ringed). */
+	.knob {
+		position: absolute;
+		top: 50%;
+		left: calc(var(--fill) * 100%);
+		z-index: 1;
+		width: var(--knob);
+		height: var(--knob);
+		margin: calc(var(--knob) / -2) 0 0 calc(var(--knob) / -2);
+		border-radius: 50%;
+		background: var(--color-ink);
+		transition:
+			scale var(--duration-bar) var(--ease-bar),
+			left var(--fill-duration) cubic-bezier(0.65, 0, 0.35, 1);
+	}
+
+	.near .knob,
+	.control:has(input:focus-visible) .knob {
+		scale: 1.25;
+	}
+
+	.control:has(input:focus-visible) .knob {
+		outline: 2px solid var(--color-ink);
+		outline-offset: 2px;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.bar::after,
+		.knob {
+			transition: none;
+		}
 	}
 
 	/* Group labels: the desk's (small, faded, the picked one underlined). */
@@ -710,64 +1091,32 @@
 		outline-offset: 4px;
 	}
 
-	.end {
-		font-size: var(--type-button);
-		line-height: var(--leading-button);
-		text-transform: uppercase;
-		color: var(--color-pager-idle);
-	}
-
+	/* See-through: the bar and its knob are what shows (focus ring included). A 1 px thumb, so the
+	   value under the pointer matches the fill across the whole width. */
 	input {
-		--thumb: max(14px, calc(18 * var(--u)));
 		appearance: none;
 		-webkit-appearance: none;
-		width: clamp(160px, calc(320 * var(--u)), 480px);
-		height: 44px; /* touch target; the visible track is drawn below */
+		width: var(--frame-w);
+		height: 44px; /* touch target */
 		margin: 0;
 		background: transparent;
-		cursor: pointer;
+		opacity: 0;
+		cursor: grab;
 	}
 
-	input::-webkit-slider-runnable-track {
-		height: 2px;
-		background: linear-gradient(to right, var(--color-ink) var(--fill), var(--color-grey) var(--fill));
-	}
-
-	input::-moz-range-track {
-		height: 2px;
-		background: linear-gradient(to right, var(--color-ink) var(--fill), var(--color-grey) var(--fill));
+	.holding input {
+		cursor: grabbing;
 	}
 
 	input::-webkit-slider-thumb {
 		-webkit-appearance: none;
-		width: var(--thumb);
-		height: var(--thumb);
-		margin-top: calc((2px - var(--thumb)) / 2);
-		border: 0;
-		border-radius: 50%;
-		background: var(--color-ink);
+		width: 1px;
+		height: 44px;
 	}
 
 	input::-moz-range-thumb {
-		width: var(--thumb);
-		height: var(--thumb);
+		width: 1px;
+		height: 44px;
 		border: 0;
-		border-radius: 50%;
-		background: var(--color-ink);
-	}
-
-	/* The global outline would wrap the 44 px box: ring the thumb instead. */
-	input:focus-visible {
-		outline: none;
-	}
-
-	input:focus-visible::-webkit-slider-thumb {
-		outline: 2px solid var(--color-ink);
-		outline-offset: 2px;
-	}
-
-	input:focus-visible::-moz-range-thumb {
-		outline: 2px solid var(--color-ink);
-		outline-offset: 2px;
 	}
 </style>

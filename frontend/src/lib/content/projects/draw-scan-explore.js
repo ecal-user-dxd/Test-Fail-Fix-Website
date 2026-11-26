@@ -27,9 +27,9 @@ const drawScanExplore = {
 	// Ordre de leur documentation et présentation (« Youri Zermatten & Sina Fathollahi »)
 	authors: ["Youri Zermatten", "Sina Fathollahi"],
 	year: "2026",
-	// Leurs PDF de documentation font 53 Mo (écrit) et 95 Mo (boards) : pas mis en ligne tels quels.
-	// href vide = ligne « Documentation » masquée dans les crédits (à compléter avec Martial).
-	documentation: { label: "", href: "" },
+	// Leurs PDF de documentation font 53 Mo (écrit) et 95 Mo (boards) : l'écrit est en ligne, recompressé
+	// (2,8 Mo, images à 200 dpi, texte intact), fichier renommé sans espaces.
+	documentation: { label: "User Test_Documentation_WrittenFile_YZ_SF.pdf", href: "/projects/draw-scan-explore/User_Test_Documentation_WrittenFile_YZ_SF.pdf" },
 
 	/** Page d'accueil du projet — route /draw-scan-explore (layout « cover ») */
 	home: {
@@ -68,29 +68,11 @@ const drawScanExplore = {
 					type: "headline",
 					text: "First we designed the installation and staged it in the ECAL studio: a touchscreen table paired with a custom-built scanner box, drawing tools and printed cards, arranged so a visitor moves naturally from drawing, to scanning, to exploring.",
 				},
-				{
-					type: "gallery",
-					columns: 2,
-					fit: "cover",
-					items: [
-						{ image: "test-01.jpg", alt: "The installation staged in the ECAL studio: touchscreen table, laptop, studio lights and cameras." }, // Test/…TestImages_01.jpg
-						{ image: "test-02.jpg", alt: "Test setup in the studio: the touchscreen table, two chairs and cameras on tripods." }, // Test/…TestImages_02.jpg
-						{ image: "test-03.jpg", alt: "A hand slides a drawing card into the white scanner box." }, // Test/…TestImages_03.jpg
-					],
-				},
 				// verbatim — [1-Test-04]
 				{
 					type: "textRow",
 					label: "",
 					text: "Six participants across five sessions - a mix of museum habits and digital comfort, one session tested as a duo - went through the whole flow while thinking aloud. Every session was recorded so we could review it afterwards.",
-				},
-				{
-					type: "gallery",
-					columns: 2,
-					fit: "cover",
-					items: [
-						{ image: "test-04.jpg", alt: "The touchscreen table showing drawings, with the scanner box underneath." }, // Test/…TestImages_04.jpg
-					],
 				},
 				// verbatim — [1-Test-05]
 				{
@@ -98,29 +80,27 @@ const drawScanExplore = {
 					label: "",
 					text: "We followed a clear procedure: consent, pre-test questions, a scenario, the think-aloud interaction, then during- and post-test questions.",
 				},
-				{
-					type: "gallery",
-					columns: 2,
-					fit: "contain",
-					items: [
-						{ image: "test-05.jpg", alt: "Hand-drawn sketch of the prototype setup: table, touchscreen, computer and scanner." }, // Test/…TestImages_05.jpg
-					],
-				},
 				// verbatim — [1-Test-06~07]
 				{
 					type: "textRow",
 					label: "",
 					text: "We asked quantitative questions (age range / museum habits, touchscreen comfort 1-5, previous interactive experiences) and qualitative ones (how the drawing, scanning and collection felt, the emotions, and expectations for the future).",
 				},
-				// TestImages_08 n'a pas d'étiquette dans le texte : ajoutée à la suite de 06 et 07.
+				// Un seul bureau après les 4 paragraphes ; libellés de groupe = titres des diapositives de la présentation,
+				// choisis d'après ce que montrent les photos (docs/desk-legends.md). TestImages_07 retirée : fichier
+				// identique à TestImages_06 (déjà dans le dossier des étudiants). TestImages_08 n'a pas d'étiquette dans le texte.
 				{
 					type: "gallery",
 					columns: 2,
-					fit: "cover",
+					fit: "contain",
 					items: [
-						{ image: "test-06.jpg", alt: "Two participants at the touchscreen table during a test session." }, // Test/…TestImages_06.jpg
-						{ image: "test-07.jpg", alt: "A participant points at the touchscreen while the other one watches." }, // Test/…TestImages_07.jpg
-						{ image: "test-08.jpg", alt: "A participant at the touchscreen table, on the “Draw a fruit or vegetable” screen." }, // Test/…TestImages_08.jpg
+						{ image: "test-01.jpg", alt: "The installation staged in the ECAL studio: touchscreen table, laptop, studio lights and cameras.", group: "Test Setups" }, // Test/…TestImages_01.jpg
+						{ image: "test-02.jpg", alt: "Test setup in the studio: the touchscreen table, two chairs and cameras on tripods.", group: "Test Setups" }, // Test/…TestImages_02.jpg
+						{ image: "test-03.jpg", alt: "A hand slides a drawing card into the white scanner box.", group: "Prototype Details" }, // Test/…TestImages_03.jpg
+						{ image: "test-04.jpg", alt: "The touchscreen table showing drawings, with the scanner box underneath.", group: "Prototype Details" }, // Test/…TestImages_04.jpg
+						{ image: "test-05.jpg", alt: "Hand-drawn sketch of the prototype setup: table, touchscreen, computer and scanner.", group: "Prototype Details" }, // Test/…TestImages_05.jpg
+						{ image: "test-06.jpg", alt: "Two participants at the touchscreen table during a test session.", group: "Participants" }, // Test/…TestImages_06.jpg
+						{ image: "test-08.jpg", alt: "A participant at the touchscreen table, on the “Draw a fruit or vegetable” screen.", group: "Participants" }, // Test/…TestImages_08.jpg
 					],
 				},
 			],
@@ -146,29 +126,11 @@ const drawScanExplore = {
 					label: "",
 					text: "We mapped every observation into an analysis matrix - theme by participant - to see the patterns clearly.",
 				},
-				{
-					type: "gallery",
-					columns: 2,
-					fit: "contain",
-					items: [
-						{ image: "fail-01.png", alt: "User test data: analysis matrix of themes by participant, with friction and request matrices." }, // Fail/…FailImages_01.png
-					],
-				},
 				// verbatim — [2-Fail-02~03]
 				{
 					type: "textRow",
 					label: "",
 					text: "Overall impressions were warm: the experience felt intuitive and playful, and people loved seeing their drawing join a shared collection. But the recordings and the think-aloud surfaced clear friction, moment by moment.",
-				},
-				// Images placées selon leurs étiquettes. FailImages_03 et _04 n'existent pas, et 02 / 05 (listes de
-				// changements) iraient mieux avec [2-Fail-08], 08 (écran) avec [2-Fail-04~07] : à vérifier avec Martial.
-				{
-					type: "gallery",
-					columns: 2,
-					fit: "contain",
-					items: [
-						{ image: "fail-02.png", alt: "Possible UI changes: a list of changes grouped by screen, with priorities." }, // Fail/…FailImages_02.png
-					],
 				},
 				// verbatim — [2-Fail-04~07]
 				{
@@ -176,28 +138,26 @@ const drawScanExplore = {
 					label: "",
 					text: "The failures, screen by screen:\n- Onboarding did not read as interactive - people did not know how to start.\n- The scanning moment was unclear; people expected to see their result immediately, and took time to find the physical scanner.\n- The collection looked \"locked\", its drawings did not read as tappable, and the map/list controls felt inverted.\n- The experience ended abruptly, with a hidden, too-small name field and low contrast throughout.",
 				},
-				{
-					type: "gallery",
-					columns: 2,
-					fit: "contain",
-					items: [
-						{ image: "fail-05.jpg", alt: "Another board of possible UI changes, grouped by screen." }, // Fail/…FailImages_05.jpg
-						{ image: "fail-06.jpg", alt: "V1 collection screen: drawings listed in a grid, with map and list controls." }, // Fail/…FailImages_06.jpg
-						{ image: "fail-07.jpg", alt: "V1 entry screen: a lock icon and “Draw a fruit or vegetable”." }, // Fail/…FailImages_07.jpg
-					],
-				},
 				// verbatim — [2-Fail-08]
 				{
 					type: "textRow",
 					label: "",
 					text: "In total: 17 points of friction and 14 requests - turned into a prioritised list of possible UI changes.",
 				},
+				// Un seul bureau après le dernier paragraphe (FailImages_03 et _04 n'existent pas) ; libellés de groupe =
+				// titres des tableaux et intertitres de l'analyse dans la présentation, dans l'ordre du paragraphe
+				// « The failures, screen by screen » (docs/desk-legends.md).
 				{
 					type: "gallery",
 					columns: 2,
 					fit: "contain",
 					items: [
-						{ image: "fail-08.jpg", alt: "V1 scan result: “Scan complete! Banana”, with “Yes, that’s a banana” and “No, that’s not a banana”." }, // Fail/…FailImages_08.jpg
+						{ image: "fail-01.png", alt: "User test data: analysis matrix of themes by participant, with friction and request matrices.", group: "User Test Data" }, // Fail/…FailImages_01.png
+						{ image: "fail-02.png", alt: "Possible UI changes: a list of changes grouped by screen, with priorities.", group: "Possible UI Changes" }, // Fail/…FailImages_02.png
+						{ image: "fail-05.jpg", alt: "Another board of possible UI changes, grouped by screen.", group: "Possible UI Changes" }, // Fail/…FailImages_05.jpg
+						{ image: "fail-07.jpg", alt: "V1 entry screen: a lock icon and “Draw a fruit or vegetable”.", group: "Onboarding" }, // Fail/…FailImages_07.jpg
+						{ image: "fail-08.jpg", alt: "V1 scan result: “Scan complete! Banana”, with “Yes, that’s a banana” and “No, that’s not a banana”.", group: "Scanning steps" }, // Fail/…FailImages_08.jpg
+						{ image: "fail-06.jpg", alt: "V1 collection screen: drawings listed in a grid, with map and list controls.", group: "Collection (map/list)" }, // Fail/…FailImages_06.jpg
 					],
 				},
 			],
@@ -217,12 +177,6 @@ const drawScanExplore = {
 					type: "headline",
 					text: "Then we fixed it.",
 				},
-				// verbatim — suite de [3-Fix-01~05]
-				{
-					type: "textRow",
-					label: "",
-					text: "Five before / after comparisons show the redesign: a clear \"Touch to begin\" onboarding with drawings inviting interaction, a merged drawing flow, immediate feedback right after the scan, a plain-language \"Yes / No\" scan result, and a new \"Sign your drawing\" ending that gives the experience a proper close.",
-				},
 				// Comparaisons avant / après découpées pour le bloc « gallery » (vue viewer). Les légendes écrites
 				// sous chaque image d'origine (« Onboarding - a lock screen… ») ne sont pas reprises (originaux gardés).
 				{
@@ -233,35 +187,41 @@ const drawScanExplore = {
 					items: [
 						// fix-01.png (Fix/…FixImages_01.png), découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							image: "fix/fix-01-before.png",
+							image: "fix-alpha/fix-01-before.png",
 							alt: "Onboarding: a lock screen with “Draw a fruit or vegetable”.",
-							after: { image: "fix/fix-01-after.png", alt: "Onboarding: “Be part of the collection.” with drawings floating in and “Touch to begin”." },
+							after: { image: "fix-alpha/fix-01-after.png", alt: "Onboarding: “Be part of the collection.” with drawings floating in and “Touch to begin”." },
 						},
 						// fix-02.png (Fix/…FixImages_02.png), découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							image: "fix/fix-02-before.png",
+							image: "fix-alpha/fix-02-before.png",
 							alt: "Drawing: the first instruction screen, “Pick a card and draw.”",
-							after: { image: "fix/fix-02-after.png", alt: "Drawing: one step-by-step screen, “Pick a paper card and draw.”" },
+							after: { image: "fix-alpha/fix-02-after.png", alt: "Drawing: one step-by-step screen, “Pick a paper card and draw.”" },
 						},
 						// fix-03.png (Fix/…FixImages_03.png), découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							image: "fix/fix-03-before.png",
+							image: "fix-alpha/fix-03-before.png",
 							alt: "Scanning: “Scanning your drawing…” in low contrast.",
-							after: { image: "fix/fix-03-after.png", alt: "Scanning: a high-contrast scan with live detection feedback." },
+							after: { image: "fix-alpha/fix-03-after.png", alt: "Scanning: a high-contrast scan with live detection feedback." },
 						},
 						// fix-04.png (Fix/…FixImages_04.png), découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							image: "fix/fix-04-before.png",
+							image: "fix-alpha/fix-04-before.png",
 							alt: "Scan result: “Scan complete! Banana” with two confirmation buttons.",
-							after: { image: "fix/fix-04-after.png", alt: "Scan result: “Scan complete! Banana” with a plain-language confirmation." },
+							after: { image: "fix-alpha/fix-04-after.png", alt: "Scan result: “Scan complete! Banana” with a plain-language confirmation." },
 						},
 						// fix-05.png (Fix/…FixImages_05.png), découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							image: "fix/fix-05-before.png",
+							image: "fix-alpha/fix-05-before.png",
 							alt: "Ending: the collection list with a hidden name field.",
-							after: { image: "fix/fix-05-after.png", alt: "Ending: “Sign your drawing.” with drawings floating around." },
+							after: { image: "fix-alpha/fix-05-after.png", alt: "Ending: “Sign your drawing.” with drawings floating around." },
 						},
 					],
+				},
+				// verbatim — suite de [3-Fix-01~05]
+				{
+					type: "textRow",
+					label: "",
+					text: "Five before / after comparisons show the redesign: a clear \"Touch to begin\" onboarding with drawings inviting interaction, a merged drawing flow, immediate feedback right after the scan, a plain-language \"Yes / No\" scan result, and a new \"Sign your drawing\" ending that gives the experience a proper close.",
 				},
 				// verbatim — [3-Fix-06]
 				{
@@ -324,7 +284,19 @@ const drawScanExplore = {
 					label: "Final statement",
 					text: "Scan Everything transforms a simple drawing into a shared museum contribution. The final documentation and interface iteration show how the project moved from an initial concept to an evidence-based UX improvement through prototyping, testing, analysis and iteration.",
 				},
-				{ type: "credits" },
+				// Documents et liens du groupe (Martial) : noms de leurs fichiers / liens. Les PDF lourds
+				// sont des copies allégées (Ghostscript, images à 150 dpi) ; href '' = ligne masquée.
+				{
+					type: "credits",
+					documents: [
+						{ label: "User Test_Documentation_WrittenFile_YZ_SF.pdf", href: "/projects/draw-scan-explore/User_Test_Documentation_WrittenFile_YZ_SF.pdf" },
+						{ label: "User Test_Documentation_Boards and Steps_YZ_SF.pdf", href: "/projects/draw-scan-explore/User_Test_Documentation_Boards_and_Steps_YZ_SF.pdf" },
+						{ label: "YZ_SF_Presentation.pdf", href: "/projects/draw-scan-explore/YZ_SF_Presentation.pdf" },
+					],
+					links: [
+						{ label: "Project Figma Link_YZ_SF", href: "https://www.figma.com/board/PEKlLPYZWtYUwkh7M06Bus/SF-YZ-260303ScanEverything?node-id=363-34&t=hVoRIbjNRb73IVqR-1" },
+					],
+				},
 			],
 			next: {
 				label: "Back to the start",

@@ -303,7 +303,7 @@ Types de blocs (`block.type` → composant) :
 | `stats` | `label?`, `items[] {value, label, note?}` | `Stats` |
 | `list` | `columns: 1\|2`, `legend?`, `items[] {number, text, tone?:'worked'\|'didnt'}` | `List` |
 | `beforeAfter` | `pages[] {image, alt}` | `BeforeAfter` |
-| `gallery` | `columns`, `fit:'cover'\|'contain'`, `items[] {image, alt}` | `Gallery` |
+| `gallery` | `columns`, `fit:'cover'\|'contain'`, `items[] {image, alt}` ou `{video: VideoRef}`. **Les vidéos ne s'affichent que sur le bureau**, parmi les photos, jouées sur place au clic : une galerie qui contient une vidéo est toujours un bureau, quel que soit son `variant`. Plus de bloc `video` séparé (Martial, 20.11.2026). | `Gallery` |
 | `figure` | `image`, `alt` | `Figure` |
 | `credits` | — (lit `project.authors`, `year`, `documentation`) | `Credits` |
 
@@ -390,6 +390,13 @@ Pour chaque composant : fichier, props, rendu, états, accessibilité. **Valide 
 - Numéro (`--type-number`, gris) en x 20, titre (`--type-label`, gris) en x ≈ 436, texte en colonne droite.
 - Un groupe de lignes est précédé d'un filet (voir captures Test et Fix).
 
+**`Bento`** (Martial, 20.11.2026) — cartes « squircle » pour les constats des pages Fail (FreshDrop, Lost & Found, titre + texte, sans numéro) et les listes numérotées courtes (Rectify Fix « Iterating (ideas) », Helmetric Test et Fail, numéro + texte).
+- Items `{ title, text }` ou `{ number, text }`, textes verbatim, ordre du contenu conservé.
+- Grille de 4 colonnes remplie par bandes sans trou : 5 cartes = une grande 2×2 + 4 petites, 3 = une large + 2 petites, 2 = 2 larges, 1 = pleine largeur ; une bande sur deux en miroir. Les tailles dépendent du nombre de cartes, pas du texte.
+- 2 colonnes sous 1200 px (grandes et larges sur toute la ligne), 1 colonne sur mobile.
+- Fond `--surface`, rayon `--radius-squircle` avec `corner-shape: squircle` (coins arrondis classiques sinon), espacement `--gap-card`. Petit titre en `--type-number` en haut, grand texte en `--type-label` (interligne `--leading-body`) en bas.
+- Sémantique `<ul>`, titres de carte en `<h2>` (« 01 Titre » si les deux) ; un numéro seul est un simple `<p>`.
+
 **`Screens`** (Test)
 - Rangée centrée d'écrans 538×958, rayon 5, espacement 28, filet sous la rangée.
 
@@ -415,7 +422,7 @@ Pour chaque composant : fichier, props, rendu, états, accessibilité. **Valide 
 - ~~Viewport 16:9 (1688×950), rayon 5, padding 40 / 20.~~ Revu par Martial (19.11.2026) : carrousel en **boucle**, slides 16:9 aux **coins arrondis** (`--radius-slide`, 16), les slides voisines **dépassent sur les côtés** (60 + espace 20), filet 1 px pour les slides blanches ; padding vertical 40.
 - Pager sous l'image (espacement 14) : boutons `01`…`06`.
 
-**`GalleryViewer`** (vue `variant: 'viewer'` du bloc `gallery`, Martial, 19.11.2026 ; ex-bloc `beforeAfterReveal`) — troisième vue des galeries, à côté de `grid` et `desk` (par bloc, ou pour tout le site via `site.galleryVariant`). Une image à la fois dans un viewer WebGL (Three.js, chargé à la demande), **vignettes** dessous pour changer d'image ; le changement d'image utilise le front radial du shader. Un item peut être une image simple ou une **paire avant / après** (`after: { image, alt }` sur l'item) : range « Before / After », glisser l'image, clic = joue la transition ; sur une image simple, clic = image suivante. Les libellés `group` filtrent les vignettes comme sur le bureau (Échap = tout). Cadre au ratio de l'image (contain, jamais recadrée), hauteur fixe = image la plus haute (la page ne bouge pas), le tout tient dans l'écran. Inclinaison 3D vers le curseur. Réglages : section « Gallery viewer (WebGL) » du panneau de tuning. Repli CSS sans WebGL. Les pages Fix l'utilisent avec les paires découpées.
+**`GalleryViewer`** (vue `variant: 'viewer'` du bloc `gallery`, Martial, 19.11.2026 ; ex-bloc `beforeAfterReveal`) — troisième vue des galeries, à côté de `grid` et `desk` (par bloc, ou pour tout le site via `site.galleryVariant`). Une image à la fois dans un viewer WebGL (Three.js, chargé à la demande), **vignettes** dessous pour changer d'image ; le changement d'image utilise le front radial du shader, **sans coupure** (Martial, 20.11.2026) : dans une large zone de fondu, l'ancienne image zoome, se floute et s'écoule pendant que la nouvelle arrive agrandie, floue et déformée puis se pose nette (les paires avant / après n'en prennent qu'une part, réglable, pour rester lisibles à mi-course). L'image est une **feuille souple** (grille 96 × 54) : une vague la traverse avec le front, elle se creuse doucement sous le curseur et son relief accroche la lumière ; plane au repos. Un item peut être une image simple ou une **paire avant / après** (`after: { image, alt }` sur l'item) : range « Before / After », glisser l'image, clic = joue la transition ; sur une image simple, clic = image suivante. Les libellés `group` filtrent les vignettes comme sur le bureau (Échap = tout). Cadre au ratio de l'image (contain, jamais recadrée), hauteur fixe = image la plus haute (la page ne bouge pas), le tout tient dans l'écran. Inclinaison 3D vers le curseur. Réglages : section « Gallery viewer (WebGL) » du panneau de tuning. Repli CSS sans WebGL. Les pages Fix l'utilisent avec les paires découpées.
 
 **`Gallery`**
 - Grille 2 colonnes, cellules 16:9, gouttières 5.
@@ -483,7 +490,7 @@ Les blocs viennent du fichier de contenu, dans cet ordre. Compare toujours avec 
 2. `BeforeAfter` (6 pages).
 3. `NumberedRow` 01–04.
 4. `TextRow` « Iterating ».
-5. `List` (9 idées, 1 colonne).
+5. ~~`List` (9 idées, 1 colonne).~~ `Bento` (9 idées, Martial, 20.11.2026).
 6. `NumberedRow` 05–08.
 7. `Gallery` (4 photos).
 8. `NextChapter` « 04 · Conclusion → ».

@@ -1,6 +1,7 @@
 <!--
 	@component
-	Fixed header of the chapter pages (Figma Index / Variant3, 550:1427). Slides up out of the way
+	Fixed header of every project page (Figma Index / Variant3, 550:1427): chapters and, since
+	26.11.2026, the orange cover pages too (home, Conclusion; see CoverHeader). Slides up out of the way
 	while a full-screen block is in focus (gallery desk, see immersive.svelte.js), and back as soon
 	as a link in it gets the keyboard focus.
 -->
@@ -120,6 +121,18 @@
 
 	.chip:hover,
 	.chip[aria-current='page'] {
+		color: var(--color-paper);
+	}
+
+	/* Orange cover pages (home, Conclusion): orange chips would vanish on the orange page, so
+	   they turn black there, the current one in paper. */
+	:global([data-theme='orange']) .chip {
+		color: var(--color-accent);
+		background: var(--color-ink);
+	}
+
+	:global([data-theme='orange']) .chip:hover,
+	:global([data-theme='orange']) .chip[aria-current='page'] {
 		color: var(--color-paper);
 	}
 </style>

@@ -9,6 +9,7 @@
 	/** @import { Block, BlockType, Theme } from '#lib/content/types.js' */
 	import { dev } from '$app/env';
 	import BeforeAfter from './BeforeAfter.svelte';
+	import Bento from './Bento.svelte';
 	import Credits from './Credits.svelte';
 	import Figure from './Figure.svelte';
 	import Gallery from './Gallery.svelte';
@@ -19,7 +20,6 @@
 	import Screens from './Screens.svelte';
 	import Stats from './Stats.svelte';
 	import TextRow from './TextRow.svelte';
-	import Video from './Video.svelte';
 
 	/**
 	 * @typedef {object} Props
@@ -35,6 +35,7 @@
 		headline: Headline,
 		textRow: TextRow,
 		numberedRow: NumberedRow,
+		bento: Bento,
 		screens: Screens,
 		remarks: Remarks,
 		stats: Stats,
@@ -42,7 +43,6 @@
 		beforeAfter: BeforeAfter,
 		gallery: Gallery,
 		figure: Figure,
-		video: Video,
 		credits: Credits
 	};
 
@@ -80,12 +80,6 @@
 	}
 
 	[data-block='figure'] + [data-block='gallery'] {
-		margin-top: 0;
-	}
-
-	/* Conclusion with a demo video: figure, video and gallery stack 5 apart, like figure → gallery. */
-	[data-block='figure'] + [data-block='video'],
-	[data-block='figure'] + [data-block='video'] + [data-block='gallery'] {
 		margin-top: 0;
 	}
 

@@ -1,0 +1,150 @@
+/*
+	The project name that travels from the index to the opening and into the home title, and back
+	(#lib/components/layout/project-name.js). Same time and ease as the page transitions
+	(--transition-total, --transition-ease of transitions.css). `html[data-project-transition]` says
+	which transition runs:
+
+	- open:    index → opening. The row grows into the curtain, its title glides to the bottom left
+	           and its drawing (index in columns, project-plan) to the middle, drawing itself from
+	           empty on the way; the index stays under it (index in rows: the opening's drawing starts
+	           once the curtain is up).
+	- uncover: opening → home. The page scrolls in: the curtain (with its drawing) goes up while the
+	           home comes up from below, edge to edge, and the name glides into the home title.
+	- close:   home → index, inside the page slide of transitions.css: only the name is added.
+*/
+
+::view-transition-group(project-name),
+::view-transition-group(project-curtain),
+::view-transition-group(project-plan) {
+	animation-duration: var(--transition-total, 500ms);
+	animation-timing-function: var(--transition-ease, cubic-bezier(0.76, 0, 0.24, 1));
+}
+
+/* ------------------------------------------------------------------------------- Name */
+
+/* The two pictures of the name keep its proportions: they scale from their top-left corner by the
+   ratio of the font sizes (--project-name-scale, set by project-name.js), not by the ratio of the
+   boxes, while the box moves; where the lines are the same, the cross-fade does not dim them. */
+::view-transition-old(project-name),
+::view-transition-new(project-name) {
+	inline-size: auto;
+	block-size: auto;
+	transform-origin: 0 0;
+	mix-blend-mode: plus-lighter;
+	animation-duration: var(--transition-total, 500ms);
+	animation-timing-function: var(--transition-ease, cubic-bezier(0.76, 0, 0.24, 1));
+	animation-fill-mode: both;
+}
+
+::view-transition-old(project-name) {
+	animation-name: project-name-out;
+}
+
+::view-transition-new(project-name) {
+	animation-name: project-name-in;
+}
+
+@keyframes project-name-out {
+	to {
+		transform: scale(var(--project-name-scale, 1));
+		opacity: 0;
+	}
+}
+
+@keyframes project-name-in {
+	from {
+		transform: scale(calc(1 / var(--project-name-scale, 1)));
+		opacity: 0;
+	}
+}
+
+/* ------------------------------------------------------------- Index → opening → home */
+
+/* Index → opening: the index does not move, the curtain grows over it; the project page is under
+   the curtain, hidden until the curtain is up. (Selectors stronger than the page slides of
+   transitions.css.) */
+html:root[data-project-transition='open']::view-transition-old(root),
+html:root[data-project-transition='open']::view-transition-new(root) {
+	animation: none;
+}
+
+html:root[data-project-transition='open']::view-transition-new(root) {
+	opacity: 0;
+}
+
+/* « Scan Everything » stays in its place above the growing row (Martial): the index header and the
+   compact header of the opening (site name only) are the same picture. */
+html:root[data-project-transition]::view-transition-group(site-header) {
+	z-index: 1;
+}
+
+/* The row becomes the curtain: one block of the project's colour growing to the whole screen. What
+   the row holds besides the name (the authors of the index in columns) fades out while it starts
+   to grow, and the colour fades in where the row was not hovered (touch). */
+html:root[data-project-transition='open']::view-transition-old(project-curtain) {
+	animation: project-fade-out calc(var(--transition-total, 500ms) * 0.4) linear both;
+	mix-blend-mode: plus-lighter; /* the colour stays full through the cross-fade */
+	/* Covers the whole growing block, as the new picture, so the cross-fade has no lighter strip
+	   where the block grows taller than the row (phone); the row's content keeps its proportions. */
+	block-size: 100%;
+	object-fit: cover;
+	object-position: left top;
+}
+
+html:root[data-project-transition='open']::view-transition-new(project-curtain) {
+	animation: project-fade-in calc(var(--transition-total, 500ms) * 0.4) linear both;
+	mix-blend-mode: plus-lighter;
+	block-size: 100%;
+}
+
+/* The drawing of the index travels empty and draws itself whole on the way (ProjectIntro): only
+   its new, live picture shows, at full strength from the start (no cross-fade). */
+html:root[data-project-transition='open']::view-transition-old(project-plan) {
+	animation: none;
+	opacity: 0;
+}
+
+html:root[data-project-transition='open']::view-transition-new(project-plan) {
+	animation: none;
+}
+
+@keyframes project-fade-out {
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes project-fade-in {
+	from {
+		opacity: 0;
+	}
+}
+
+/* Opening → home, as if scrolling down the page: the curtain goes up by a screen and the home
+   follows it from below, edge to edge. The home under the curtain (old picture) is not shown. */
+html:root[data-project-transition='uncover']::view-transition-old(project-curtain) {
+	animation: project-scroll-out var(--transition-total, 500ms)
+		var(--transition-ease, cubic-bezier(0.76, 0, 0.24, 1)) both;
+}
+
+html:root[data-project-transition='uncover']::view-transition-old(root) {
+	animation: none;
+	opacity: 0;
+}
+
+html:root[data-project-transition='uncover']::view-transition-new(root) {
+	animation: project-scroll-in var(--transition-total, 500ms)
+		var(--transition-ease, cubic-bezier(0.76, 0, 0.24, 1)) both;
+}
+
+@keyframes project-scroll-out {
+	to {
+		transform: translateY(-100%);
+	}
+}
+
+@keyframes project-scroll-in {
+	from {
+		transform: translateY(100%);
+	}
+}
