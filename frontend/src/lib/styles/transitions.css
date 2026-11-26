@@ -6,6 +6,8 @@
 	the band sweeps from right to left; going back, from left to right. The header with the
 	« Scan Everything » title (compact header, index header, same spot) stays put on top.
 
+	A click that skips pages (Test → Fix) goes through the pages in between, one wipe each.
+
 	Not on arrival at a project home (its opening animation covers the change), and none at all with
 	reduced motion: the layout does not start a transition then.
 */
@@ -15,6 +17,24 @@
 	--transition-lag: 120ms; /* the new page trails the old one: thickness of the accent band */
 	--transition-shift: 6vw; /* the pages drift a little with the band */
 	--transition-ease: cubic-bezier(0.76, 0, 0.24, 1); /* quart in-out */
+}
+
+/* A click that skips pages walks through the pages in between (routes/+layout.svelte): one quicker
+   wipe per page, speeding up on the first, steady through the middle, slowing down on the last. */
+:root[data-hop] {
+	--transition-duration: 480ms;
+}
+
+:root[data-hop='first'] {
+	--transition-ease: cubic-bezier(0.32, 0, 0.67, 0); /* cubic in */
+}
+
+:root[data-hop='middle'] {
+	--transition-ease: linear;
+}
+
+:root[data-hop='last'] {
+	--transition-ease: cubic-bezier(0.33, 1, 0.68, 1); /* cubic out */
 }
 
 /* Seen in the gap between the two pages. `--transition-accent` is the accent of the page that

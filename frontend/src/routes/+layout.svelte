@@ -8,8 +8,9 @@
 	import favicon from '#lib/assets/favicon.svg';
 	import suisseMedium from '#lib/assets/fonts/SuisseIntl-Medium.woff2';
 	import SkipLink from '#lib/components/layout/SkipLink.svelte';
-	import { onNavigate } from '$app/navigation';
+	import { beforeNavigate, goto, onNavigate, preloadData } from '$app/navigation';
 	import { page } from '$app/state';
+	import { chapterHref, projectHref } from '#lib/content/routes.js';
 
 	let { children } = $props();
 
@@ -25,21 +26,33 @@
 		return 2 + (project?.chapters.findIndex((chapter) => chapter.slug === params.chapter) ?? 0);
 	}
 
+	const animated = () =>
+		!!document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	/** The running transition, so a walk through pages waits for one wipe before the next. */
+	/** @type {ViewTransition | undefined} */
+	let transition;
+
+	/** Part of a walk through pages that the next transition plays (styles/transitions.css). */
+	/** @type {'first' | 'middle' | 'last' | null} */
+	let hop = null;
+
 	// Page transitions (styles/transitions.css): the content wipes in with the accent colour,
 	// right to left going forward, left to right going back. None with reduced motion, and none
 	// on arrival at a project home, where the opening animation (ProjectIntro) covers the change.
 	onNavigate((navigation) => {
-		if (!document.startViewTransition) return;
-		if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+		if (!animated()) return;
 		if (navigation.from?.url.pathname === navigation.to?.url.pathname) return;
 		if (navigation.to?.route.id === '/[project]') return;
 
 		const root = document.documentElement;
 		const back = rank(navigation.to?.params) < rank(navigation.from?.params);
 		root.dataset.transition = back ? 'back' : 'forward';
+		if (hop) root.dataset.hop = hop;
+		else delete root.dataset.hop;
 
 		return new Promise((resolve) => {
-			document.startViewTransition(async () => {
+			transition = document.startViewTransition(async () => {
 				resolve();
 				await navigation.complete;
 				// Accent of the page that arrives.
@@ -50,6 +63,49 @@
 				}
 			});
 		});
+	});
+
+	/** Bumped by every click, so a newer click stops a walk under way. */
+	let walk = 0;
+
+	// A click that skips pages of the project (Test → Fix, Fix → the home…) goes through the pages
+	// in between: one quicker wipe per page, in one movement. The pages in between replace each
+	// other in the history, so Back returns to the page of the click.
+	beforeNavigate((navigation) => {
+		if (navigation.type !== 'link') return;
+		const id = ++walk;
+
+		/** @type {Project | undefined} */
+		const project = page.data.project;
+		const { from, to } = navigation;
+		if (!project || !animated()) return;
+		if (from?.params?.project !== project.slug || to?.params?.project !== project.slug) return;
+
+		const start = rank(from.params);
+		const end = rank(to.params);
+		if (Math.abs(end - start) < 2) return;
+
+		const step = Math.sign(end - start);
+		const hrefs = [];
+		for (let r = start + step; r !== end; r += step) {
+			hrefs.push(
+				r === 1 ? projectHref(project) : chapterHref(project, project.chapters[r - 2].slug)
+			);
+		}
+		hrefs.push(to.url.href);
+
+		navigation.cancel();
+		hrefs.forEach((href) => preloadData(href));
+		(async () => {
+			await Promise.resolve(); // let SvelteKit finish with the cancelled click first
+			for (const [i, href] of hrefs.entries()) {
+				hop = i === 0 ? 'first' : i === hrefs.length - 1 ? 'last' : 'middle';
+				await goto(href, { replaceState: i > 0 });
+				hop = null;
+				await transition?.finished.catch(() => {});
+				if (id !== walk) return;
+			}
+		})();
 	});
 
 	// Tuning panel (lil-gui), `pnpm dev` only. `import.meta.env.DEV` is replaced at build time,
