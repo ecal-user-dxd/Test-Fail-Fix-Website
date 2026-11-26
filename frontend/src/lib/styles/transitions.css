@@ -6,7 +6,8 @@
 	into a project) they move from right to left; going back, from left to right. The header with
 	the « Scan Everything » title (compact header, index header, same spot) stays put on top.
 
-	A click that skips pages (Test → Fix) goes through the pages in between, one quicker slide each.
+	A click that skips pages (Test → Fix) goes through the pages in between. Whether it goes through
+	one page or four, a transition takes the same time (--transition-total): the slides share it.
 
 	Only transforms and opacity are animated: the browser runs them off the main thread, so a heavy
 	page (WebGL gallery) mounting during the slide does not make it stutter.
@@ -16,16 +17,30 @@
 */
 
 :root {
-	--transition-duration: 700ms;
-	--transition-lag: 120ms; /* the new page trails the old one: width of the accent band */
+	--transition-total: 500ms; /* a whole transition, through one page or four */
+	--transition-hops: 1; /* pages it goes through, set by the layout during a walk */
+	--transition-gap: 50ms; /* the browser's pause between two slides, to capture the page */
+	--transition-slice: calc(
+		(var(--transition-total) - (var(--transition-hops) - 1) * var(--transition-gap)) /
+			var(--transition-hops)
+	);
+	--transition-duration: calc(var(--transition-slice) * 0.85);
+	--transition-lag: calc(var(--transition-slice) * 0.15); /* width of the accent band */
 	--transition-ease: cubic-bezier(0.76, 0, 0.24, 1); /* quart in-out */
 }
 
-/* Walking through pages: quicker slides, each one settling before the next. */
-:root[data-walk] {
-	--transition-duration: 420ms;
-	--transition-lag: 70ms;
-	--transition-ease: cubic-bezier(0.65, 0, 0.35, 1); /* cubic in-out */
+/* Through several pages, one movement: speeding up on the first slide, steady through the
+   middle, slowing down on the last. */
+:root[data-hop='first'] {
+	--transition-ease: cubic-bezier(0.32, 0, 0.67, 0); /* cubic in */
+}
+
+:root[data-hop='middle'] {
+	--transition-ease: linear;
+}
+
+:root[data-hop='last'] {
+	--transition-ease: cubic-bezier(0.33, 1, 0.68, 1); /* cubic out */
 }
 
 /* Seen in the gap between the two pages. `--transition-accent` is the accent of the page that
@@ -43,6 +58,12 @@
 }
 
 /* ------------------------------------------------------------------------------- Pages */
+
+/* The page box itself does not move (the browser's default would still run 250 ms, and the
+   transition only ends with its last animation). */
+::view-transition-group(root) {
+	animation: none;
+}
 
 /* A header on one page only leaves or arrives with it. */
 ::view-transition-old(root),

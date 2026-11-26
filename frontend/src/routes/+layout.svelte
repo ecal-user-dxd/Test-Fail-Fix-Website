@@ -33,7 +33,7 @@
 	/** @type {ViewTransition | undefined} */
 	let transition;
 
-	/** True while a click walks through pages: quicker slides (styles/transitions.css). */
+	/** True while a click walks through pages (data-hop, --transition-hops in transitions.css). */
 	let walking = false;
 
 	// Page transitions (styles/transitions.css): the pages slide past with a band of accent colour,
@@ -47,7 +47,10 @@
 		const root = document.documentElement;
 		const back = rank(navigation.to?.params) < rank(navigation.from?.params);
 		root.dataset.transition = back ? 'back' : 'forward';
-		root.toggleAttribute('data-walk', walking);
+		if (!walking) {
+			delete root.dataset.hop;
+			root.style.removeProperty('--transition-hops');
+		}
 
 		return new Promise((resolve) => {
 			transition = document.startViewTransition(async () => {
@@ -67,9 +70,9 @@
 	let walk = 0;
 
 	// A click that skips pages of the project (Test → Fix, Fix → the home…) goes through the pages
-	// in between: one quicker slide per page. Everything is loaded first so nothing waits on the
-	// way. The pages in between replace each other in the history, so Back returns to the page of
-	// the click.
+	// in between, in the time of one transition: the slides share it. Everything is loaded first
+	// so nothing waits on the way. The pages in between replace each other in the history, so
+	// Back returns to the page of the click.
 	beforeNavigate((navigation) => {
 		if (navigation.type !== 'link') return;
 		const id = ++walk;
@@ -97,8 +100,10 @@
 		const root = document.documentElement;
 		(async () => {
 			await Promise.all(hrefs.map((href) => preloadData(href).catch(() => {})));
+			root.style.setProperty('--transition-hops', String(hrefs.length));
 			for (const [i, href] of hrefs.entries()) {
 				if (id !== walk) break;
+				root.dataset.hop = i === 0 ? 'first' : i === hrefs.length - 1 ? 'last' : 'middle';
 				// Pages in between: heavy blocks (WebGL viewer) skip their start (data-passing).
 				root.toggleAttribute('data-passing', i < hrefs.length - 1);
 				walking = true;
@@ -107,6 +112,8 @@
 				await transition?.finished.catch(() => {});
 			}
 			root.removeAttribute('data-passing');
+			delete root.dataset.hop;
+			root.style.removeProperty('--transition-hops');
 		})();
 	});
 
