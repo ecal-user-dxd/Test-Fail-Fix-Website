@@ -208,6 +208,9 @@
 			([entry]) => {
 				instance?.setVisible(entry.isIntersecting);
 				if (entry.isIntersecting && !started) {
+					// A page only passed through by a walk between pages (routes/+layout.svelte) leaves
+					// at once: no WebGL for it, the HTML images stay.
+					if (document.documentElement.hasAttribute('data-passing')) return;
 					started = true;
 					start();
 				}

@@ -94,15 +94,19 @@
 		hrefs.push(to.url.href);
 
 		navigation.cancel();
+		const root = document.documentElement;
 		(async () => {
 			await Promise.all(hrefs.map((href) => preloadData(href).catch(() => {})));
 			for (const [i, href] of hrefs.entries()) {
-				if (id !== walk) return;
+				if (id !== walk) break;
+				// Pages in between: heavy blocks (WebGL viewer) skip their start (data-passing).
+				root.toggleAttribute('data-passing', i < hrefs.length - 1);
 				walking = true;
 				await goto(href, { replaceState: i > 0 });
 				walking = false;
 				await transition?.finished.catch(() => {});
 			}
+			root.removeAttribute('data-passing');
 		})();
 	});
 
