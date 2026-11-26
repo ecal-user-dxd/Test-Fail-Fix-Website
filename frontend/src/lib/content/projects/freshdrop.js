@@ -60,12 +60,6 @@ const freshdrop = {
 					type: "headline",
 					text: "Can someone use the machine alone, finish a donation, and trust the result — without any help?",
 				},
-				// verbatim — Test.txt, sections dans l'ordre du fichier
-				{
-					type: "textRow",
-					label: "The idea",
-					text: "Food banks throw away a lot of donated food because no one is sure it's still safe to give. FreshDrop is a public machine for community centres and food banks: you scan your food, the machine checks if it's still fresh, and tells you to either donate it or compost it.",
-				},
 				{
 					type: "gallery",
 					columns: 2,
@@ -75,6 +69,7 @@ const freshdrop = {
 						{ image: "test-02.png", alt: "Research board on food donation safety guidelines." }, // Test/RESEARCH2.png
 					],
 				},
+				// verbatim — Test.txt, sections dans l'ordre du fichier (« The idea » retirée le 26.11 : elle répète l'introduction)
 				{
 					type: "textRow",
 					label: "What we built",
@@ -202,10 +197,11 @@ const freshdrop = {
 			layout: "chapter",
 			theme: "white",
 			blocks: [
-				// verbatim — 1re phrase de Fix.txt (« HOW WE WORKED »)
+				// verbatim — sous-titre de Fix.txt (= extra.chapterSubtitles.fix) ; avant le 26.11 le titre était la 1re phrase de
+				// « HOW WE WORKED », séparée de sa 2e phrase (« Then we… ») par le viewer
 				{
 					type: "headline",
-					text: "We looked at all the feedback, grouped the problems people shared, and started with the ones that blocked them the most.",
+					text: "What we changed.",
 				},
 				// Diapositives avant → après de la présentation, découpées pour le bloc « gallery » (vue viewer) (ex-carrousel).
 				// Les phrases sous les diapositives (« Added a progress in every steps… ») ne sont pas reprises.
@@ -247,11 +243,11 @@ const freshdrop = {
 						},
 					],
 				},
-				// verbatim — suite de « HOW WE WORKED »
+				// verbatim — « HOW WE WORKED », le paragraphe entier (lignes du .txt rejointes par des espaces)
 				{
 					type: "textRow",
 					label: "How we worked",
-					text: "Then we matched each problem to a fix.",
+					text: "We looked at all the feedback, grouped the problems people shared, and started with the ones that blocked them the most. Then we matched each problem to a fix.",
 				},
 				// verbatim — « THE FIXES » : titre + texte de chaque fix
 				{
@@ -393,6 +389,8 @@ const freshdrop = {
 		sourceFolder: "Seoyun_Delphine",
 		tagline: "Smarter sharing, safer food.", // sous-titre des .txt Intro et Test, phrase de fin de Intro et Fix
 		chapterSubtitles: { fail: "Where it broke.", fix: "What we changed." },
+		// Test.txt, « THE IDEA » (verbatim) : retirée du Test le 26.11, elle répète l'introduction (revues understandability + continuity)
+		testIdea: "Food banks throw away a lot of donated food because no one is sure it's still safe to give. FreshDrop is a public machine for community centres and food banks: you scan your food, the machine checks if it's still fresh, and tells you to either donate it or compost it.",
 		failListHeading: "WHAT WENT WRONG (the main issues)",
 		links: {
 			interface: "https://yoon312.github.io/final/",

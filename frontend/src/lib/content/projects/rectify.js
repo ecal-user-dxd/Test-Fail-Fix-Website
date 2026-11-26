@@ -99,6 +99,12 @@ const rectify = {
 					label: "",
 					text: "The goal was to understand whether our solution adds a useless layer onto the current experience or augments it. We had a participant pool of 5 people, 4 female and 1 male of ages 26 to 58 and various levels of experience on record stores and digital interfaces. Through the “Wizard of Oz” method they interacted with the solution a completed specific task while being observed. They also participated in pre and post-test questionnaires as well as an interview to conclude the session.",
 				},
+				// verbatim — documentation p. 8 (« Wizard of Oz », libellé = intertitre de la page) : explique la méthode citée juste au-dessus
+				{
+					type: "textRow",
+					label: "Wizard of Oz",
+					text: "As building a full interactive prototype on an actual touchscreen demanded too much time and resources, we’ve simulated the interactions of the users with the display. We used the mouse and keyboard to move through the different pages of the prototype, and guided the user to specific pages. Certain interactions were triggered with a key, e.g. when the user put the records down in the scanning box, the Wizard of Oz researcher pressed a specific key to launch the analysis animation. Other were made with the mouse, following the users’ touch interactions. Some users have noticed the mouse moving along their gestures, however they had no trouble continuing the test seriously, as they had gotten used to it. Lastly, when the users played audio snippets of the album, we used a music app on our computer to simulate the interactivity of the snippet wheel, changing song on drag.",
+				},
 				// Les 7 visuels du dossier Test (Figma répète Test_01/02 en placeholder). Libellés de groupe : titres des
 				// diapositives et de la documentation (docs/desk-legends.md).
 				{
@@ -379,14 +385,15 @@ const rectify = {
 						{ number: "09", text: "Upcoming shows" },
 					],
 				},
-				// verbatim — documentation p. 11 (Results post-test interview)
-				// rule: filet bord à bord au-dessus du groupe 01–04, comme dans Figma (validé par Martial)
+				// verbatim — documentation p. 10–11 (Results post-test interview), dans leur ordre : les « Moving on, », « Also, »,
+				// « and a… » et « Lastly, » s'enchaînent (05 + 07 d'avant étaient une seule phrase, maintenant 06 + 07 consécutives)
+				// rule: filet bord à bord au-dessus du groupe, comme dans Figma (validé par Martial)
 				{
 					type: "numberedRow",
 					rule: "top",
 					number: "01",
-					title: "Upcoming shows",
-					text: "Moving on, the mention from a user of a tag for upcoming concert(s) in the vicinity by the artist of the album page was deemed relevant as it could inform a purchase decision.",
+					title: "Adding play/pause button",
+					text: "One of the main takeaways was the audio player. In all cases, we have gotten feedback or have noticed that it was not clear that people should just put the helmet on for the snippets to play. This resulted in the implementation of a play/pause button, with decorative elements that provided feedback and reinforced the affordance of the wheel interaction.",
 				},
 				{
 					type: "numberedRow",
@@ -397,26 +404,26 @@ const rectify = {
 				{
 					type: "numberedRow",
 					number: "03",
+					title: "Store recommendations",
+					text: "Other features implemented after the interviews were the store recommendations, which were mentioned by two people. They have been assigned to the waiting screen so that they do not conflict with the scanning selection experience. We have come to the conclusion that this is relevant to the prototype as it encourages discovery of the store, as people might try to find the suggested records, or ask about them to the owner/worker.",
+				},
+				{
+					type: "numberedRow",
+					number: "04",
+					title: "Upcoming shows",
+					text: "Moving on, the mention from a user of a tag for upcoming concert(s) in the vicinity by the artist of the album page was deemed relevant as it could inform a purchase decision.",
+				},
+				{
+					type: "numberedRow",
+					number: "05",
 					title: "Other albums in store",
 					text: "Also, a button to display other albums available in the store by the same artist was added to the album pages after three users mentioned it. However, it only featured the cover art, with no labelling, as to encourage exploration, personal analysis or discussion.",
 				},
 				{
 					type: "numberedRow",
-					number: "04",
-					title: "Adding play/pause button",
-					text: "One of the main takeaways was the audio player. In all cases, we have gotten feedback or have noticed that it was not clear that people should just put the helmet on for the snippets to play. This resulted in the implementation of a play/pause button, with decorative elements that provided feedback and reinforced the affordance of the wheel interaction.",
-				},
-				{
-					type: "numberedRow",
-					number: "05",
+					number: "06",
 					title: "Timeline view",
 					text: "The last changes to the interface was an update of the Timeline view, which is now scrollable and complies with the component design of the other mappings better",
-				},
-				{
-					type: "numberedRow",
-					number: "06",
-					title: "Store recommendations",
-					text: "Other features implemented after the interviews were the store recommendations, which were mentioned by two people. They have been assigned to the waiting screen so that they do not conflict with the scanning selection experience. We have come to the conclusion that this is relevant to the prototype as it encourages discovery of the store, as people might try to find the suggested records, or ask about them to the owner/worker.",
 				},
 				{
 					type: "numberedRow",
@@ -431,7 +438,7 @@ const rectify = {
 					text: "Lastly, a slight change was made on the material prototype, based on both feedback and observations. Two stickers were added, one on the scanning box with an icon of records in a row in the box, so that people knew where and how to put them down. The other one is in front of the scanning box and shows where to discard the records. This makes the manipulation clearer, as some people mentioned a confusion on this matter.",
 				},
 				// Un seul bureau après les lignes numérotées ; libellés de groupe = libellé « Iterating » et titres des
-				// lignes 06 et 08 (docs/desk-legends.md).
+				// lignes 03 et 08 (docs/desk-legends.md).
 				{
 					type: "gallery",
 					columns: 2,
@@ -539,11 +546,6 @@ const rectify = {
 				},
 				{
 					type: "textRow",
-					label: "Outcome",
-					text: "The insights inspired enhancements across the complete system, surfacing overlooked details and ideas that were never considered. This allowed us to evolve the prototype, while retaining its core DNA and progressively improving the finer details to make transition into a fuller and more valuable artefact. It allowed us to enrich the journey exploration, listening and physical discovery of the store.",
-				},
-				{
-					type: "textRow",
 					label: "Process",
 					text: "The new prototype, is a representation of the iterative process, its current quality is in direct relation to the feedback received. The whole process of testing was both humbling and energizing; seeing the idea come to life and people interact was a motivating experience. The methodology of quick prototyping, early testing and intentional building is instilled into us.",
 				},
@@ -576,6 +578,9 @@ const rectify = {
 	 */
 	extra: {
 		sourceFolder: "Thomas_Rishab",
+		// Conclusion, ex-ligne « Outcome » (documentation p. 12, verbatim) : retirée le 26.11 car elle répète le titre du Fix et
+		// le texte « Iterating » (revues understandability + continuity).
+		conclusionOutcome: "The insights inspired enhancements across the complete system, surfacing overlooked details and ideas that were never considered. This allowed us to evolve the prototype, while retaining its core DNA and progressively improving the finer details to make transition into a fuller and more valuable artefact. It allowed us to enrich the journey exploration, listening and physical discovery of the store.",
 		links: {
 			prototype: "https://www.figma.com/design/LkuVov1l9UC2zvET0OLhuU/Test--Fail--Fix-Figma-File?node-id=1-4&t=flfqUVa9gvAyeQ9l-0",
 			research: "https://www.figma.com/board/ajfTY3WDbuV0oX1HKSftJw/Test--Fail--Fix-Research-File?node-id=0-1&p=f",

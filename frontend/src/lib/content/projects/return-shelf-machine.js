@@ -145,6 +145,17 @@ const returnShelfMachine = {
 					label: "",
 					text: "Participants were asked to think aloud throughout. The scanning step was faked using a Wizard-of-Oz setup with a custom-built controller, and all observations were analysed through affinity mapping.",
 				},
+				// verbatim — UserBehaviorDiscovery (.docx/.pdf) §3 « Cross-task patterns » et §4.3 « Physical prototype » : ce qui n'a
+				// pas marché (leur FailText.txt ne décrit que la séance). Titres = leurs intertitres, une ou deux lignes de chacun (revues 26.11).
+				{
+					type: "bento",
+					items: [
+						{ title: "Understanding of tag", text: "“Designer” tag was misread by 4/5: as author (p4), as publisher (p3), or simply as a label whose meaning was unclear at first glance (p2)" },
+						{ title: "Picking up books and reading the screen", text: "Default screen does not clearly grab attention\n4/5 struggled to operate the touch interface while holding multiple books" },
+						{ title: "Screen interface affordance", text: "Section division: the top tag area and bottom tag area read as disconnected systems for p1, p4, and p5" },
+						{ title: "Physical prototype", text: "Shelf Height: A recurring piece of feedback was that the physical trolley/shelf was too low, making it uncomfortable to use; suggestions included adding a chair or raising the prototype." },
+					],
+				},
 				{
 					type: "gallery",
 					columns: 2,
@@ -231,6 +242,37 @@ const returnShelfMachine = {
 					type: "textRow",
 					label: "",
 					text: "We then iterated toward v2, addressing the main problems the test surfaced across the navigation, the interface, and the physical setup.",
+				},
+				// verbatim — UserBehaviorDiscovery §5.2 « v2 improvement objectives » : « Objective N: » → numéro, puis ses lignes
+				{
+					type: "numberedRow",
+					number: "01",
+					title: "Make the core navigation legible",
+					text: "Adjust visual hierarchy\nBe more descriptive for each tag\nEnrich the single-book info screen: book dimensions, richer description\nHorizontal scroll affordance\nDefault screen adaptation to new prototype",
+				},
+				{
+					type: "numberedRow",
+					number: "02",
+					title: "Make the first encounter self-explanatory",
+					text: "Clear recognition on the first look(physical and digital)\nFeedback for the scanning-progress",
+				},
+				{
+					type: "numberedRow",
+					number: "03",
+					title: "Adjust the physical embodiment",
+					text: "Make it higher\nPlace screen interface more noticeable\nPlace for setting books down during screen interaction\nScreen should be a bit bigger for touch interaction",
+				},
+				{
+					type: "numberedRow",
+					number: "04",
+					title: "Enrich experience",
+					text: "Reward multi-book interaction\nTheme-based",
+				},
+				// verbatim — fin du §5.2 (= extra.v2Decision)
+				{
+					type: "textRow",
+					label: "",
+					text: "Decision made to work mainly on Objective 1,2, and partially on 3.\nLeave Objective 4 as a future improvement.",
 				},
 				{
 					type: "gallery",

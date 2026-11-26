@@ -71,17 +71,8 @@ const helmetric = {
 						{ number: "05", text: "If the system effectively communicates helmet fit and safety" },
 					],
 				},
-				// verbatim — 1-Test/Gwen-Marc-test.md, une ligne par section « ## » (libellés = titres du .md)
-				{
-					type: "textRow",
-					label: "Research",
-					text: "During our research, we decided it would be best to go with a Grotesk typeface that has a strong character in its details but is also highly legible; that is why we chose LL Riforma, designed by the NORM studio\nIt is an extremely precise typeface that is highly optimised for the web; it offers a very radical look and excellent readability, particularly thanks to its kerning.\nWe used industry standards, particularly Google's Material 3, as a guiding principle to create a seamless and inclusive design.",
-				},
-				{
-					type: "textRow",
-					label: "Prototype",
-					text: "We've moved from figma to the web, which has allowed us to incorporate more complex interactions, such as the head scan. It has also enabled us to fine-tune the interactions further (micro UI).\n\nThis process is carried out using the MCP (Model Context Protocol), a methodology for cleanly converting a Figma document into a web page. We decided to review and improve the file structure of the coded version of the application, to ensure that the component design is defined only once. This also enabled us to work more quickly and with greater precision during the iteration for version 2.\n\nIn our initial version, we planned to include a structure to simulate a shelter, since the machine could be located outdoors. This would also allow us to mount a light on top to illuminate the face during the scan.\nIn the end, the structures were not available.",
-				},
+				// verbatim — 1-Test/Gwen-Marc-test.md, une ligne par section « ## » (libellés = titres du .md) ; « Research » et
+				// « Prototype » passent après le test (qui, combien de temps, quoi), revues understandability + continuity 26.11
 				{
 					type: "textRow",
 					label: "Testers",
@@ -96,6 +87,22 @@ const helmetric = {
 						{ value: "~40", label: "questions" },
 						{ value: "25", label: "minutes" },
 					],
+				},
+				// verbatim — documentation V2 p. 24–25, « Scenario and tasks » (libellé = titre de la page ; = extra.testScenario / testTasks)
+				{
+					type: "textRow",
+					label: "Scenario and tasks",
+					text: "The participant is in a public space (such as a bike parking area, ski station, or store) and comes across the machine. They want to check if their helmet fits properly and whether it is still safe to use. Or to measure their head to find the perfect helmet.\n\nApproach the machine and understand how to start\nFollow the instructions on the screen\nPosition themselves correctly\nInteract with the head measurement system\nComplete the scanning process\nRead and interpret the results\nExplore recommendations about helmet fit and safety",
+				},
+				{
+					type: "textRow",
+					label: "Prototype",
+					text: "We've moved from figma to the web, which has allowed us to incorporate more complex interactions, such as the head scan. It has also enabled us to fine-tune the interactions further (micro UI).\n\nThis process is carried out using the MCP (Model Context Protocol), a methodology for cleanly converting a Figma document into a web page. We decided to review and improve the file structure of the coded version of the application, to ensure that the component design is defined only once. This also enabled us to work more quickly and with greater precision during the iteration for version 2.\n\nIn our initial version, we planned to include a structure to simulate a shelter, since the machine could be located outdoors. This would also allow us to mount a light on top to illuminate the face during the scan.\nIn the end, the structures were not available.",
+				},
+				{
+					type: "textRow",
+					label: "Research",
+					text: "During our research, we decided it would be best to go with a Grotesk typeface that has a strong character in its details but is also highly legible; that is why we chose LL Riforma, designed by the NORM studio\nIt is an extremely precise typeface that is highly optimised for the web; it offers a very radical look and excellent readability, particularly thanks to its kerning.\nWe used industry standards, particularly Google's Material 3, as a guiding principle to create a seamless and inclusive design.",
 				},
 				// Libellés de groupe : titres de pages de la documentation V2 et « ## Testers » du .md (docs/desk-legends.md).
 				{
@@ -165,16 +172,17 @@ const helmetric = {
 					label: "Summary of the data",
 					text: "Analyzing the user testing data yielded fascinating results, especially when comparing our initial assumptions with actual user behavior. Interestingly, features we expected to cause friction such as the face scanning process, which requires specific head movements to generate the mesh were actually very well received. When combined with the wearable head-measurement device, users instantly understood how the system operated. Conversely, interactions we assumed would be straightforward, such as placing the helmet into the box or handling the measurement device, caused unexpected friction for some users.\nThese difficulties were consistent across multiple participants. Despite our sample size six testers, whereas a commercial project would require a much larger group, the fact that individuals from completely different backgrounds shared identical pain points proved that our findings were legitimate and not just random coincidence. By analyzing these convergent opinions, we were able to transform negative feedback into six specific user insights to refine the overall experience.",
 				},
-				// verbatim — les six insights (titres du .md Fix, « Summary of insights » de la présentation) (bento, Martial)
+				// verbatim — les six insights (titres du .md Fix, « Summary of insights » de la présentation) (bento, Martial),
+				// chacun avec sa ligne d'amélioration de la même diapositive (titre seul = incompréhensible avant le Fix)
 				{
 					type: "bento",
 					items: [
-						{ number: "01", text: "What should I read?" },
-						{ number: "02", text: "Not just on the screen" },
-						{ number: "03", text: "Not brand affiliated" },
-						{ number: "04", text: "Smile, you're on camera" },
-						{ number: "05", text: "Internal damage" },
-						{ number: "06", text: "Hands-free" },
+						{ number: "01", title: "What should I read?", text: "Reorganise information on result pages" },
+						{ number: "02", title: "Not just on the screen", text: "Clearer instructions for physical machines" },
+						{ number: "03", title: "Not brand affiliated", text: "Reduce the shopping feeling" },
+						{ number: "04", title: "Smile, you're on camera", text: "Notify before filming" },
+						{ number: "05", title: "Internal damage", text: "Understanding the method of scan" },
+						{ number: "06", title: "Hands-free", text: "Location of the helmet during the head scan" },
 					],
 				},
 				{
@@ -297,7 +305,7 @@ const helmetric = {
 					type: "numberedRow",
 					number: "04",
 					title: "Smile, you're on camera",
-					text: "Two users reported that seeing themselves on camera had taken them by surprise, so we have added a notification step before the camera starts recording.\nUser 5 said: “I didn't expect to see my own face so suddenly.”",
+					text: "Two users reported that seeing themselves on camera had taken them by surprise, so we have added a notification step before the camera starts recording.\n\nUser 5 said: “I didn't expect to see my own face so suddenly.”",
 				},
 				{
 					type: "numberedRow",
@@ -366,10 +374,11 @@ const helmetric = {
 			layout: "cover",
 			theme: "orange",
 			blocks: [
-				// verbatim — présentation, diapositive « Conclusion » (le groupe n'a pas de texte de conclusion)
+				// verbatim — Fail .md, dernier paragraphe de « Summary of the data », 1re phrase (le groupe n'a pas de texte de
+				// conclusion ; l'ancien titre « On two different scanning processes », sous-titre de diapositive, est dans extra)
 				{
 					type: "headline",
-					text: "On two different scanning processes",
+					text: "Ultimately, what felt most rewarding was that many participants stated they would willingly use this machine if it were deployed in real life.",
 				},
 				{
 					type: "figure",
@@ -391,11 +400,11 @@ const helmetric = {
 						},
 					],
 				},
-				// verbatim — Fail .md, dernier paragraphe de « Summary of the data » (déplacé du Fail : le groupe n'a pas de texte de conclusion)
+				// verbatim — Fail .md, dernier paragraphe de « Summary of the data », suite de la 1re phrase (titre) (déplacé du Fail : le groupe n'a pas de texte de conclusion)
 				{
 					type: "textRow",
 					label: "",
-					text: "Ultimately, what felt most rewarding was that many participants stated they would willingly use this machine if it were deployed in real life. This enthusiastic response provided strong validation for our project, proving that Helmetric is a valuable, meaningful solution rather than a gadget or a niche concept.",
+					text: "This enthusiastic response provided strong validation for our project, proving that Helmetric is a valuable, meaningful solution rather than a gadget or a niche concept.",
 				},
 				// verbatim — présentation, diapositive « Conclusion »
 				{
@@ -437,6 +446,8 @@ const helmetric = {
 	 */
 	extra: {
 		sourceFolder: "Gwenaelle_Marc",
+		// Présentation, diapositive « Conclusion », sous-titre : ancien titre de la Conclusion (fragment), remplacé le 26.11
+		conclusionSlideSubtitle: "On two different scanning processes",
 		links: {
 			prototypeV1: "https://helmetric.netlify.app/index.html",
 			prototypeV2: "https://helmetric2.netlify.app/index.html",

@@ -71,7 +71,30 @@ const lostAndFound = {
 					type: "headline",
 					text: "Your goal is to register a lost item so it can be safely stored and returned to its owner.",
 				},
-				// Pas de texte d'introduction au test dans leur dossier : pas de titre.
+				// verbatim — Test/TestDocumentation/Scenario.docx, 1er paragraphe, puis la suite du 2e (sa 1re phrase est le titre)
+				// et le 3e (libellé = leur intertitre dans UXR_Document, p. 29)
+				{
+					type: "textRow",
+					label: "Testing scenario",
+					text: "On 17th of April, you found a lost camera on the Ground floor in IKEA auditorium. It is in a good condition and instead of sending an email to the entire school, you decide to use the Lost and Found scanning machine located in the ECAL building.\n\nUse the scanning machine: place the item in the designated area, follow the on-screen instructions, answer a few questions about where it was found, and print a tag before placing it in the assigned locker. Complete the process as naturally as possible, as if in a real ECAL setting.\n\nPlease think aloud and explain your expectations at each step.",
+				},
+				// verbatim — Scenario.docx, « Tasks: » et leur liste (une tâche par ligne)
+				{
+					type: "textRow",
+					label: "Tasks",
+					text: "You are requested to complete following tasks:\nApproach the scanning machine and understand what it is for?\nPlace the object in the scanning area\nFollow the on-screen instructions\nAnswer the system questions about the object\nPrint the object tag\nAttach the tag to the object\nPlace the object in the assigned locker\nFinish the submission process",
+				},
+				// verbatim — UXR_Document p. 30, « Conducted tests - participants information » (libellé du bloc, lu seulement par
+				// les lecteurs d'écran) : « Total number of participants - 7 », « Approximate test duration - 25 - 30 minutes »
+				{
+					type: "stats",
+					label: "Conducted tests - participants information",
+					items: [
+						{ value: "7", label: "Total number of participants" },
+						{ value: "25 - 30", label: "minutes" },
+					],
+				},
+				// « Testing scenario », « Tasks » et les participants passent avant les images (revues 26.11).
 				// Le prototype testé (images du dossier Intro), en un seul bureau ; libellés de groupe = titres des
 				// diapositives de leur présentation (docs/desk-legends.md). Les écrans de la première version suivent
 				// l'ordre du parcours (« Main flow » de leur présentation). Pas de bloc « screens » : ses cellules
@@ -97,20 +120,7 @@ const lostAndFound = {
 						{ image: "intro/screen-closing.png", alt: "First version, closing screen: “Filed. Someone will be very glad you stopped.”", group: "Digital interface" }, // Intro/Interface/closing.png
 					],
 				},
-				// verbatim — Test/TestDocumentation/Scenario.docx, 1er paragraphe, puis la suite du 2e (sa 1re phrase est le titre)
-				// et le 3e (libellé = leur intertitre dans UXR_Document, p. 29)
-				{
-					type: "textRow",
-					label: "Testing scenario",
-					text: "On 17th of April, you found a lost camera on the Ground floor in IKEA auditorium. It is in a good condition and instead of sending an email to the entire school, you decide to use the Lost and Found scanning machine located in the ECAL building.\n\nUse the scanning machine: place the item in the designated area, follow the on-screen instructions, answer a few questions about where it was found, and print a tag before placing it in the assigned locker. Complete the process as naturally as possible, as if in a real ECAL setting.\n\nPlease think aloud and explain your expectations at each step.",
-				},
-				// verbatim — Scenario.docx, « Tasks: » et leur liste (une tâche par ligne)
-				{
-					type: "textRow",
-					label: "Tasks",
-					text: "You are requested to complete following tasks:\nApproach the scanning machine and understand what it is for?\nPlace the object in the scanning area\nFollow the on-screen instructions\nAnswer the system questions about the object\nPrint the object tag\nAttach the tag to the object\nPlace the object in the assigned locker\nFinish the submission process",
-				},
-				// Un seul bureau après « Tasks » ; libellés de groupe = UXR_Document §4.1 et §4.2, et la section
+				// Un seul bureau après le prototype ; libellés de groupe = UXR_Document §4.1 et §4.2, et la section
 				// « 03 User testing » de leur présentation (docs/desk-legends.md).
 				{
 					type: "gallery",
@@ -193,7 +203,8 @@ const lostAndFound = {
 					label: "Insights gathering from user testing",
 					text: "The following insights were derived from observations, participant feedback, and recurring behavioural patterns identified during the usability testing sessions.",
 				},
-				// Findings.docx, « Insight 1: » à « Insight 7: », dans l'ordre (bento sans les numéros, Martial)
+				// Findings.docx, « Insight 1: », « 2: » et « 7: », dans l'ordre (bento sans les numéros, Martial) ; les insights 3 à 6
+				// répètent « What failed for us » (deux phrases mot pour mot) : retirés le 26.11, gardés dans extra.findingsRepeated
 				{
 					type: "bento",
 					items: [
@@ -206,26 +217,6 @@ const lostAndFound = {
 						{
 							title: "About cognitive load",
 							text: "It is worth noting that three participants reported a moderate level of cognitive load. Only one participant gave a highly positive rating, while the remaining participants expressed satisfaction with the system’s affordances.",
-						},
-						// verbatim — Findings.docx, « Insight 3: »
-						{
-							title: "Accessibility of digital prototype",
-							text: "The vertical text on the interface requires a more refined design solution. Additionally, conducting accessibility evaluations on color contrast and typography would further improve the overall usability and readability of the interface.",
-						},
-						// verbatim — Findings.docx, « Insight 4: »
-						{
-							title: "Accessibility of tangible prototype",
-							text: "Currently, the prototype is not fully accessible for wheelchair users. In addition, the ergonomic design of the locker system requires further evaluation to ensure that interactions are intuitive, comfortable, and accessible for a wider range of users.",
-						},
-						// verbatim — Findings.docx, « Insight 5: »
-						{
-							title: "Minor Interface improvements.",
-							text: "Reducing unnecessary information on some screens while providing clearer guidance on other.\nAdditionally, increasing button sizes and improving their visual prominence to make them more recognizable",
-						},
-						// verbatim — Findings.docx, « Insight 6: »
-						{
-							title: "Tapping student card",
-							text: "Many participants struggled to understand the concept of tapping the student card, as the purpose and required steps were not immediately clear. Providing clearer instructions and stronger visual cues would help.",
 						},
 						// verbatim — Findings.docx, « Insight 7: »
 						{
@@ -446,6 +437,30 @@ const lostAndFound = {
 	 */
 	extra: {
 		sourceFolder: "Cindy_Amna",
+		// Fail, ex-cartes « Insights gathering » 3 à 6 (Findings.docx, verbatim), retirées le 26.11 parce qu'elles répètent
+		// « What failed for us ». Elles seules disent « color contrast and typography » et « wheelchair users ».
+		findingsRepeated: [
+			// verbatim — Findings.docx, « Insight 3: »
+			{
+				title: "Accessibility of digital prototype",
+				text: "The vertical text on the interface requires a more refined design solution. Additionally, conducting accessibility evaluations on color contrast and typography would further improve the overall usability and readability of the interface.",
+			},
+			// verbatim — Findings.docx, « Insight 4: »
+			{
+				title: "Accessibility of tangible prototype",
+				text: "Currently, the prototype is not fully accessible for wheelchair users. In addition, the ergonomic design of the locker system requires further evaluation to ensure that interactions are intuitive, comfortable, and accessible for a wider range of users.",
+			},
+			// verbatim — Findings.docx, « Insight 5: »
+			{
+				title: "Minor Interface improvements.",
+				text: "Reducing unnecessary information on some screens while providing clearer guidance on other.\nAdditionally, increasing button sizes and improving their visual prominence to make them more recognizable",
+			},
+			// verbatim — Findings.docx, « Insight 6: »
+			{
+				title: "Tapping student card",
+				text: "Many participants struggled to understand the concept of tapping the student card, as the purpose and required steps were not immediately clear. Providing clearer instructions and stronger visual cues would help.",
+			},
+		],
 		links: {
 			// fichiers .url du dossier
 			brainstorming: "https://www.figma.com/board/4DomuvmiUEYkxsWWWhuMm6/Brainstorming?node-id=0-1&t=VpTME5cqegmuRsdS-1",
