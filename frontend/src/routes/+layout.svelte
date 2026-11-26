@@ -26,11 +26,13 @@
 	}
 
 	// Page transitions (styles/transitions.css): the content wipes in with the accent colour,
-	// right to left going forward, left to right going back. None with reduced motion.
+	// right to left going forward, left to right going back. None with reduced motion, and none
+	// on arrival at a project home, where the opening animation (ProjectIntro) covers the change.
 	onNavigate((navigation) => {
 		if (!document.startViewTransition) return;
 		if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 		if (navigation.from?.url.pathname === navigation.to?.url.pathname) return;
+		if (navigation.to?.route.id === '/[project]') return;
 
 		const root = document.documentElement;
 		const back = rank(navigation.to?.params) < rank(navigation.from?.params);

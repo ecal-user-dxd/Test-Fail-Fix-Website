@@ -6,7 +6,8 @@
 	the band sweeps from right to left; going back, from left to right. The header with the
 	« Scan Everything » title (compact header, index header, same spot) stays put on top.
 
-	Reduced motion: the layout does not start a transition at all.
+	Not on arrival at a project home (its opening animation covers the change), and none at all with
+	reduced motion: the layout does not start a transition then.
 */
 
 :root {
@@ -22,25 +23,30 @@
 	background: var(--transition-accent, var(--color-accent));
 }
 
-::view-transition-old(root),
-::view-transition-new(root),
-::view-transition-old(site-header):only-child,
-::view-transition-new(site-header):only-child {
+::view-transition-old(*),
+::view-transition-new(*) {
 	mix-blend-mode: normal;
 	animation-duration: var(--transition-duration);
 	animation-timing-function: var(--transition-ease);
 	animation-fill-mode: both;
 }
 
+::view-transition-new(*),
+::view-transition-old(site-header) {
+	animation-delay: var(--transition-lag);
+}
+
+/* ------------------------------------------------------------------------------- Pages */
+
 ::view-transition-old(root),
 ::view-transition-old(site-header):only-child {
 	animation-name: page-out-left;
+	animation-delay: 0s;
 }
 
 ::view-transition-new(root),
 ::view-transition-new(site-header):only-child {
 	animation-name: page-in-left;
-	animation-delay: var(--transition-lag);
 }
 
 :root[data-transition='back']::view-transition-old(root),
@@ -53,18 +59,8 @@
 	animation-name: page-in-right;
 }
 
-/* The header on both pages: no movement, the current chip changes colour as on hover. When only
-   one of the two pages has it, it leaves or arrives with its page (rules above). */
-::view-transition-group(site-header) {
-	animation: none;
-}
-
-::view-transition-old(site-header),
-::view-transition-new(site-header) {
-	animation-duration: var(--duration-hover);
-}
-
-/* The header spans the full width like the page, so the same clips cut it at the same place. */
+/* A header on one page only leaves or arrives with it: it spans the full width like the page, so
+   the same clips cut it at the same place. */
 @keyframes page-out-left {
 	from {
 		clip-path: inset(0 0 0 0);
@@ -102,5 +98,66 @@
 	}
 	to {
 		clip-path: inset(0 0 0 0);
+	}
+}
+
+/* ------------------------------------------------------------------------------ Header */
+
+/* On both pages, the header does not move. Its new state (current chip, black chips on the orange
+   pages) is uncovered at the leading edge of the new page; the old state stays up to that edge. */
+::view-transition-group(site-header) {
+	animation: none;
+}
+
+::view-transition-old(site-header) {
+	animation-name: header-out-left;
+}
+
+::view-transition-new(site-header) {
+	animation-name: header-in-left;
+}
+
+:root[data-transition='back']::view-transition-old(site-header) {
+	animation-name: header-out-right;
+}
+
+:root[data-transition='back']::view-transition-new(site-header) {
+	animation-name: header-in-right;
+}
+
+/* The edge of the new page, drift included, runs from 100% + shift to 0. */
+@keyframes header-in-left {
+	from {
+		clip-path: inset(0 0 0 calc(100% + var(--transition-shift)));
+	}
+	to {
+		clip-path: inset(0 0 0 0);
+	}
+}
+
+@keyframes header-out-left {
+	from {
+		clip-path: inset(0 calc(-1 * var(--transition-shift)) 0 0);
+	}
+	to {
+		clip-path: inset(0 100% 0 0);
+	}
+}
+
+@keyframes header-in-right {
+	from {
+		clip-path: inset(0 calc(100% + var(--transition-shift)) 0 0);
+	}
+	to {
+		clip-path: inset(0 0 0 0);
+	}
+}
+
+@keyframes header-out-right {
+	from {
+		clip-path: inset(0 0 0 calc(-1 * var(--transition-shift)));
+	}
+	to {
+		clip-path: inset(0 0 0 100%);
 	}
 }
