@@ -1,17 +1,26 @@
 /**
  * Rectify — contenu du projet (Scan Everything 2026, brief « Test, Fail, Fix », ECAL MaDXD).
+ * Groupe : Thomas Neyroud & Rishab Sachidanand (dossier étudiant « Thomas_Rishab »).
  *
  * RÈGLE ABSOLUE : tous les textes marqués `verbatim` sont ceux des étudiants, copiés tels quels
  * (fautes comprises : « in applied », « ideates », « dissapearing », « Our core principles was »…).
  * Ne jamais les corriger, reformuler, raccourcir ni traduire.
  *
+ * Sources (dossier ~/Documents/ECAL/AS_9/TEST-FAIL_FIX/Test-Fail-Fix/Thomas_Rishab/) :
+ * - Text_and_images/<chapitre>/*.rtf : textes principaux (Intro, Test, Fail, Fix) ;
+ * - TFF-RishabThomas-Documentation.pdf : résultats de l'entretien (lignes numérotées du Fix), conclusion ;
+ * - TFF-RishabThomas-Presentation.pdf : questionnaire, échelle de Likert, réponses d'entretien, idées.
+ * Les images Text_and_images/<chapitre>/…_Test_01.png… gardent leur numéro (test-01, fail-01, fix-01…).
+ *
  * Les champs `alt` et les libellés d'interface (« Next chapter », « Back to the start »…)
  * ne viennent PAS des étudiants : ils peuvent être ajustés.
  *
  * Les images sont référencées par leur chemin relatif à `src/lib/assets/projects/rectify/`.
- * Source de vérité visuelle : Figma f9nqzj1fV8H70n2KBJCANh, page « 0_Flow » (voir docs/BRIEF.md).
- *
- * Schéma : voir les typedefs JSDoc dans `src/lib/content/types.js` (à créer, cf. brief §6).
+ * Maquettes : Figma f9nqzj1fV8H70n2KBJCANh, page « 0_Flow » (voir docs/BRIEF.md) ; le avant / après
+ * du Fix et la figure de la Conclusion suivent désormais les autres projets (vue viewer, image principale).
+ * Depuis le 26.11.2026, Test, Fail et Fix suivent aussi le gabarit des autres projets (bento, galeries) :
+ * plus de blocs « screens », « remarks » ni « list » ; aucun texte ajouté ni modifié.
+ * `extra` garde les infos du groupe qui n'ont pas (encore) de place dans le gabarit.
  */
 
 /** @type {import('../types.js').Project} */
@@ -35,7 +44,7 @@ const rectify = {
 			{
 				type: "textRow",
 				label: "Introduction",
-				// verbatim — NeyroudThomas_SachidanadRishab_TestFailFix_Intro.rtf
+				// verbatim — Intro/…TestFailFix_Intro.rtf
 				text: "Rectify aims to support the act of discovering albums in record stores. It consists of a screen interface, two boxes and an optional audio headset. The interaction to enable the installation is one that bridges the gap between the material store and the digital experiences, by placing a selection of records into the scanning container. This triggers an analysis by the software, and shows the collection in various mappings (genre, origin and timeline). The user can then access each albums’ individual pages to have a deep insight about information, context and credits of the album. They can also listen to snippets of specific songs of the record. This allows to inform their purchase decision with intentionally minimal information, in respect of the role of the store owner and workers.",
 			},
 			{ type: "credits" },
@@ -53,88 +62,84 @@ const rectify = {
 			theme: "white",
 			figma: "551:580",
 			blocks: [
-				// verbatim — 1re phrase de Test.rtf
+				// verbatim — 1re phrase de Test/…TestFailFix_Test.rtf
 				{
 					type: "headline",
 					text: "There were three clear objectives we targeted with testing our solution:",
 				},
+				// verbatim — suite de Test.rtf, les trois objectifs annoncés par le titre, un par carte (bento, comme les
+				// objectifs du Test de Helmetric ; les anciens titres « Evaluating / Understanding / Learning » étaient les nôtres)
 				{
-					type: "screens",
+					type: "bento",
 					items: [
-						{
-							image: "fix-13-first-version.png",
-							alt: "First version of the album page: Paradigmes by La Femme, with description, credits and the track wheel.",
-						},
-						{
-							image: "screens/fix12-before.png",
-							alt: "First version of the “Your selection” timeline mapping, records grouped by decade.",
-						},
+						{ number: "01", text: "Evaluating the relevance of our project: Understand whether our project, on the highest level appropriately fits into the context. This will explore questions such as “How does this solution change your experience in the record store?”, “Would you use this again?”, “What are some challenges you face with finding records in the store?”. These questions focused on the validating our assumptions of what people expected and required when shopping at a record store" },
+						{ number: "02", text: "Understanding if the user experience was useful or superfluous: The record store being in the material universe and our digital experience is a mix of digital and material, it was important for the solution to effectively integrate into the store experience. The transition between the two modes of interaction needed to be seamless and the following digital interaction should have a minimal footprint. The digital interaction should be just enough to give them the context of the record to help with their purchase." },
+						{ number: "03", text: "Learning about the information user’s need of a record: Single a record is sealed, with all its information inside the seal; it is hard for people to make a confident decision on the record they want to purchase. It was essential that we should to right information in the appropriate volume to ensure this experience adds value to the user." },
 					],
 				},
-				// verbatim — Test.rtf. ATTENTION : dans Figma les titres 01/02 sont inversés par rapport aux textes ; ici ils sont appariés correctement (à confirmer).
-				{
-					type: "numberedRow",
-					number: "01",
-					title: "Evaluating",
-					text: "Evaluating the relevance of our project: Understand whether our project, on the highest level appropriately fits into the context. This will explore questions such as “How does this solution change your experience in the record store?”, “Would you use this again?”, “What are some challenges you face with finding records in the store?”. These questions focused on the validating our assumptions of what people expected and required when shopping at a record store",
-				},
-				{
-					type: "numberedRow",
-					number: "02",
-					title: "Understanding",
-					text: "Understanding if the user experience was useful or superfluous: The record store being in the material universe and our digital experience is a mix of digital and material, it was important for the solution to effectively integrate into the store experience. The transition between the two modes of interaction needed to be seamless and the following digital interaction should have a minimal footprint. The digital interaction should be just enough to give them the context of the record to help with their purchase.",
-				},
-				{
-					type: "numberedRow",
-					number: "03",
-					title: "Learning",
-					text: "Learning about the information user’s need of a record: Single a record is sealed, with all its information inside the seal; it is hard for people to make a confident decision on the record they want to purchase. It was essential that we should to right information in the appropriate volume to ensure this experience adds value to the user.",
-				},
-				{
-					type: "textRow",
-					label: "", // vide dans Figma
-					text: "The goal was to understand whether our solution adds a useless layer onto the current experience or augments it. We had a participant pool of 5 people, 4 female and 1 male of ages 26 to 58 and various levels of experience on record stores and digital interfaces. Through the “Wizard of Oz” method they interacted with the solution a completed specific task while being observed. They also participated in pre and post-test questionnaires as well as an interview to conclude the session.",
-				},
-				// Figma répète Test_01/02 (placeholder) : on met les 7 visuels du dossier Test (slides de présentation → fit: contain)
+				// Les écrans de la première version (le prototype testé), détourés ; galerie comme les autres projets (ex-bloc « screens »).
 				{
 					type: "gallery",
 					columns: 2,
 					fit: "contain",
 					items: [
 						{
-							image: "test-01.png",
+							image: "fix-13-first-version.png", // Fix/…Fix_13 copy.png
+							alt: "First version of the album page: Paradigmes by La Femme, with description, credits and the track wheel.",
+						},
+						{
+							image: "screens/fix12-before.png", // écran « First version » détouré de Fix/…Fix_12.png
+							alt: "First version of the “Your selection” timeline mapping, records grouped by decade.",
+						},
+					],
+				},
+				// verbatim — 2e paragraphe de Test.rtf (sans libellé, comme dans Figma)
+				{
+					type: "textRow",
+					label: "",
+					text: "The goal was to understand whether our solution adds a useless layer onto the current experience or augments it. We had a participant pool of 5 people, 4 female and 1 male of ages 26 to 58 and various levels of experience on record stores and digital interfaces. Through the “Wizard of Oz” method they interacted with the solution a completed specific task while being observed. They also participated in pre and post-test questionnaires as well as an interview to conclude the session.",
+				},
+				// Les 7 visuels du dossier Test (Figma répète Test_01/02 en placeholder). Libellés de groupe : titres des
+				// diapositives et de la documentation (docs/desk-legends.md).
+				{
+					type: "gallery",
+					columns: 2,
+					fit: "contain",
+					items: [
+						{
+							image: "test-01.png", // Test/…Test_01.png
 							alt: "Presentation slide: 5 participants, amateur and expert users, 25–30 min per session, 3 tasks in a given scenario.",
-							group: "Overview",
+							group: "Testing",
 						},
 						{
-							image: "test-02.png",
+							image: "test-02.png", // Test/…Test_02.png
 							alt: "Testing plan diagram: intro, pre-test interview, core testing, post-test questionnaire and interview.",
-							group: "Overview",
+							group: "Testing plan",
 						},
 						{
-							image: "test-03.png",
+							image: "test-03.png", // Test/…Test_03.png
 							alt: "Testing plan, step 1: installation introduction, consent form, structure of the test.",
-							group: "Steps",
+							group: "Testing plan",
 						},
 						{
-							image: "test-04.png",
+							image: "test-04.png", // Test/…Test_04.png
 							alt: "Testing plan, pre-test: demographic information, music listening habits, prior experience with vinyls.",
-							group: "Steps",
+							group: "Testing plan",
 						},
 						{
-							image: "test-05.png",
+							image: "test-05.png", // Test/…Test_05.png
 							alt: "Testing plan, core testing: learn and listen to a record, test affordances, discard records.",
-							group: "Steps",
+							group: "Testing plan",
 						},
 						{
-							image: "test-06.png",
+							image: "test-06.png", // Test/…Test_06.png
 							alt: "Testing plan, post-test: purchase decisions, Likert scale, disengaging aspects.",
-							group: "Steps",
+							group: "Testing plan",
 						},
 						{
-							image: "test-07.png",
+							image: "test-07.png", // Test/…Test_07.png
 							alt: "Research plan pages from the documentation.",
-							group: "Overview",
+							group: "UX research plan",
 						},
 					],
 				},
@@ -151,46 +156,10 @@ const rectify = {
 			theme: "white",
 			figma: "556:40",
 			blocks: [
-				// verbatim — 1re phrase de Fail.rtf
+				// verbatim — 1re phrase de Fail/…TestFailFix_Fail.rtf
 				{
 					type: "headline",
 					text: "Through the interviews, we were able to see our solution in applied in the real world.",
-				},
-				{
-					type: "remarks",
-					// Figma : composant Fail/Remarks (583:1023). Coordonnées = centre du disque, en % de l'écran (538×958).
-					image: "fix-13-first-version.png",
-					alt: "First version of the album page, with four numbered points to discover.",
-					points: [
-						{
-							number: "1",
-							x: 88.1,
-							y: 5.4,
-							side: "left",
-							text: "the mention from a user of a tag for upcoming concert(s) in the vicinity by the artist of the album page",
-						},
-						{
-							number: "2",
-							x: 82.0,
-							y: 19.2,
-							side: "right",
-							text: "It’s cool to have all the description. They are tempted to read the description.\n\nTwo people really enjoyed all the information, whereas two other people thought it took too much place and was not appealing.",
-						},
-						{
-							number: "3",
-							x: 18.2,
-							y: 40.1,
-							side: "left",
-							text: "Other albums by the same group/artist could be a nice addition",
-						},
-						{
-							number: "4",
-							x: 78.3,
-							y: 68.2,
-							side: "right",
-							text: "Some confusion as to how to play the snippets. TN note: maybe a play/pause button could help make this interaction clearer",
-						},
-					],
 				},
 				{
 					type: "textRow",
@@ -226,144 +195,88 @@ const rectify = {
 					label: "Interview responses",
 					text: "Revamping the music listening experience\nBuilding a controlled recommendation system\nRe-look the mapping experience",
 				},
+				// verbatim — notes d'entretien (image Fail_05), en cartes comme les constats des autres pages Fail (ex-post-its) :
+				// d'abord ce qui a marché (carré noir), puis ce qui n'a pas marché (carré orange), dans leur ordre ; titres de
+				// carte = libellés d'interface de l'ancienne légende, pas des étudiants
 				{
-					// verbatim — notes d'interview (image Fail_05). tone : 'worked' = carré noir, 'didnt' = carré orange (valeurs reprises de Figma, la 11 « worked » confirmée par Martial)
-					type: "list",
-					columns: 2,
-					// items avec tone → affichés par défaut en post-its classés par type (Figma Fail/Post-it 483:46). `variant: "rows"` pour revenir à la liste filetée.
-					legend: { worked: "worked", didnt: "didn’t work" }, // libellés d'interface, pas des étudiants
+					type: "bento",
 					items: [
-						{
-							number: "01",
-							tone: "worked",
-							text: "It was like laying their selection on the table. – “Helps me see everything all together and choose what they want”",
-						},
-						{
-							number: "02",
-							tone: "didnt",
-							text: "Timeline could have been, making it more digestible through a scroll. There is too much information upfront.",
-						},
-						{
-							number: "03",
-							tone: "worked",
-							text: "Putting it in the box makes it a lot more personal and interactive.",
-						},
-						{
-							number: "04",
-							tone: "didnt",
-							text: "Could allow people to wishlist albums on the UI so that they can discard everything altogether rather than one by one",
-						},
-						{
-							number: "05",
-							tone: "worked",
-							text: "Listening to the music is most helpful. Now it’s possible to do it without asking the shopkeeper when there are a lot of people.",
-						},
-						{
-							number: "06",
-							tone: "didnt",
-							text: "Other albums by the same group/artist could be a nice addition",
-						},
-						{
-							number: "07",
-							tone: "worked",
-							text: "It’s cool to have all the description. They are tempted to read the description.",
-						},
-						{
-							number: "08",
-							tone: "didnt",
-							text: "Some confusion as to how to play the snippets. TN note: maybe a play/pause button could help make this interaction clearer",
-						},
-						{
-							number: "09",
-							tone: "worked",
-							text: "This is better than listening to it on an app.",
-						},
-						{
-							number: "10",
-							tone: "didnt",
-							text: "Price of each record and total price of selection will be a valuable addition",
-						},
-						{
-							number: "11",
-							tone: "worked",
-							text: "Exploring the albums was the first thing they wanted to do. Not the mapping.",
-						},
-						{
-							number: "12",
-							tone: "didnt",
-							text: "Recommendations might have been interesting. Similar albums or other albums from the same artist",
-						},
-						{
-							number: "13",
-							tone: "worked",
-							text: "This helps when you’re browsing through stores without knowing what you’re looking at.",
-						},
-						{
-							number: "14",
-							tone: "didnt",
-							text: "They want to touch the image. The bottom section took a little time. They want to explore the records",
-						},
-						{
-							number: "15",
-							tone: "worked",
-							text: "Makes them use this machine as opposed to using an application to explore music",
-						},
+						{ title: "worked", text: "It was like laying their selection on the table. – “Helps me see everything all together and choose what they want”" },
+						{ title: "worked", text: "Putting it in the box makes it a lot more personal and interactive." },
+						{ title: "worked", text: "Listening to the music is most helpful. Now it’s possible to do it without asking the shopkeeper when there are a lot of people." },
+						{ title: "worked", text: "It’s cool to have all the description. They are tempted to read the description." },
+						{ title: "worked", text: "This is better than listening to it on an app." },
+						{ title: "worked", text: "Exploring the albums was the first thing they wanted to do. Not the mapping." },
+						{ title: "worked", text: "This helps when you’re browsing through stores without knowing what you’re looking at." },
+						{ title: "worked", text: "Makes them use this machine as opposed to using an application to explore music" },
 					],
 				},
 				{
+					type: "bento",
+					items: [
+						{ title: "didn’t work", text: "Timeline could have been, making it more digestible through a scroll. There is too much information upfront." },
+						{ title: "didn’t work", text: "Could allow people to wishlist albums on the UI so that they can discard everything altogether rather than one by one" },
+						{ title: "didn’t work", text: "Other albums by the same group/artist could be a nice addition" },
+						{ title: "didn’t work", text: "Some confusion as to how to play the snippets. TN note: maybe a play/pause button could help make this interaction clearer" },
+						{ title: "didn’t work", text: "Price of each record and total price of selection will be a valuable addition" },
+						{ title: "didn’t work", text: "Recommendations might have been interesting. Similar albums or other albums from the same artist" },
+						{ title: "didn’t work", text: "They want to touch the image. The bottom section took a little time. They want to explore the records" },
+					],
+				},
+				// Les 10 visuels du dossier Fail. Libellés de groupe : titres des diapositives et libellés de la page ;
+				// les deux photos de session n'ont pas de titre dans les sources (docs/desk-legends.md).
+				{
 					type: "gallery",
 					columns: 2,
-					fit: "cover",
+					fit: "contain",
 					items: [
 						{
-							image: "fail-01.png",
+							image: "fail-01.png", // Fail/…Fail_01.png
 							alt: "Two participants testing the installation at the researchers’ apartment.",
-							group: "Sessions",
 						},
 						{
-							image: "fail-10.png",
+							image: "fail-10.png", // Fail/…Fail_10.png
 							alt: "A participant placing records in the scanning box.",
-							group: "Sessions",
 						},
 						{
-							image: "fail-03.png",
-							alt: "Post-test questionnaire results (Likert scale).",
-							group: "Questionnaire",
-						},
-						{
-							image: "fail-04.png",
-							alt: "Post-test questionnaire results, detail.",
-							group: "Questionnaire",
-						},
-						{
-							image: "fail-02.png",
+							image: "fail-02.png", // Fail/…Fail_02.png
 							alt: "Affinity map of the interview notes.",
-							group: "Interviews",
+							group: "User testing feedback",
 						},
 						{
-							image: "fail-05.png",
+							image: "fail-03.png", // Fail/…Fail_03.png
+							alt: "Post-test questionnaire results (Likert scale).",
+							group: "Post-test questionnaire",
+						},
+						{
+							image: "fail-04.png", // Fail/…Fail_04.png
+							alt: "Post-test questionnaire results, detail.",
+							group: "Post-test questionnaire",
+						},
+						{
+							image: "fail-05.png", // Fail/…Fail_05.png
 							alt: "Interview notes on yellow and green post-its.",
-							group: "Interviews",
+							group: "Interview responses",
 						},
 						{
-							image: "fail-06.png",
+							image: "fail-06.png", // Fail/…Fail_06.png
 							alt: "Interview responses theme: revamping the music listening experience.",
-							group: "Interviews",
+							group: "Interview responses",
 						},
 						{
-							image: "fail-07.png",
+							image: "fail-07.png", // Fail/…Fail_07.png
 							alt: "Interview responses theme: building a controlled recommendation system.",
-							group: "Interviews",
+							group: "Interview responses",
 						},
 						{
-							image: "fail-08.png",
+							image: "fail-08.png", // Fail/…Fail_08.png
 							alt: "Interview responses theme: re-look the mapping experience.",
-							group: "Interviews",
+							group: "Interview responses",
 						},
 						{
-							image: "fail-09.png",
+							image: "fail-09.png", // Fail/…Fail_09.png
 							alt: "List of iterations decided after the tests.",
-							group: "Iterations",
+							group: "Iterating",
 						},
 					],
 				},
@@ -380,56 +293,90 @@ const rectify = {
 			theme: "white",
 			figma: "573:4778",
 			blocks: [
-				// verbatim — 1re phrase de Fix.rtf
+				// verbatim — 1re phrase de Fix/…TestFailFix_Fix.rtf
 				{
 					type: "headline",
 					text: "The insights inspired enhancements across the complete system, surfacing overlooked details and ideas that were never considered.",
 				},
-				{
-					type: "beforeAfter",
-					// Figma : composant Site/Before-after (579:192) — pager 01–06
-					pages: [
-						{
-							image: "fix-13.png",
-							alt: "Album page, first version and updated version: upcoming show tag, other albums in store, read more, play/pause button.",
-						},
-						{
-							image: "fix-14.png",
-							alt: "Album page with the expanded description, first version and updated version.",
-						},
-						{
-							image: "fix-15.png",
-							alt: "Other albums in store overlay, first version and updated version.",
-						},
-						{
-							image: "fix-12.png",
-							alt: "Timeline mapping, first version and the new scrollable version.",
-						},
-						{
-							image: "fix-16.png",
-							alt: "Waiting screen, first version and the new version with store recommendations.",
-						},
-						{
-							image: "fix-17.png",
-							alt: "New “Removed from selection” screen.",
-						},
-					],
-				},
-				// EXEMPLE (Martial, 19.11.2026) — fork WebGL du carrousel, avec une vraie paire : fix-13 (page album),
-				// écrans screens/fix13-before|after.png posés en 16:9 (split_fix_pairs.py). Paires prêtes aussi pour
-				// fix-12, fix-14, fix-15 et fix-16 dans fix/.
+				// Diapositives « First version / Updated version » du dossier Fix, découpées pour le bloc « gallery »
+				// (vue viewer) (ex-carrousel Site/Before-after 579:192, même ordre que son pager 01–06).
 				{
 					type: "gallery",
 					variant: "viewer",
 					columns: 1,
 					fit: "contain",
 					items: [
-						// fix-13.png, découpée en avant / après 16:9 (split_fix_pairs.py)
+						// fix-13.png (Fix/…Fix_13.png), découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							image: "fix/fix-13-before.png",
-							alt: "Album page, first version.",
-							after: { image: "fix/fix-13-after.png", alt: "Album page, updated version: upcoming show tag, other albums in store, read more, play/pause button." },
+							image: "fix-alpha/fix-13-before.png",
+							alt: "Album page, first version: Paradigmes by La Femme, with the full description, the credits and the track wheel.",
+							after: {
+								image: "fix-alpha/fix-13-after.png",
+								alt: "Album page, updated version: upcoming show tag, “Other albums in store”, a short description with “Read more”, and a pause button in the track wheel.",
+							},
 						},
+						// fix-14.png (Fix/…Fix_14.png), découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							image: "fix-alpha/fix-14-before.png",
+							alt: "Album page, first version.",
+							after: {
+								image: "fix-alpha/fix-14-after.png",
+								alt: "Album page, updated version, the new elements framed in pink: “Playing at Les Docks on 08.10.2026”, “Other albums in store” and “Read more”.",
+							},
+						},
+						// fix-15.png (Fix/…Fix_15.png), découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							image: "fix-alpha/fix-15-before.png",
+							alt: "Album page, first version.",
+							after: {
+								image: "fix-alpha/fix-15-after.png",
+								alt: "Updated version: the “Other albums in store” overlay, showing Paris - Hawaï by La Femme.",
+							},
+						},
+						// fix-12.png (Fix/…Fix_12.png), découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							image: "fix-alpha/fix-12-before.png",
+							alt: "Timeline mapping, first version: “Your selection” grouped by decade on a single screen.",
+							after: {
+								image: "fix-alpha/fix-12-after.png",
+								alt: "Timeline mapping, updated version: larger covers in a scrollable timeline.",
+							},
+						},
+						// fix-16.png (Fix/…Fix_16.png), découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							image: "fix-alpha/fix-16-before.png",
+							alt: "Waiting screen, first version: “Put your selection in the box to begin”, with a small row of store recommendations.",
+							after: {
+								image: "fix-alpha/fix-16-after.png",
+								alt: "Waiting screen, updated version: the store recommendations open with a large album cover and a headphones icon.",
+							},
+						},
+						// Fix/…Fix_17.png : écran nouveau, sans version précédente (image simple)
+						{
+							image: "fix-17.png",
+							alt: "New content: the “Removed from the selection” screen, Paradigmes by La Femme.",
+						},
+					],
+				},
+				// verbatim — suite de Fix.rtf
+				{
+					type: "textRow",
+					label: "Iterating",
+					text: "These updates included a play/pause button, overviews of other albums in store, expandable descriptions, a discard screen, store recommendations and material signage. This allowed us to evolve the prototype, while retaining its core DNA and progressively improving the finer details to make transition into a fuller and more valuable artefact. We think allowed us to enrich the journey exploration, listening and physical discovery of the store, as the feedback was very positive on the device and its intention.",
+				},
+				// verbatim — présentation, « Iterating (ideas) » (bento, Martial)
+				{
+					type: "bento",
+					items: [
+						{ number: "01", text: "Adding play/pause button" },
+						{ number: "02", text: "Including record cost" },
+						{ number: "03", text: "Successful discard banner" },
+						{ number: "04", text: "Ratings and critics" },
+						{ number: "05", text: "Expandable descriptions" },
+						{ number: "06", text: "Addition of a wishlist" },
+						{ number: "07", text: "Store recommendations" },
+						{ number: "08", text: "Clearer box roles" },
+						{ number: "09", text: "Upcoming shows" },
 					],
 				},
 				// verbatim — documentation p. 11 (Results post-test interview)
@@ -459,28 +406,6 @@ const rectify = {
 					title: "Adding play/pause button",
 					text: "One of the main takeaways was the audio player. In all cases, we have gotten feedback or have noticed that it was not clear that people should just put the helmet on for the snippets to play. This resulted in the implementation of a play/pause button, with decorative elements that provided feedback and reinforced the affordance of the wheel interaction.",
 				},
-				// verbatim — suite de Fix.rtf
-				{
-					type: "textRow",
-					label: "Iterating",
-					text: "These updates included a play/pause button, overviews of other albums in store, expandable descriptions, a discard screen, store recommendations and material signage. This allowed us to evolve the prototype, while retaining its core DNA and progressively improving the finer details to make transition into a fuller and more valuable artefact. We think allowed us to enrich the journey exploration, listening and physical discovery of the store, as the feedback was very positive on the device and its intention.",
-				},
-				// verbatim — présentation, « Iterating (ideas) »
-				{
-					type: "list",
-					columns: 1,
-					items: [
-						{ number: "01", text: "Adding play/pause button" },
-						{ number: "02", text: "Including record cost" },
-						{ number: "03", text: "Successful discard banner" },
-						{ number: "04", text: "Ratings and critics" },
-						{ number: "05", text: "Expandable descriptions" },
-						{ number: "06", text: "Addition of a wishlist" },
-						{ number: "07", text: "Store recommendations" },
-						{ number: "08", text: "Clearer box roles" },
-						{ number: "09", text: "Upcoming shows" },
-					],
-				},
 				{
 					type: "numberedRow",
 					number: "05",
@@ -505,23 +430,25 @@ const rectify = {
 					title: "Clearer box roles",
 					text: "Lastly, a slight change was made on the material prototype, based on both feedback and observations. Two stickers were added, one on the scanning box with an icon of records in a row in the box, so that people knew where and how to put them down. The other one is in front of the scanning box and shows where to discard the records. This makes the manipulation clearer, as some people mentioned a confusion on this matter.",
 				},
+				// Un seul bureau après les lignes numérotées ; libellés de groupe = libellé « Iterating » et titres des
+				// lignes 06 et 08 (docs/desk-legends.md).
 				{
 					type: "gallery",
 					columns: 2,
-					fit: "cover",
+					fit: "contain",
 					items: [
+						{ image: "fix-10.png", alt: "Updated user flow diagram.", group: "Iterating" }, // Fix/…Fix_10.png
+						{ image: "fix-11.png", alt: "List of the implemented iterations.", group: "Iterating" }, // Fix/…Fix_11.png
 						{
-							image: "fix-09.png",
-							alt: "A hand drops records into the scanning box, now marked “Place records here”.",
-							group: "Setup",
-						},
-						{
-							image: "fix-18.png",
+							image: "fix-18.png", // Fix/…Fix_18.png
 							alt: "The updated setup in the apartment, with store recommendations on the screen.",
-							group: "Setup",
+							group: "Store recommendations",
 						},
-						{ image: "fix-10.png", alt: "Updated user flow diagram.", group: "Iterations" },
-						{ image: "fix-11.png", alt: "List of the implemented iterations.", group: "Iterations" },
+						{
+							image: "fix-09.png", // Fix/…Fix_09.png
+							alt: "A hand drops records into the scanning box, now marked “Place records here”.",
+							group: "Clearer box roles",
+						},
 					],
 				},
 			],
@@ -550,50 +477,47 @@ const rectify = {
 				},
 				{
 					type: "figure",
-					image: "fix-03.png",
-					alt: "A visitor touches the updated screen: “Put your selection in the box to begin”, with store recommendations.",
+					image: "main-01.png", // Showcase_image/…TestFailFix_Main_01.png
+					alt: "A visitor places In Rainbows by Radiohead in the record box, below the vertical screen showing “Your selection”.",
 				},
+				// Photos du prototype final (dossier Fix). Libellés de groupe : titres des lignes numérotées du Fix et
+				// titres affichés à l'écran (docs/desk-legends.md).
+				// Fix_03 et Fix_06 sont le même fichier chez les étudiants (identiques à l'octet) : seul fix-03 est repris.
 				{
 					type: "gallery",
 					columns: 2,
 					fit: "cover",
-					// Figma : le dernier emplacement « Fix_06 » affiche Fix_03 par erreur → on met fix-06
 					items: [
 						{
-							image: "fix-01.png",
-							alt: "Final prototype: album page on the vertical screen above the record box.",
-							group: "Screens",
+							image: "fix-03.png", // Fix/…Fix_03.png
+							alt: "A visitor touches the updated waiting screen: “Put your selection in the box to begin”, with store recommendations.",
+							group: "Store recommendations",
 						},
 						{
-							image: "fix-02.png",
-							alt: "Final prototype: the “Removed from the selection” screen.",
-							group: "Screens",
-						},
-						{
-							image: "fix-03.png",
-							alt: "A visitor using the waiting screen with store recommendations.",
-							group: "In use",
-						},
-						{
-							image: "fix-04.png",
+							image: "fix-04.png", // Fix/…Fix_04.png
 							alt: "Final prototype: “Your selection” mapping.",
-							group: "Screens",
+							group: "Your selection",
 						},
-						{ image: "fix-05.png", alt: "Final prototype: timeline mapping.", group: "Screens" },
+						{ image: "fix-05.png", alt: "Final prototype: timeline mapping.", group: "Your selection" }, // Fix/…Fix_05.png
 						{
-							image: "fix-07.png",
+							image: "fix-01.png", // Fix/…Fix_01.png
+							alt: "Final prototype: album page on the vertical screen above the record box.",
+							group: "Adding play/pause button",
+						},
+						{
+							image: "fix-07.png", // Fix/…Fix_07.png
 							alt: "A hand presses the new play button on the album page.",
-							group: "In use",
+							group: "Adding play/pause button",
 						},
 						{
-							image: "fix-08.png",
+							image: "fix-08.png", // Fix/…Fix_08.png
 							alt: "A hand turns the snippet wheel on the album page.",
-							group: "In use",
+							group: "Adding play/pause button",
 						},
 						{
-							image: "fix-06.png",
-							alt: "A visitor exploring the final prototype.",
-							group: "In use",
+							image: "fix-02.png", // Fix/…Fix_02.png
+							alt: "Final prototype: the “Removed from the selection” screen.",
+							group: "Removed from selection",
 						},
 					],
 				},
@@ -623,7 +547,19 @@ const rectify = {
 					label: "Process",
 					text: "The new prototype, is a representation of the iterative process, its current quality is in direct relation to the feedback received. The whole process of testing was both humbling and energizing; seeing the idea come to life and people interact was a motivating experience. The methodology of quick prototyping, early testing and intentional building is instilled into us.",
 				},
-				{ type: "credits" },
+				// Documents et liens du groupe (Martial) : noms de leurs fichiers / liens. Les PDF lourds
+				// sont des copies allégées (Ghostscript, images à 150 dpi) ; href '' = ligne masquée.
+				{
+					type: "credits",
+					documents: [
+						{ label: "TFF-RishabThomas-Documentation.pdf", href: "/projects/rectify/TFF-RishabThomas-Documentation.pdf" },
+						{ label: "TFF-RishabThomas-Presentation.pdf", href: "/projects/rectify/TFF-RishabThomas-Presentation.pdf" },
+					],
+					links: [
+						{ label: "Test, Fail, Fix Research File – FigJam", href: "https://www.figma.com/board/ajfTY3WDbuV0oX1HKSftJw/Test--Fail--Fix-Research-File?node-id=0-1&p=f" },
+						{ label: "Test, Fail, Fix – Figma", href: "https://www.figma.com/design/LkuVov1l9UC2zvET0OLhuU/Test--Fail--Fix-Figma-File?node-id=1-4&t=flfqUVa9gvAyeQ9l-0" },
+					],
+				},
 			],
 			next: {
 				label: "Back to the start",
@@ -634,6 +570,21 @@ const rectify = {
 			},
 		},
 	],
+
+	/**
+	 * Infos supplémentaires du groupe, pas affichées par le gabarit actuel.
+	 */
+	extra: {
+		sourceFolder: "Thomas_Rishab",
+		links: {
+			prototype: "https://www.figma.com/design/LkuVov1l9UC2zvET0OLhuU/Test--Fail--Fix-Figma-File?node-id=1-4&t=flfqUVa9gvAyeQ9l-0",
+			research: "https://www.figma.com/board/ajfTY3WDbuV0oX1HKSftJw/Test--Fail--Fix-Research-File?node-id=0-1&p=f",
+		},
+		documentationFiles: ["TFF-RishabThomas-Documentation.pdf", "TFF-RishabThomas-Presentation.pdf"],
+		// Médias non utilisés : fix-06.png (= fix-03.png), fix-12…fix-16.png (remplacées par leurs paires
+		// découpées dans fix/), screens/ sauf fix12-before.png, documentation/ (visuels extraits du PDF),
+		// _web_assets/ du dossier étudiant (mêmes visuels en JPG).
+	},
 };
 
 export default rectify;

@@ -24,9 +24,9 @@ const helmetric = {
 	edition: "Scan Everything 2026",
 	authors: ["Marc Facchinetti", "Gwen Gustin"], // documentation V2 et présentation
 	year: "2026",
-	// À FOURNIR : la documentation PDF fait 276 Mo (04-Gwen-Marc-DocumentationV2.pdf), trop lourde
-	// pour le site. Ligne masquée dans les crédits tant que `href` est vide.
-	documentation: { label: "", href: "" },
+	// 04-Gwen-Marc-DocumentationV2.pdf (276 Mo) recompressé pour le site (17,6 Mo, images à 150 dpi ;
+	// pages 11–13, 26, 27 et 31 rendues en image à 220 dpi, leurs tableaux cassaient à la recompression).
+	documentation: { label: "04-Gwen-Marc-DocumentationV2.pdf", href: "/projects/helmetric/04-Gwen-Marc-DocumentationV2.pdf" },
 
 	/** Page d'accueil du projet — route /helmetric (layout « cover ») */
 	home: {
@@ -60,10 +60,9 @@ const helmetric = {
 					text: "Evaluate the usability, clarity, and overall experience of the helmet scanning machine. The test aims to understand:",
 				},
 				// Pas de bloc « screens » : les écrans V1 sont en paysage (iPad), ils apparaissent dans le avant / après du chapitre Fix.
-				// verbatim — documentation V2 p. 24, suite des « Test objectives »
+				// verbatim — documentation V2 p. 24, suite des « Test objectives » (bento, Martial)
 				{
-					type: "list",
-					columns: 1,
+					type: "bento",
 					items: [
 						{ number: "01", text: "How intuitive the interaction with the machine is" },
 						{ number: "02", text: "Whether users understand the head scanning process" },
@@ -98,20 +97,21 @@ const helmetric = {
 						{ value: "25", label: "minutes" },
 					],
 				},
+				// Libellés de groupe : titres de pages de la documentation V2 et « ## Testers » du .md (docs/desk-legends.md).
 				{
 					type: "gallery",
 					columns: 2,
-					fit: "cover",
+					fit: "contain",
 					items: [
 						{
 							image: "test-01.jpg", // 1-Test/P1288727.JPG
 							alt: "The test setup: the wooden scanning machine with an iPad and a motorcycle helmet on a table, a chair for the tester and a camera on a tripod.",
-							group: "Setup",
+							group: "User test setup",
 						},
 						{
 							image: "test-02.jpg", // 1-Test/P1288735.JPG (pivotée selon l'EXIF)
 							alt: "Close-up of the machine: a helmet in the lit box below the iPad showing “Welcome to Helmetric.”",
-							group: "Setup",
+							group: "User test setup",
 						},
 						{
 							image: "test-03.png", // 1-Test/User5.png (petite image : 544 px de large)
@@ -123,20 +123,15 @@ const helmetric = {
 							alt: "User 6 places a helmet into the box of the machine.",
 							group: "Testers",
 						},
-					],
-				},
-				{
-					type: "gallery",
-					columns: 2,
-					fit: "contain",
-					items: [
 						{
 							image: "test-05.png", // 1-Test/Protocol.png
 							alt: "Test protocol: 6 testers, 3–5 minutes intro, 5 minutes pre-test questions, 10–12 minutes mission scenario, 8–10 minutes post-test interview, 5 minutes post-test questions; 23–26 minutes overall.",
+							group: "User test protocol",
 						},
 						{
 							image: "test-06.png", // 1-Test/Protocole details.png
 							alt: "Protocol details: the script and questions of each step of the test.",
+							group: "User test protocol",
 						},
 					],
 				},
@@ -164,16 +159,15 @@ const helmetric = {
 					label: "Quantitative data",
 					text: "What was particularly interesting is that our initial concerns especially regarding how well people would understand these two points turned out to be non-issues: clarity of instructions and understanding of head scanning. The analysis of the post-test interview data - particularly the quantitative analysis - was very positive. We therefore had to go back and look at the words and actions that took place during the test.",
 				},
-				// verbatim — paragraphes 2 et 3 (libellé = titre de cette page dans la documentation V2)
+				// verbatim — paragraphes 2 et 3 (libellé = titre de cette page dans la documentation V2) ; le 4e (« Ultimately… ») est sur la Conclusion
 				{
 					type: "textRow",
 					label: "Summary of the data",
-					text: "Analyzing the user testing data yielded fascinating results, especially when comparing our initial assumptions with actual user behavior. Interestingly, features we expected to cause friction such as the face scanning process, which requires specific head movements to generate the mesh were actually very well received. When combined with the wearable head-measurement device, users instantly understood how the system operated. Conversely, interactions we assumed would be straightforward, such as placing the helmet into the box or handling the measurement device, caused unexpected friction for some users.\nThese difficulties were consistent across multiple participants. Despite our sample size six testers, whereas a commercial project would require a much larger group, the fact that individuals from completely different backgrounds shared identical pain points proved that our findings were legitimate and not just random coincidence. By analyzing these convergent opinions, we were able to transform negative feedback into six specific user insights to refine the overall experience.\n\nUltimately, what felt most rewarding was that many participants stated they would willingly use this machine if it were deployed in real life. This enthusiastic response provided strong validation for our project, proving that Helmetric is a valuable, meaningful solution rather than a gadget or a niche concept.",
+					text: "Analyzing the user testing data yielded fascinating results, especially when comparing our initial assumptions with actual user behavior. Interestingly, features we expected to cause friction such as the face scanning process, which requires specific head movements to generate the mesh were actually very well received. When combined with the wearable head-measurement device, users instantly understood how the system operated. Conversely, interactions we assumed would be straightforward, such as placing the helmet into the box or handling the measurement device, caused unexpected friction for some users.\nThese difficulties were consistent across multiple participants. Despite our sample size six testers, whereas a commercial project would require a much larger group, the fact that individuals from completely different backgrounds shared identical pain points proved that our findings were legitimate and not just random coincidence. By analyzing these convergent opinions, we were able to transform negative feedback into six specific user insights to refine the overall experience.",
 				},
-				// verbatim — les six insights (titres du .md Fix, « Summary of insights » de la présentation)
+				// verbatim — les six insights (titres du .md Fix, « Summary of insights » de la présentation) (bento, Martial)
 				{
-					type: "list",
-					columns: 1,
+					type: "bento",
 					items: [
 						{ number: "01", text: "What should I read?" },
 						{ number: "02", text: "Not just on the screen" },
@@ -191,14 +185,17 @@ const helmetric = {
 						{
 							image: "fail-01.png", // 2-Fail/Quantitative data 1.png
 							alt: "Table of the scale-based answers (1–5) of the six testers, with the overall score of each question.",
+							group: "Quantitative data",
 						},
 						{
 							image: "fail-02.png", // 2-Fail/Quantitative data 2.png
 							alt: "Bar chart of the mean score of each question, from 4.21 (trust in results) to 4.83 (understanding of scan, inclusivity of design).",
+							group: "Quantitative data",
 						},
 						{
 							image: "fail-03.png", // 2-Fail/Qualitatitive data 1.png
 							alt: "Table of the qualitative data: questions, answers, frequency and key findings, coloured by theme.",
+							group: "Qualitative data",
 						},
 					],
 				},
@@ -228,75 +225,45 @@ const helmetric = {
 					items: [
 						// fix-01.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							image: "fix/fix-01-before.png",
+							image: "fix-alpha/fix-01-before.png",
 							alt: "What should I read? The “Your results” screen, first version.",
-							after: { image: "fix/fix-01-after.png", alt: "What should I read? The “Your head scan result” screen." },
+							after: { image: "fix-alpha/fix-01-after.png", alt: "What should I read? The “Your head scan result” screen." },
 						},
 						// fix-02.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							image: "fix/fix-02-before.png",
+							image: "fix-alpha/fix-02-before.png",
 							alt: "What should I read? The “Result” screen, first version.",
-							after: { image: "fix/fix-02-after.png", alt: "What should I read? The “Helmet scan result” screen." },
+							after: { image: "fix-alpha/fix-02-after.png", alt: "What should I read? The “Helmet scan result” screen." },
 						},
 						// fix-03.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							image: "fix/fix-03-before.png",
+							image: "fix-alpha/fix-03-before.png",
 							alt: "Not just on the screen: “Before looking at the result…”, first version.",
-							after: { image: "fix/fix-03-after.png", alt: "Not just on the screen: “Please collect your helmet from the box.”" },
+							after: { image: "fix-alpha/fix-03-after.png", alt: "Not just on the screen: “Please collect your helmet from the box.”" },
 						},
 						// fix-04.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							image: "fix/fix-04-before.png",
+							image: "fix-alpha/fix-04-before.png",
 							alt: "Not just on the screen: “Let’s measure your head”, first version.",
-							after: { image: "fix/fix-04-after.png", alt: "Not just on the screen: “Please take the device from the drawer and wear it.”" },
+							after: { image: "fix-alpha/fix-04-after.png", alt: "Not just on the screen: “Please take the device from the drawer and wear it.”" },
 						},
 						// fix-05.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							image: "fix/fix-05-before.png",
+							image: "fix-alpha/fix-05-before.png",
 							alt: "Not brand affiliated: “Your selection” with brand filters.",
-							after: { image: "fix/fix-05-after.png", alt: "Not brand affiliated: “Best fit for you” with three helmets." },
+							after: { image: "fix-alpha/fix-05-after.png", alt: "Not brand affiliated: “Best fit for you” with three helmets." },
 						},
 						// fix-06.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							image: "fix/fix-06-before.png",
+							image: "fix-alpha/fix-06-before.png",
 							alt: "Smile, you’re on camera: “Let’s measure your head” without any notice.",
-							after: { image: "fix/fix-06-after.png", alt: "Smile, you’re on camera: the new camera access notification." },
+							after: { image: "fix-alpha/fix-06-after.png", alt: "Smile, you’re on camera: the new camera access notification." },
 						},
 						// fix-07.png, découpée en avant / après 16:9 (split_fix_pairs.py)
 						{
-							image: "fix/fix-07-before.png",
+							image: "fix-alpha/fix-07-before.png",
 							alt: "Internal damage: the “Scanning your helmet…” screen.",
-							after: { image: "fix/fix-07-after.png", alt: "Internal damage: “Scanning in progress…” with the UV disinfection." },
-						},
-					],
-				},
-				{
-					type: "gallery",
-					columns: 1,
-					fit: "contain",
-					items: [
-						{ image: "fix-08.png", alt: "Hands-free: examples of helmet holders and hooks." }, // diapositive « Hands-free », pas une paire avant / après
-					],
-				},
-				// 3-Fix/2a-z-after.mp4 et 5-z-after.mp4 : écrans « après », côte à côte.
-				// [À CONFIRMER] piste audio : parole ou ambiance ?
-				{
-					type: "video",
-					columns: 2,
-					items: [
-						{
-							src: "/projects/helmetric/videos/fix-2a-after.mp4", // 3-Fix/2a-z-after.mp4
-							poster: "/projects/helmetric/videos/fix-2a-after.webp",
-							width: 1308,
-							height: 946,
-							label: "After: the screen “Please place your helmet in the open box.”, then the “It's in the box” button appears.",
-						},
-						{
-							src: "/projects/helmetric/videos/fix-5-after.mp4", // 3-Fix/5-z-after.mp4
-							poster: "/projects/helmetric/videos/fix-5-after.webp",
-							width: 1310,
-							height: 944,
-							label: "After: the scanning screen “Scanning in progress…”, with the helmet scan animation.",
+							after: { image: "fix-alpha/fix-07-after.png", alt: "Internal damage: “Scanning in progress…” with the UV disinfection." },
 						},
 					],
 				},
@@ -330,7 +297,7 @@ const helmetric = {
 					type: "numberedRow",
 					number: "04",
 					title: "Smile, you're on camera",
-					text: "Two users reported that seeing themselves on camera had taken them by surprise, so we have added a notification step before the camera starts recording.\nUser 5 said: “I didn't expect to see my own face so suddenly.”$",
+					text: "Two users reported that seeing themselves on camera had taken them by surprise, so we have added a notification step before the camera starts recording.\nUser 5 said: “I didn't expect to see my own face so suddenly.”",
 				},
 				{
 					type: "numberedRow",
@@ -344,6 +311,8 @@ const helmetric = {
 					title: "Hands-free",
 					text: "Their body language showed us that the testers felt uncomfortable wearing their headsets during the head scan. A holder (such as a hook) should therefore be added to allow them to have their hands free, whilst taking hygiene issues into account.\n\nUser 6 said: “Can I put it here?”",
 				},
+				// Un seul bureau après les insights (docs/desk-legends.md) ; libellés de groupe = libellé « Design iteration »
+				// et titres des insights 02, 05, 06.
 				{
 					type: "gallery",
 					columns: 2,
@@ -352,7 +321,32 @@ const helmetric = {
 						{
 							image: "fix-09.png", // 3-Fix/0 design iteration - ex head scan result.png
 							alt: "Figma explorations of the new head scan result page.",
+							group: "Design iteration",
 						},
+						// 3-Fix/2a-z-after.mp4 et 5-z-after.mp4 : écrans « après », dans le bureau.
+						// [À CONFIRMER] piste audio : parole ou ambiance ?
+						{
+							video: {
+								src: "/projects/helmetric/videos/fix-2a-after.mp4", // 3-Fix/2a-z-after.mp4
+								poster: "/projects/helmetric/videos/fix-2a-after.webp",
+								width: 1308,
+								height: 946,
+								label: "After: the screen “Please place your helmet in the open box.”, then the “It's in the box” button appears.",
+							},
+							group: "Not just on the screen",
+						},
+						{
+							video: {
+								src: "/projects/helmetric/videos/fix-5-after.mp4", // 3-Fix/5-z-after.mp4
+								poster: "/projects/helmetric/videos/fix-5-after.webp",
+								width: 1310,
+								height: 944,
+								label: "After: the scanning screen “Scanning in progress…”, with the helmet scan animation.",
+							},
+							group: "Internal damage",
+						},
+						// diapositive « Hands-free », pas une paire avant / après
+						{ image: "fix-08.png", alt: "Hands-free: examples of helmet holders and hooks.", group: "Hands-free" },
 					],
 				},
 			],
@@ -397,6 +391,12 @@ const helmetric = {
 						},
 					],
 				},
+				// verbatim — Fail .md, dernier paragraphe de « Summary of the data » (déplacé du Fail : le groupe n'a pas de texte de conclusion)
+				{
+					type: "textRow",
+					label: "",
+					text: "Ultimately, what felt most rewarding was that many participants stated they would willingly use this machine if it were deployed in real life. This enthusiastic response provided strong validation for our project, proving that Helmetric is a valuable, meaningful solution rather than a gadget or a niche concept.",
+				},
 				// verbatim — présentation, diapositive « Conclusion »
 				{
 					type: "stats",
@@ -406,7 +406,21 @@ const helmetric = {
 						{ value: "1", label: "change to the physical machine" },
 					],
 				},
-				{ type: "credits" },
+				// Documents et liens du groupe (Martial) : noms de leurs fichiers / liens. Les PDF lourds
+				// sont des copies allégées (Ghostscript, images à 150 dpi) ; href '' = ligne masquée.
+				{
+					type: "credits",
+					documents: [
+						{ label: "04-Gwen-Marc-DocumentationV2.pdf", href: "/projects/helmetric/04-Gwen-Marc-DocumentationV2.pdf" },
+						{ label: "03-presentation-slides.pdf", href: "/projects/helmetric/03-presentation-slides.pdf" },
+					],
+					links: [
+						{ label: "Helmetric prototype v1", href: "https://helmetric.netlify.app/index.html" },
+						{ label: "Helmetric prototype v2", href: "https://helmetric2.netlify.app/index.html" },
+						{ label: "01-research-FigJam", href: "https://www.figma.com/board/7nphB21sjfMnC1qBayPBGW/01-research-scan?node-id=0-1&t=zik2Y8I0KfbAqcGO-1" },
+						{ label: "03-presentation", href: "https://www.figma.com/deck/67k6n8DRFrwFnOPNsFAe5c" },
+					],
+				},
 			],
 			next: {
 				label: "Back to the start",

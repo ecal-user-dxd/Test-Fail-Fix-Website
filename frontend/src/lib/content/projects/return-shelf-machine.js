@@ -71,29 +71,11 @@ const returnShelfMachine = {
 					label: "",
 					text: "At the design library, we looked at how the space sits in its normal state and how designers move through it.\nFrom this observation, three ways of finding references emerged. Ones existing catalogues cannot capture in the physical library:\n\n(1) Designer - other books by the same designer\n(2) Returned With - other books taken alongside this one\n(3) Materiality - size, binding, and physical format",
 				},
-				{
-					type: "gallery",
-					columns: 2,
-					fit: "contain",
-					items: [
-						{ image: "test-01.png", alt: "Observation: returned books piled on tables and trolleys at the design library." }, // test/…TestImages_01.png
-					],
-				},
 				// verbatim — [1-Test-02~04]
 				{
 					type: "textRow",
 					label: "",
 					text: "Then we designed the first version of the prototype: a physical setup (shelf, tray, screen placement) and a digital interface for surfacing related books, along with the user flow tying them together.",
-				},
-				{
-					type: "gallery",
-					columns: 2,
-					fit: "contain",
-					items: [
-						{ image: "test-02.png", alt: "Schemas of the library space and of the setup: shelf, table and screen." }, // test/…TestImages_02.png
-						{ image: "test-03.png", alt: "Tangible setup (v1) with books on the tray, and digital setup (v1) on the tablet." }, // test/…TestImages_03.png
-						{ image: "test-04.png", alt: "User flow: take a book from the tray, the scanner detects it, the screen displays related books." }, // test/…TestImages_04.png
-					],
 				},
 				// verbatim — [1-Test-05]
 				{
@@ -105,8 +87,15 @@ const returnShelfMachine = {
 					type: "gallery",
 					columns: 2,
 					fit: "contain",
+					// Un seul bureau après le dernier paragraphe ; libellés de groupe = étiquettes imprimées en bas à gauche
+					// des images (docs/desk-legends.md). test-03 réunit deux photos (« Tangible Setup (V1) » et « Digital
+					// Setup (V1) ») : seule la première étiquette est reprise.
 					items: [
-						{ image: "test-05.png", alt: "Visual identity: stacked book covers, tags « Designer », « Returned with » and « Materiality »." }, // test/…TestImages_05.png
+						{ image: "test-01.png", alt: "Observation: returned books piled on tables and trolleys at the design library.", group: "Observation" }, // test/…TestImages_01.png
+						{ image: "test-02.png", alt: "Schemas of the library space and of the setup: shelf, table and screen.", group: "Schemas" }, // test/…TestImages_02.png
+						{ image: "test-03.png", alt: "Tangible setup (v1) with books on the tray, and digital setup (v1) on the tablet.", group: "Tangible Setup (V1)" }, // test/…TestImages_03.png
+						{ image: "test-04.png", alt: "User flow: take a book from the tray, the scanner detects it, the screen displays related books.", group: "User Flow" }, // test/…TestImages_04.png
+						{ image: "test-05.png", alt: "Visual identity: stacked book covers, tags « Designer », « Returned with » and « Materiality ».", group: "Visual Identity" }, // test/…TestImages_05.png
 					],
 				},
 			],
@@ -125,15 +114,6 @@ const returnShelfMachine = {
 				{
 					type: "headline",
 					text: "We ran a usability test session to check whether the concept works as a whole, and to evaluate the usability of both the physical and digital setup.",
-				},
-				{
-					type: "gallery",
-					columns: 2,
-					fit: "contain",
-					items: [
-						{ image: "fail-01.png", alt: "v1 objective: the research question of the test." }, // Fail/…Failimages_01.png
-						{ image: "fail-02.png", alt: "v1 objectives: self-explanatory, navigation system, unexpected recommendation, sense of gain." }, // Fail/…Failimages_02.png
-					],
 				},
 				// verbatim — [2-Fail-03], paragraphe d'introduction
 				{
@@ -159,14 +139,6 @@ const returnShelfMachine = {
 					label: "Task 3 - Multiple books (5 min)",
 					text: "For your design project, you want to check out several books. Add two more to the one you already have: take the Brigade Cynophile poster book and Words Form Language from the shelf.\nYour goal is to:\n→ Pick up the right books.\n→ Try scrolling from one book to another.",
 				},
-				{
-					type: "gallery",
-					columns: 2,
-					fit: "contain",
-					items: [
-						{ image: "fail-03.png", alt: "Test protocol: intro, pre-test questionnaire, testing tasks 1 to 3, post-test interview." }, // Fail/…Failimages_03.png
-					],
-				},
 				// verbatim — [2-Fail-04~09]
 				{
 					type: "textRow",
@@ -177,26 +149,28 @@ const returnShelfMachine = {
 					type: "gallery",
 					columns: 2,
 					fit: "contain",
+					// Un seul bureau après le paragraphe « think aloud » ; libellés de groupe = étiquettes imprimées sur les
+					// images, et le titre §7 du User Test Brief pour fail-03 qui n'en a pas (docs/desk-legends.md).
 					items: [
-						{ image: "fail-04.png", alt: "Test sessions in context: participants taking books from the shelf and using the screen.", group: "Sessions" }, // Fail/…Failimages_04.png
-						{ image: "fail-06.png", alt: "Raw data spreadsheet of the usability test.", group: "Raw data" }, // Fail/…Failimages_06.png
-						{ image: "fail-07.png", alt: "Observations by task, on sticky notes.", group: "Sticky notes" }, // Fail/…Failimages_07.png
-						{ image: "fail-08.png", alt: "Post-test feedback on sticky notes.", group: "Sticky notes" }, // Fail/…Failimages_08.png
-						{ image: "fail-09.png", alt: "Affinity mapping of all the observations.", group: "Sticky notes" }, // Fail/…Failimages_09.png
-					],
-				},
-				// Failimages_05 (vidéo de [2-Fail-04~09]) : après la galerie, pour ne pas couper le bureau en deux.
-				{
-					type: "video",
-					columns: 1,
-					items: [
+						{ image: "fail-01.png", alt: "v1 objective: the research question of the test.", group: "v1 Objective" }, // Fail/…Failimages_01.png
+						{ image: "fail-02.png", alt: "v1 objectives: self-explanatory, navigation system, unexpected recommendation, sense of gain.", group: "v1 Objective" }, // Fail/…Failimages_02.png
+						{ image: "fail-03.png", alt: "Test protocol: intro, pre-test questionnaire, testing tasks 1 to 3, post-test interview.", group: "User Test Protocol" }, // Fail/…Failimages_03.png
+						{ image: "fail-04.png", alt: "Test sessions in context: participants taking books from the shelf and using the screen.", group: "Test Sessions in Context" }, // Fail/…Failimages_04.png
+						// Failimages_05 : la vidéo de [2-Fail-04~09], à sa place dans le bureau.
 						{
-							src: "/projects/return-shelf-machine/videos/fail-05.mp4", // Fail/…Failimages_05.mp4
-							poster: "/projects/return-shelf-machine/videos/fail-05.webp",
-							width: 1404,
-							height: 754,
-							label: "The tablet interface during the test, next to the phone used to control it.",
+							video: {
+								src: "/projects/return-shelf-machine/videos/fail-05.mp4", // Fail/…Failimages_05.mp4
+								poster: "/projects/return-shelf-machine/videos/fail-05.webp",
+								width: 1404,
+								height: 754,
+								label: "The tablet interface during the test, next to the phone used to control it.",
+							},
+							group: "Test Sessions in Context",
 						},
+						{ image: "fail-06.png", alt: "Raw data spreadsheet of the usability test.", group: "Raw Data Spreadsheet" }, // Fail/…Failimages_06.png
+						{ image: "fail-07.png", alt: "Observations by task, on sticky notes.", group: "Observations by Task" }, // Fail/…Failimages_07.png
+						{ image: "fail-08.png", alt: "Post-test feedback on sticky notes.", group: "Post-test Feedback" }, // Fail/…Failimages_08.png
+						{ image: "fail-09.png", alt: "Affinity mapping of all the observations.", group: "Affinity Mapping" }, // Fail/…Failimages_09.png
 					],
 				},
 			],
@@ -216,6 +190,34 @@ const returnShelfMachine = {
 					type: "headline",
 					text: "Based on the test, we evaluated the v1 prototype against our original objectives.",
 				},
+				// Comparaisons V1 / V2 découpées pour le bloc « gallery » (vue viewer), chaque côté avec ses notes
+				// « V1 → … » / « V2 → … ». Le titre en bas de l'image d'origine (« Legible Navigation »…) n'est pas repris.
+				{
+					type: "gallery",
+					variant: "viewer",
+					columns: 1,
+					fit: "contain",
+					items: [
+						// fix-02.png (Fix/…Fixmages_02.png), découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							image: "fix-alpha/fix-02-before.png",
+							alt: "Legible navigation, V1: tags often misread, confusing text hierarchy.",
+							after: { image: "fix-alpha/fix-02-after.png", alt: "Legible navigation, V2: clearer text hierarchy, a description for each tag, clickable items." },
+						},
+						// fix-03.png (Fix/…Fixmages_03.png), découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							image: "fix-alpha/fix-03-before.png",
+							alt: "First encounter, V1: the interface with book covers and no scan feedback.",
+							after: { image: "fix-alpha/fix-03-after.png", alt: "First encounter, V2: “Returned Book Shelf” with a scanning feedback." },
+						},
+						// fix-05.png (Fix/…Fixmages_05.png), découpée en avant / après 16:9 (split_fix_pairs.py)
+						{
+							image: "fix-alpha/fix-05-before.png",
+							alt: "Physical embodiment, V1: the prototype is too low and the books lie flat.",
+							after: { image: "fix-alpha/fix-05-after.png", alt: "Physical embodiment, V2: a higher prototype, the books stand on their side." },
+						},
+					],
+				},
 				{
 					type: "gallery",
 					columns: 1,
@@ -230,69 +232,46 @@ const returnShelfMachine = {
 					label: "",
 					text: "We then iterated toward v2, addressing the main problems the test surfaced across the navigation, the interface, and the physical setup.",
 				},
-				// Comparaisons V1 / V2 découpées pour le bloc « gallery » (vue viewer), chaque côté avec ses notes
-				// « V1 → … » / « V2 → … ». Le titre en bas de l'image d'origine (« Legible Navigation »…) n'est pas repris.
-				{
-					type: "gallery",
-					variant: "viewer",
-					columns: 1,
-					fit: "contain",
-					items: [
-						// fix-02.png (Fix/…Fixmages_02.png), découpée en avant / après 16:9 (split_fix_pairs.py)
-						{
-							image: "fix/fix-02-before.png",
-							alt: "Legible navigation, V1: tags often misread, confusing text hierarchy.",
-							after: { image: "fix/fix-02-after.png", alt: "Legible navigation, V2: clearer text hierarchy, a description for each tag, clickable items." },
-						},
-						// fix-03.png (Fix/…Fixmages_03.png), découpée en avant / après 16:9 (split_fix_pairs.py)
-						{
-							image: "fix/fix-03-before.png",
-							alt: "First encounter, V1: the interface with book covers and no scan feedback.",
-							after: { image: "fix/fix-03-after.png", alt: "First encounter, V2: “Returned Book Shelf” with a scanning feedback." },
-						},
-						// fix-05.png (Fix/…Fixmages_05.png), découpée en avant / après 16:9 (split_fix_pairs.py)
-						{
-							image: "fix/fix-05-before.png",
-							alt: "Physical embodiment, V1: the prototype is too low and the books lie flat.",
-							after: { image: "fix/fix-05-after.png", alt: "Physical embodiment, V2: a higher prototype, the books stand on their side." },
-						},
-					],
-				},
 				{
 					type: "gallery",
 					columns: 1,
 					fit: "contain",
 					items: [
-						{ image: "fix-08.png", alt: "Potential amelioration: comparing two picked books, Words form language and The Life of Things." }, // Fix/…Fixmages_08.png
-					],
-				},
-				// Fixmages_04, 06 et 07 (vidéos de [3-Fix-02~08]) : après les comparaisons, dans l'ordre.
-				// [À CONFIRMER] 04 et 06 ont une piste audio : parole ou ambiance ? (sous-titres si parole)
-				{
-					type: "video",
-					columns: 1,
-					items: [
+						// Fixmages_06 et 07, puis 04 (vidéos de [3-Fix-02~08]), puis 08 : dans l'ordre du viewer, la navigation
+						// d'abord. Libellés de groupe = étiquettes des diapositives avant / après (Fixmages_02, 03) et de
+						// Fixmages_08 (docs/desk-legends.md).
+						// [À CONFIRMER] 04 et 06 ont une piste audio : parole ou ambiance ? (sous-titres si parole)
 						{
-							src: "/projects/return-shelf-machine/videos/fix-04.mp4", // Fix/…Fixmages_04.mp4
-							poster: "/projects/return-shelf-machine/videos/fix-04.webp",
-							width: 1556,
-							height: 1080,
-							label: "V2 first encounter: the scanned book appears on the screen, then its details open.",
+							video: {
+								src: "/projects/return-shelf-machine/videos/fix-06.mp4", // Fix/…Fixmages_06.mp4
+								poster: "/projects/return-shelf-machine/videos/fix-06.webp",
+								width: 1546,
+								height: 1080,
+								label: "V2 navigation: related books linked to their place on the library shelves.",
+							},
+							group: "Legible Navigation",
 						},
 						{
-							src: "/projects/return-shelf-machine/videos/fix-06.mp4", // Fix/…Fixmages_06.mp4
-							poster: "/projects/return-shelf-machine/videos/fix-06.webp",
-							width: 1546,
-							height: 1080,
-							label: "V2 navigation: related books linked to their place on the library shelves.",
+							video: {
+								src: "/projects/return-shelf-machine/videos/fix-07.mp4", // Fix/…Fixmages_07.mp4
+								poster: "/projects/return-shelf-machine/videos/fix-07.webp",
+								width: 1546,
+								height: 1080,
+								label: "V2 navigation: switching between the Designer, Returned with and Materiality tags.",
+							},
+							group: "Legible Navigation",
 						},
 						{
-							src: "/projects/return-shelf-machine/videos/fix-07.mp4", // Fix/…Fixmages_07.mp4
-							poster: "/projects/return-shelf-machine/videos/fix-07.webp",
-							width: 1546,
-							height: 1080,
-							label: "V2 navigation: switching between the Designer, Returned with and Materiality tags.",
+							video: {
+								src: "/projects/return-shelf-machine/videos/fix-04.mp4", // Fix/…Fixmages_04.mp4
+								poster: "/projects/return-shelf-machine/videos/fix-04.webp",
+								width: 1556,
+								height: 1080,
+								label: "V2 first encounter: the scanned book appears on the screen, then its details open.",
+							},
+							group: "First Encounter",
 						},
+						{ image: "fix-08.png", alt: "Potential amelioration: comparing two picked books, Words form language and The Life of Things.", group: "Potential ameliorations" }, // Fix/…Fixmages_08.png
 					],
 				},
 			],
@@ -311,37 +290,61 @@ const returnShelfMachine = {
 			title: "Conclusion",
 			layout: "cover",
 			theme: "orange",
+			// Film du groupe sur Vimeo, à la place de la figure du haut (Martial). href '' = la figure reste.
+			video: {
+				href: "https://vimeo.com/1250265971/208f6d2d88", // Showcase_image/ParkShinyoung_MullerEmilie_TestFailFix_Demo.mp4 (Martial, 26.11)
+				poster: "video-poster.jpg", // image du film à 0:01,8 (titre)
+				label: "Demo: a book is taken from the shelf, and the tablet shows related books in the library.",
+			},
 			blocks: [
-				// Pas de titre : le groupe n'a pas de texte de conclusion (à compléter avec Martial).
+				// verbatim — UserBehaviorDiscovery (.docx/.pdf) §5.1 « v1 evaluation against UT objectives », 1re phrase de la réponse « serendipitous discovery » (le groupe n'a pas de texte de conclusion)
+				{
+					type: "headline",
+					text: "The concept worked overall.",
+				},
 				{
 					type: "figure",
 					image: "main-01.png", // Showcase_image/…Intro2.png
 					alt: "The Returned Book Shelf: books standing on a shelf next to a tablet on a stand.",
-				},
-				// [À CONFIRMER] piste audio : parole ou musique ? (les sous-titres sont incrustés dans l'image)
-				{
-					type: "video",
-					columns: 1,
-					items: [
-						{
-							src: "/projects/return-shelf-machine/videos/demo.mp4", // Intro/…TestFailFix_Demo.mp4
-							poster: "/projects/return-shelf-machine/videos/demo.webp",
-							width: 1920,
-							height: 1080,
-							label: "Demo: a book is taken from the shelf, and the tablet shows related books in the library.",
-						},
-					],
 				},
 				{
 					type: "gallery",
 					columns: 2,
 					fit: "cover",
 					items: [
+						// [À CONFIRMER] piste audio : parole ou musique ? (les sous-titres sont incrustés dans l'image)
+						{
+							video: {
+								src: "/projects/return-shelf-machine/videos/demo.mp4", // Intro/…TestFailFix_Demo.mp4
+								poster: "/projects/return-shelf-machine/videos/demo.webp",
+								width: 1920,
+								height: 1080,
+								label: "Demo: a book is taken from the shelf, and the tablet shows related books in the library.",
+							},
+						},
 						{ image: "main-02.png", alt: "Close-up of the tablet showing “Returned Book Shelf” next to the book Words form language." }, // Showcase_image/…Intro1.png
 						{ image: "main-03.png", alt: "The shelf with books and the tablet, front view." }, // Showcase_image/2.png
 					],
 				},
-				{ type: "credits" },
+				// verbatim — même §5.1 : suite de la réponse « serendipitous discovery », puis les réponses « overall experience quality »
+				{
+					type: "textRow",
+					label: "",
+					text: "Users did reach recommendations and perceived them as different from conventional search.\n\n→ Overall met the expectation of different experience from the conventional search. Further expectation was suggested in a multi-book selected situation.\n→ Users said that they would use this type of experience in real life.\n→ They succeeded in finding the default info they wanted from the library.",
+				},
+				// Documents et liens du groupe (Martial) : noms de leurs fichiers / liens. Les PDF lourds
+				// sont des copies allégées (Ghostscript, images à 150 dpi) ; href '' = ligne masquée.
+				{
+					type: "credits",
+					documents: [
+						{ label: "UserBehaviorDiscovery_Shinyoung_Emilie_22052026.pdf", href: "/projects/return-shelf-machine/UserBehaviorDiscovery_Shinyoung_Emilie_22052026.pdf" },
+						{ label: "UserTestBrief_Shinyoung_Emilie_22052026.pdf", href: "/projects/return-shelf-machine/UserTestBrief_Shinyoung_Emilie_22052026.pdf" },
+					],
+					links: [
+						{ label: "PresentationLink_ShinYoung_Emilie_22052026", href: "https://www.figma.com/deck/4bnW7cmudVOYAuuW71jMXs/-Scan-Everything--Final-Presentation?node-id=1-354&viewport=-114%2C-75%2C0.54&t=PzJSlEYDBZpg9dsO-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1" },
+						{ label: "FigmaPrototype_Shinyoung_Emilie_220512026", href: "https://www.figma.com/design/089kB8d2ol3Zjf9aOg57UK/-Scan-Everything--Design?node-id=563-545&t=kjLCIQpSClTZmk9H-1" },
+					],
+				},
 			],
 			next: {
 				label: "Back to the start",
