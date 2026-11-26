@@ -29,15 +29,14 @@
 	const animated = () =>
 		!!document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-	/** The running transition, so a walk through pages waits for one wipe before the next. */
+	/** The running transition, so a walk through pages waits for one slide before the next. */
 	/** @type {ViewTransition | undefined} */
 	let transition;
 
-	/** Part of a walk through pages that the next transition plays (styles/transitions.css). */
-	/** @type {'first' | 'middle' | 'last' | null} */
-	let hop = null;
+	/** True while a click walks through pages: quicker slides (styles/transitions.css). */
+	let walking = false;
 
-	// Page transitions (styles/transitions.css): the content wipes in with the accent colour,
+	// Page transitions (styles/transitions.css): the pages slide past with a band of accent colour,
 	// right to left going forward, left to right going back. None with reduced motion, and none
 	// on arrival at a project home, where the opening animation (ProjectIntro) covers the change.
 	onNavigate((navigation) => {
@@ -48,8 +47,7 @@
 		const root = document.documentElement;
 		const back = rank(navigation.to?.params) < rank(navigation.from?.params);
 		root.dataset.transition = back ? 'back' : 'forward';
-		if (hop) root.dataset.hop = hop;
-		else delete root.dataset.hop;
+		root.toggleAttribute('data-walk', walking);
 
 		return new Promise((resolve) => {
 			transition = document.startViewTransition(async () => {
@@ -69,8 +67,9 @@
 	let walk = 0;
 
 	// A click that skips pages of the project (Test → Fix, Fix → the home…) goes through the pages
-	// in between: one quicker wipe per page, in one movement. The pages in between replace each
-	// other in the history, so Back returns to the page of the click.
+	// in between: one quicker slide per page. Everything is loaded first so nothing waits on the
+	// way. The pages in between replace each other in the history, so Back returns to the page of
+	// the click.
 	beforeNavigate((navigation) => {
 		if (navigation.type !== 'link') return;
 		const id = ++walk;
@@ -95,15 +94,14 @@
 		hrefs.push(to.url.href);
 
 		navigation.cancel();
-		hrefs.forEach((href) => preloadData(href));
 		(async () => {
-			await Promise.resolve(); // let SvelteKit finish with the cancelled click first
+			await Promise.all(hrefs.map((href) => preloadData(href).catch(() => {})));
 			for (const [i, href] of hrefs.entries()) {
-				hop = i === 0 ? 'first' : i === hrefs.length - 1 ? 'last' : 'middle';
-				await goto(href, { replaceState: i > 0 });
-				hop = null;
-				await transition?.finished.catch(() => {});
 				if (id !== walk) return;
+				walking = true;
+				await goto(href, { replaceState: i > 0 });
+				walking = false;
+				await transition?.finished.catch(() => {});
 			}
 		})();
 	});
