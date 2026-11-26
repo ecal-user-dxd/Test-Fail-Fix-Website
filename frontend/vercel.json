@@ -1,0 +1,14 @@
+{
+	"$schema": "https://openapi.vercel.sh/vercel.json",
+	"framework": null,
+	"installCommand": "pnpm install --frozen-lockfile",
+	"buildCommand": "node scripts/image-cache.js restore && pnpm build",
+	"outputDirectory": "build",
+	"trailingSlash": true,
+	"headers": [
+		{
+			"source": "/_app/immutable/(.*)",
+			"headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+		}
+	]
+}
