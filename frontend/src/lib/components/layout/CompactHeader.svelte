@@ -53,6 +53,7 @@
 		z-index: 10;
 		height: var(--header-h);
 		pointer-events: none;
+		view-transition-name: site-header; /* stays put during page transitions */
 		transition:
 			translate var(--open-duration) var(--open-ease),
 			opacity var(--open-duration) var(--open-ease);

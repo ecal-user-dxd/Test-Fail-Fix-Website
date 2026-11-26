@@ -43,6 +43,7 @@
 		padding-top: calc(
 			clamp(0.5rem, 0.579vw, 0.925rem) + (var(--type-compact-title) - var(--type-small)) / 2
 		);
+		view-transition-name: site-header; /* the compact header's, stays put during page transitions */
 	}
 
 	h1 {
