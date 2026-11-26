@@ -3,7 +3,7 @@
 
 	The new page wipes in behind a band of accent colour: the old page is eaten away, the accent
 	shows through the gap, and the new page follows. Going forward (next chapter, into a project)
-	the band rises from the bottom; going back it comes down from the top. The header with the
+	the band sweeps from right to left; going back, from left to right. The header with the
 	« Scan Everything » title (compact header, index header, same spot) stays put on top.
 
 	Reduced motion: the layout does not start a transition at all.
@@ -12,7 +12,7 @@
 :root {
 	--transition-duration: 700ms;
 	--transition-lag: 120ms; /* the new page trails the old one: thickness of the accent band */
-	--transition-shift: 8vh; /* the pages drift a little with the band */
+	--transition-shift: 6vw; /* the pages drift a little with the band */
 	--transition-ease: cubic-bezier(0.76, 0, 0.24, 1); /* quart in-out */
 }
 
@@ -34,23 +34,23 @@
 
 ::view-transition-old(root),
 ::view-transition-old(site-header):only-child {
-	animation-name: page-out-up;
+	animation-name: page-out-left;
 }
 
 ::view-transition-new(root),
 ::view-transition-new(site-header):only-child {
-	animation-name: page-in-up;
+	animation-name: page-in-left;
 	animation-delay: var(--transition-lag);
 }
 
 :root[data-transition='back']::view-transition-old(root),
 :root[data-transition='back']::view-transition-old(site-header):only-child {
-	animation-name: page-out-down;
+	animation-name: page-out-right;
 }
 
 :root[data-transition='back']::view-transition-new(root),
 :root[data-transition='back']::view-transition-new(site-header):only-child {
-	animation-name: page-in-down;
+	animation-name: page-in-right;
 }
 
 /* The header on both pages: no movement, the current chip changes colour as on hover. When only
@@ -64,44 +64,43 @@
 	animation-duration: var(--duration-hover);
 }
 
-/* Clips are measured from the top of the viewport (100vh), so a header at the top of the page is
-   cut at the same height as the page itself. */
-@keyframes page-out-up {
+/* The header spans the full width like the page, so the same clips cut it at the same place. */
+@keyframes page-out-left {
 	from {
-		clip-path: inset(0 0 calc(100% - 100vh) 0);
+		clip-path: inset(0 0 0 0);
 	}
 	to {
-		clip-path: inset(0 0 100% 0);
-		translate: 0 calc(-1 * var(--transition-shift));
+		clip-path: inset(0 100% 0 0);
+		translate: calc(-1 * var(--transition-shift)) 0;
 	}
 }
 
-@keyframes page-in-up {
+@keyframes page-in-left {
 	from {
-		clip-path: inset(100vh 0 0 0);
-		translate: 0 var(--transition-shift);
+		clip-path: inset(0 0 0 100%);
+		translate: var(--transition-shift) 0;
 	}
 	to {
 		clip-path: inset(0 0 0 0);
 	}
 }
 
-@keyframes page-out-down {
+@keyframes page-out-right {
 	from {
 		clip-path: inset(0 0 0 0);
 	}
 	to {
-		clip-path: inset(100vh 0 0 0);
-		translate: 0 var(--transition-shift);
+		clip-path: inset(0 0 0 100%);
+		translate: var(--transition-shift) 0;
 	}
 }
 
-@keyframes page-in-down {
+@keyframes page-in-right {
 	from {
-		clip-path: inset(0 0 100% 0);
-		translate: 0 calc(-1 * var(--transition-shift));
+		clip-path: inset(0 100% 0 0);
+		translate: calc(-1 * var(--transition-shift)) 0;
 	}
 	to {
-		clip-path: inset(0 0 calc(100% - 100vh) 0);
+		clip-path: inset(0 0 0 0);
 	}
 }

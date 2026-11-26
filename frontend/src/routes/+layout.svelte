@@ -26,7 +26,7 @@
 	}
 
 	// Page transitions (styles/transitions.css): the content wipes in with the accent colour,
-	// upwards going forward, downwards going back. None with reduced motion.
+	// right to left going forward, left to right going back. None with reduced motion.
 	onNavigate((navigation) => {
 		if (!document.startViewTransition) return;
 		if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
