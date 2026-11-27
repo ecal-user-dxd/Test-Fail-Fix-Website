@@ -5,8 +5,11 @@
 	the site index rows (DisplayLink), as if the row clicked on the index carried on; the isometric
 	plan draws itself in the middle of the screen. Then the page scrolls in (Martial): the curtain and
 	its drawing go up and away while the home comes up from below, and the name glides into the home
-	title (`[data-intro-title]`). The drawing is not on the home for now (Martial, 26.11: a place for
-	it later); the version that docked it in the top-right corner is in .tmp-review/name/.
+	title (`[data-intro-title]`). The opening keeps its place above the home (Martial, 26.11): a
+	screen of the accent with the drawing in the middle, where the curtain left it, so scrolling back
+	up shows the drawing again, as if the scroll-in ran backwards. The page ends the opening scrolled
+	down by that screen (or further down, if it was already: back button). The version that docked
+	the drawing in the top-right corner of the home is in .tmp-review/name/.
 
 	The name is one element through the site (project-name.js): from the index, the clicked row grows
 	into the curtain and its title glides to the bottom left, where this name takes over (it keeps the
@@ -20,7 +23,8 @@
 	Once the drawing is done, the authors of the project (`project.authors`, as in the credits)
 	appear above the name, and leave with the curtain.
 
-	A click, a key or the wheel skips straight to the scroll. Reduced motion: no opening.
+	A click, a key or the wheel skips straight to the scroll. Reduced motion: no opening, and no
+	drawing above the home.
 	Decorative (aria-hidden): the home title and the credits carry the name and the authors.
 
 	« Scan Everything » stays in its place all along (Martial): the compact header comes over the
@@ -63,6 +67,10 @@
 	/** @type {HTMLSpanElement | undefined} */
 	let credit = $state();
 
+	/** The opening's place above the home, which stays (see above). */
+	/** @type {HTMLDivElement | undefined} */
+	let above = $state();
+
 	/** Arrived from the index: the row's title is already in place, no entrance of the name. */
 	let arrived = $state(false);
 
@@ -83,12 +91,21 @@
 			uncover(async () => {
 				done();
 				await tick();
+				settle();
 			});
 			return;
 		}
 
+		// Without View Transitions the curtain lifts off the home, already in place below it.
+		settle();
 		phase = 'move';
 		timer = setTimeout(done, GLIDE);
+	}
+
+	/** The home in view, just below the opening's place, unless the page is further down already. */
+	function settle() {
+		const height = above?.offsetHeight ?? 0;
+		if (scrollY < height) scrollTo({ top: height, behavior: 'instant' });
 	}
 
 	function done() {
@@ -188,6 +205,12 @@
 	{/if}
 </svelte:head>
 
+{#if svg}
+	<div class="above" aria-hidden="true" bind:this={above}>
+		<div class="plan">{@html svg}</div>
+	</div>
+{/if}
+
 {#if phase !== 'done' && svg}
 	<div class={['intro', phase, arrived && 'arrived']} data-intro aria-hidden="true" onclick={leave}>
 		<div class="curtain" data-intro-curtain>
@@ -283,6 +306,15 @@
 		}
 	}
 
+	/* A screen of the accent at the top of the home, the drawing in its middle as the curtain left
+	   it. Under the curtain while the opening plays (the page is at its top then). */
+	.above {
+		display: grid;
+		place-items: center;
+		height: 100svh;
+		background: var(--color-accent);
+	}
+
 	.plan {
 		width: min(30vw, 62dvh * 0.62);
 		min-width: min(70vw, 280px);
@@ -306,12 +338,13 @@
 		visibility: hidden;
 	}
 
-	:global(html[data-intro-skip]) .intro {
+	:global(html[data-intro-skip]) :is(.intro, .above) {
 		display: none;
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		.intro {
+		.intro,
+		.above {
 			display: none;
 		}
 	}
